@@ -10,6 +10,8 @@ import StakeHolders from '../components/StakeHolders';
 import { AuthContext } from '../context/AuthContext';
 import { useForm } from '../hooks/useForm';
 import { RootStackParamList } from '../navigator/StackNavigator';
+import { styleBackgrounds } from '../themes/Backgrounds';
+import { styleTitles } from '../themes/Titles';
 
 const RegisterScreen = () => {
 
@@ -23,9 +25,9 @@ const RegisterScreen = () => {
 
     }
     return (
-        <SafeAreaView style={styleRegisterScreen.fondo}>
+        <SafeAreaView style={styleBackgrounds.fondoLight}>
             <View style={{ alignSelf: 'center', justifyContent: 'center', top: '4%' }}>
-                <Text style={styleRegisterScreen.title}>Register</Text>
+                <Text style={styleTitles.titleTextDark}>REGISTER</Text>
             </View>
 
             <StakeHolders top="15%" texto="Your Email" keyboardType='email-address' stakeHold={onChange} stakeHoldText={email} valueText='email' color='#23232B' />
@@ -39,15 +41,4 @@ const RegisterScreen = () => {
 
 export default RegisterScreen;
 
-export const styleRegisterScreen = StyleSheet.create({
-    fondo: {
-        flex: 1,
-        backgroundColor: '#E2E0F3',
-    },
-    title: {
-        fontSize: 30,
-        color: '#E5E1F6',
-        fontWeight: 'bold'
-    },
 
-})

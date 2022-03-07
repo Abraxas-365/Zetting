@@ -11,6 +11,8 @@ import { AuthContext } from '../context/AuthContext';
 import { useForm } from '../hooks/useForm';
 import { onLoginBotton, UseLogin } from '../hooks/useLogin';
 import { RootStackParamList } from '../navigator/StackNavigator';
+import { styleBackgrounds } from '../themes/Backgrounds';
+import { styleTitles } from '../themes/Titles';
 
 const SignInScreen = () => {
 
@@ -33,14 +35,15 @@ const SignInScreen = () => {
     }
 
     return (
-        <SafeAreaView style={styleSignInScreen.fondo}>
+        <SafeAreaView style={styleBackgrounds.fondoLight}>
             <View style={{ alignSelf: 'center', justifyContent: 'center', top: '4%' }}>
-                <Text style={styleSignInScreen.title}>LOG IN</Text>
+                <Text style={styleTitles.titleTextDark}>LOG IN</Text>
             </View>
 
-            <StakeHolders top="15%" texto="Your Email" keyboardType='email-address' stakeHold={onChange} stakeHoldText={email} valueText='email' color='#23232B' />
-            <StakeHolders top='15%' texto="Password" stakeHold={onChange} stakeHoldText={password} valueText='password' secureTextEntry={true} color='#23232B' />
-
+            <View style={{ marginTop: '5%' }}>
+                <StakeHolders texto="Your Email" keyboardType='email-address' stakeHold={onChange} stakeHoldText={email} valueText='email' color='#23232B' />
+                <StakeHolders texto="Password" stakeHold={onChange} stakeHoldText={password} valueText='password' secureTextEntry={true} color='#23232B' />
+            </View>
             <BottonSignIn onPress={() => onLoginBotton(email, password)} />
 
             <BottonsPlatforms bottom='23%' />
@@ -50,15 +53,3 @@ const SignInScreen = () => {
 
 export default SignInScreen;
 
-export const styleSignInScreen = StyleSheet.create({
-    fondo: {
-        flex: 1,
-        backgroundColor: '#E2E0F3',
-    },
-    title: {
-        fontSize: 30,
-        color: '#23232B',
-        fontWeight: 'bold'
-    },
-
-})

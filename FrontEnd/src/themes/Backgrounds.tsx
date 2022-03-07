@@ -9,4 +9,8 @@ export const styleBackgrounds = StyleSheet.create({
         flex: 1,
         backgroundColor: '#FE893C',
     },
+    fondoLight: {
+        flex: 1,
+        backgroundColor: '#E2E0F3',
+    },
 })
