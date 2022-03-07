@@ -1,0 +1,53 @@
+{
+  "swagger": "2.0",
+  "info":{
+        "title":"GoFiberMongo",
+        "description":"GoFiberMongo",
+        "version":"1.0"
+    },
+  "paths": {
+
+        "/api/create-user":{
+           "post":{
+                "operationId":"Create user",
+                "tags":[
+                    "SERVICE"
+                ],
+                "description":"Create user",
+                "summary":"Cea usuario",
+                "parameters":[
+                    {
+                        "name":"CheckContent",
+                        "in":"body",
+                        "description":"Content to validate",
+                        "required":true,
+						            "schema": {
+                            "$ref": "#/definitions/SendData"
+                        }
+                    }
+                ],
+                "responses":{
+
+                }
+            }
+        }
+  },
+
+  "definitions":{
+        "SendData": {
+            "required": [
+                "name",
+                "email"
+
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "email":{
+                    "type": "string"
+                }
+            }
+        }
+}
+}
