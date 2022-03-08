@@ -53,17 +53,10 @@ func CreateProject(p *m.Proyecto, email string) error {
 func GetMyProjects(email string) (m.Proyectos, error) {
 	var ps m.Proyectos
 
-	matchStage := bson.D{
-		{"$match", bson.D{
-			{"email", email},
-		}},
-	}
-	// filter := bson.M{"email": bson.A{email}}
+	matchStage := bson.D{{"$match", bson.D{{"email", email}}}}
 	lookupStage := bson.D{{"$lookup", bson.D{{"from", "Projects"}, {"localField", "myprojects"}, {"foreignField", "_id"}, {"as", "myprojects"}}}}
 	unwindStage := bson.D{{"$unwind", bson.D{{"path", "$myprojects"}, {"preserveNullAndEmptyArrays", false}}}}
 	replaceRoot := bson.D{{"$replaceRoot", bson.D{{"newRoot", "$myprojects"}}}}
-	// changeRoot := bson.M{{"$replaceRoot": bson.M{ "newRoot": "$myprojects" }}}
-	// cur, err := collectionProject.Find(ctx, filter)
 
 	cur, err := collectionUser.Aggregate(ctx, mongo.Pipeline{matchStage, lookupStage, unwindStage, replaceRoot})
 	if err != nil {
