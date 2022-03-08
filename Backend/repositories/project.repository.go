@@ -9,6 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 var collectionProject = database.GetCollection("Projects")
@@ -52,19 +53,26 @@ func CreateProject(p *m.Proyecto, email string) error {
 func GetMyProjects(email string) (m.Proyectos, error) {
 	var ps m.Proyectos
 
-	filter := bson.M{"propietarios": bson.A{email}}
-	cur, err := collectionProject.Find(ctx, filter)
+	matchStage := bson.D{
+		{"$match", bson.D{
+			{"email", email},
+		}},
+	}
+	// filter := bson.M{"email": bson.A{email}}
+	lookupStage := bson.D{{"$lookup", bson.D{{"from", "Projects"}, {"localField", "myprojects"}, {"foreignField", "_id"}, {"as", "myprojects"}}}}
+	unwindStage := bson.D{{"$unwind", bson.D{{"path", "$myprojects"}, {"preserveNullAndEmptyArrays", false}}}}
+	replaceRoot := bson.D{{"$replaceRoot", bson.D{{"newRoot", "$myprojects"}}}}
+	// changeRoot := bson.M{{"$replaceRoot": bson.M{ "newRoot": "$myprojects" }}}
+	// cur, err := collectionProject.Find(ctx, filter)
+
+	cur, err := collectionUser.Aggregate(ctx, mongo.Pipeline{matchStage, lookupStage, unwindStage, replaceRoot})
 	if err != nil {
 		return nil, err
 	}
-	defer cur.Close(ctx)
-	for cur.Next(ctx) {
-		var p m.Proyecto
-		if err = cur.Decode(&p); err != nil {
-			return nil, err
-		}
-		ps = append(ps, &p)
+	if err = cur.All(ctx, &ps); err != nil {
+		panic(err)
 	}
+
 	return ps, nil
 }
 func GetProjectsWorkingOn(email string) (m.Proyectos, error) {

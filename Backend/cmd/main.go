@@ -17,7 +17,7 @@ func main() {
 	app.Use(logger.New())
 	routes.UsersRoute(app)
 	routes.ProjectsRoute(app)
-	fmt.Println("dd")
+	fmt.Println("inicando en puerto 3000")
 	app.Get("/swagger/*", swagger.New(swagger.Config{
 		URL:         "/swagger/doc.json",
 		DeepLinking: false,

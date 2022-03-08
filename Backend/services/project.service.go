@@ -16,6 +16,7 @@ func CreateProject(p *m.Proyecto, email string) error {
 		return err
 	}
 	return nil
+
 }
 
 func GetMyProjects(email string) (m.Proyectos, error) {
@@ -35,7 +36,6 @@ func GetProjectsWorkingOn(email string) (m.Proyectos, error) {
 	return ps, nil
 
 }
-
 func AddWorker(email string, projectId string) error {
 	// comprobar que el el proyect id le pertenece al usuario
 	objID, err := primitive.ObjectIDFromHex(projectId)
