@@ -25,6 +25,7 @@
     "react-native": "0.64.3",
     "react-native-custom-switch": "^1.0.7",
     "react-native-gesture-handler": "~2.1.0",
+    "react-native-image-header-scroll-view": "^1.0.0",
     "react-native-reanimated": "~2.3.1",
     "react-native-safe-area-context": "3.3.2",
     "react-native-safe-area-view": "^1.1.1",

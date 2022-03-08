@@ -7,12 +7,12 @@ type BottonProps = {
     fuction?: any;
     img?: any;
 }
-const BottonPlatform = ({ fuction, text, img }: BottonProps) => {
+const BottonPlatform = ({ fuction = () => { }, text, img }: BottonProps) => {
 
     return (
         < TouchableOpacity
 
-            onPress={() => { fuction() }}>
+            onPress={fuction}>
 
             <View style={style.boton}>
 

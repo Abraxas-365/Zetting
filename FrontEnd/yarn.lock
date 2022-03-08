@@ -4711,6 +4711,11 @@ react-native-gesture-handler@~2.1.0:
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
+react-native-image-header-scroll-view@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-image-header-scroll-view/-/react-native-image-header-scroll-view-1.0.0.tgz#1b8a9de1c17821646138c3292bce0395254d0feb"
+  integrity sha512-34r9pc9DWQaB9fbgZkK+BPFDGv2UBvtMRQG+Ovr4z5GRVdLtelGWd1VrhjEv4JIw2ufJ3EE6DPyKecuDA22z6w==
+
 react-native-reanimated@~2.3.1:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-2.3.3.tgz#73de8ea495e59a091d848741e7037ac55d0235c4"

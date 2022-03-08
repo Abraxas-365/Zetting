@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: any) => {
     const signIn = async (email: string, password: string) => {
 
         try {
-            const { data } = await apiCalls.post('http://192.168.1.56:3000/api/users/login', { "email": email, "password": password })
+            const { data } = await apiCalls.post('/api/users/login', { "email": email, "password": password })
             console.log(data.data);
             dispatch({
                 type: 'signIn',
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }: any) => {
     const signOut = () => { console.log('d') };
     const registerIn = async (email: string) => {
         try {
-            const resp = await apiCalls.get('http://192.168.1.56:3000/api/users/' + email)
+            const resp = await apiCalls.get('/api/users/' + email)
             console.log(resp.data);
             if (resp.data.exists == false) {
                 navigation.navigate('Register2Screen')
@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }: any) => {
     };
     const signUp = async (user: User) => {
         try {
-            const { data } = await apiCalls.post('http://192.168.1.56:3000/api/users/register', user);
+            const { data } = await apiCalls.post('/api/users/register', user);
             console.log('onSignUpBotton')
             dispatch({
                 type: 'signUp',

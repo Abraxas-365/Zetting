@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import StakeHolders from './StakeHolders';
 import { Ionicons } from '@expo/vector-icons';
 import MyCheckbox from './CheckBox';
@@ -12,7 +12,7 @@ import { apiCalls } from '../api/apiCalls';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigator/StackNavigator';
-
+import { Entypo } from '@expo/vector-icons';
 const creteProject = async (project: Project, navigation: any, token: any) => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
@@ -21,7 +21,7 @@ const creteProject = async (project: Project, navigation: any, token: any) => {
 
     try {
         console.log("el color es", project.color);
-        const { data } = await apiCalls.post('http://192.168.1.56:3000/api/projects/new', project, config);
+        const { data } = await apiCalls.post('/api/projects/new', project, config);
 
         console.log(data.data);
         navigation.dispatch(
@@ -43,6 +43,21 @@ const creteProject = async (project: Project, navigation: any, token: any) => {
 const CreateProjectForm = () => {
 
 
+    const [checked, onChake] = useState(false);
+    const MyColorbox = () => {
+
+        function onCheckmarkPress() {
+            onChake(!checked);
+        }
+
+        return (
+            <Pressable
+                style={[styles.checkboxBase, checked && styles.checkboxChecked]}
+                onPress={onCheckmarkPress}>
+                {checked && <Entypo name="check" size={15} color='#23232B' />}
+            </Pressable>
+        );
+    }
 
     const { token } = useContext(AuthContext)
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -75,32 +90,46 @@ const CreateProjectForm = () => {
             <StakeHolders texto='Project Name' stakeHold={onChange} stakeHoldText={name} valueText='name' color='#E5E1F6' />
             <StakeHolders texto='Project description' stakeHold={onChange} stakeHoldText={description} valueText='description' color='#E5E1F6' />
             <StakeHolders texto='Colaboration' stakeHold={onChange} stakeHoldText={collaboration} valueText='collaboration' color='#E5E1F6' />
-            <StakeHolders texto='Color' stakeHold={onChange} stakeHoldText={color} valueText='color' color='#E5E1F6' />
+            <View style={{
+                borderBottomColor: '#E5E1F6',
+                borderBottomWidth: 1,
+                marginTop: '15%',
+                height: '15%',
+                marginHorizontal: '10%',
+            }}>
+                <Text style={{ color: '#E5E1F6' }}>Color</Text>
+
+                <View style={{ flexDirection: 'row', width: '100%', height: '40%', position: 'absolute', bottom: 5 }}>
+                    <MyColorbox />
+                    <MyColorbox />
+                </View>
+            </View>
             <View style={styles.section}>
-                <MyCheckbox />
             </View>
             <View>
                 <CustomBotton onPress={() => onCreatePtojectBotton()} text="Create Project" />
             </View>
-        </ScrollView>
+        </ScrollView >
     );
 };
+
 
 export default CreateProjectForm
 const styles = StyleSheet.create({
     checkboxBase: {
-        width: 24,
-        height: 24,
+        width: 26,
+        height: 26,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 4,
+        borderRadius: 100,
         borderWidth: 2,
-        borderColor: 'coral',
-        backgroundColor: 'transparent',
+        marginRight: '1%',
+        borderColor: '#23232B',
+        backgroundColor: 'red',
     },
 
     checkboxChecked: {
-        backgroundColor: 'coral',
+        backgroundColor: 'red',
     },
     section: {
         width: '100%',
