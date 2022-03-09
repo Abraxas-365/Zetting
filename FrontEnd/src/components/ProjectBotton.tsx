@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Switch from 'react-native-switch-toggles';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigator/StackNavigator';
@@ -10,16 +9,17 @@ import { Feather } from '@expo/vector-icons';
 
 type Props = {
     title?: string
+    description?: string
     color?: string
     members?: Array<string>
     notifications?: boolean
 }
 
-const ProjectBotton = ({ title = 'Titulo', color = '#FF7F39' }: Props) => {
+const ProjectBotton = ({ title = 'Titulo', description = 'description', color = '#FF7F39' }: Props) => {
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     const [isEnabled, setIsEnabled] = React.useState(true);
     return (
-        <TouchableOpacity style={{ ...styles.boton, backgroundColor: color }} onPress={() => navigation.navigate('ProyectoScreen')}>
+        <TouchableOpacity style={{ ...styles.boton, backgroundColor: color }} onPress={() => navigation.navigate('ProyectoScreen', { name: title, description: description })}>
             <View style={styles.wrapper}>
                 <View style={styles.viewLeft}>
                     <Text style={styles.title}>{title}</Text>

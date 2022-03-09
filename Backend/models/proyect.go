@@ -9,6 +9,7 @@ import (
 type Proyecto struct {
 	ID           primitive.ObjectID `bson:"_id,omitempty" json:"id"`
 	Name         string             `json:"name"`
+	Description  string             `json:"description"`
 	Propietarios []string           `json:"propietarios"`
 	Workers      []string           `json:"workers"`
 	Color        string             `json:"color"`

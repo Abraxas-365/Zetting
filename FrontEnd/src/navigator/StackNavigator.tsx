@@ -10,11 +10,8 @@ import ChatScreen from '../screens/ChatScreen';
 import ProyectoScreen from '../screens/ProyectScreen';
 import CreateProyectScreen from '../screens/CreateProyectScreen';
 import BuildTeamScreen from '../screens/BuildTeamScreen';
+import ActorsScreen from '../screens/ActorsScreen';
 
-// export type RootStackParams = {
-//     ChooseGameScreen: undefined,
-//     DondeEstaElPerroScreen: undefined,
-//     PersonaScreen: { id: number, nombre: string },
 export type RootStackParamList = {
     LoginScreen: undefined;
     SignInScreen: undefined;
@@ -23,9 +20,10 @@ export type RootStackParamList = {
     HomeScreen: undefined;
     BottomTabs: undefined;
     ChatScreen: undefined;
-    ProyectoScreen: undefined;
+    ProyectoScreen: { name: string, description: string, };
     CreateProyectScreen: undefined;
     BuildTeamScreen: undefined;
+    ActorsScreen: undefined;
 };
 
 
@@ -56,6 +54,7 @@ export const StackNavigator = () => {
             <Stack.Screen name="ProyectoScreen" options={{ title: "ProyectoScreen" }} component={ProyectoScreen} />
             <Stack.Screen name="CreateProyectScreen" options={{ title: "CreateProyectScreen" }} component={CreateProyectScreen} />
             <Stack.Screen name="BuildTeamScreen" options={{ title: "BuildTeamScreen" }} component={BuildTeamScreen} />
+            <Stack.Screen name="ActorsScreen" options={{ title: "ActorsScreen" }} component={ActorsScreen} />
         </Stack.Navigator>
     );
 }

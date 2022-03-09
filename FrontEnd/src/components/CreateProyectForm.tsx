@@ -27,7 +27,7 @@ const creteProject = async (project: Project, navigation: any, token: any) => {
         navigation.dispatch(
             CommonActions.reset({
                 index: 0,
-                routes: [{ name: 'BottomTabs' }
+                routes: [{ name: 'BuildTeamScreen' }
                 ]
 
             }))

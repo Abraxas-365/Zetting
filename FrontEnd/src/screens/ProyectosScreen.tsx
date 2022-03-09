@@ -5,7 +5,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { Button, FlatList, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native'
-import BottonsLoginScreen from '../components/BottonsLoginScreen';
 import CustomSmallBotton from '../components/CustomSmallBotton';
 import ProjectBotton from '../components/ProjectBotton';
 import { useProjects } from '../hooks/useProjects';
@@ -40,7 +39,6 @@ const ProyetosScreen = () => {
         setColorMyProject('#23232B')
         setBorderColor1('#E5E1F6')
         setTipo(false)
-
     }
     const myprojectsBotton = () => {
         setColorProject('#23232B')
@@ -52,21 +50,23 @@ const ProyetosScreen = () => {
 
     return (
         <SafeAreaView style={styleBackgrounds.fondoDark}>
-            <View style={{ top: '4%', flexDirection: 'row', marginHorizontal: '10%' }}>
+            <View style={{ top: '4%', flexDirection: 'row', marginHorizontal: '10%', }}>
                 <Text style={styleTitles.titleTextLight}>RROJECTS</Text>
                 <TouchableOpacity style={styleProyectosScreen.mas} onPress={() => navigation.navigate('CreateProyectScreen')}>
                     <Image source={require('../../assets/icons/2x/mas.png')} />
                 </TouchableOpacity>
             </View>
-            <View style={{ marginTop: '13%', flexDirection: 'row', marginLeft: '10%' }}>
+            <View style={{
+                marginTop: '10%', flexDirection: 'row', paddingLeft: '10%',
+            }}>
+
 
                 <CustomSmallBotton borderColor={borderColor} color={colorProject} text='My Project' onPress={projectsBotton} />
-                <View style={{ marginHorizontal: '2%' }} />
+                <View style={{ marginHorizontal: '2%', marginBottom: "12%" }} />
                 <CustomSmallBotton borderColor={borderColor1} color={colorMyProject} text='Projects' onPress={myprojectsBotton} />
             </View>
-            <View style={{ marginTop: "10%" }}>
-                <FlatList contentContainerStyle={{ flexGrow: 1 }} data={data} renderItem={({ item }: any) => <ProjectBotton title={item.name} color={item.color} />} />
-            </View>
+
+            <FlatList contentContainerStyle={{ flexGrow: 1, top: '3%' }} data={data} renderItem={({ item }: any) => <ProjectBotton title={item.name} description={item.description} color={item.color} />} />
 
         </SafeAreaView >
     );
