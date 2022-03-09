@@ -1,16 +1,11 @@
 
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useContext, useEffect } from 'react';
 import { Alert, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { TextInput } from 'react-native-gesture-handler';
 import BottonsPlatforms from '../components/BottonPlatform';
-import BottonSignIn from '../components/BottonSignIn';
+import CustomCenterBotton from '../components/CustomCenterBotton';
 import StakeHolders from '../components/StakeHolders';
 import { AuthContext } from '../context/AuthContext';
 import { useForm } from '../hooks/useForm';
-import { onLoginBotton, UseLogin } from '../hooks/useLogin';
-import { RootStackParamList } from '../navigator/StackNavigator';
 import { styleBackgrounds } from '../themes/Backgrounds';
 import { styleTitles } from '../themes/Titles';
 
@@ -44,7 +39,7 @@ const SignInScreen = () => {
                 <StakeHolders texto="Your Email" keyboardType='email-address' stakeHold={onChange} stakeHoldText={email} valueText='email' color='#23232B' />
                 <StakeHolders texto="Password" stakeHold={onChange} stakeHoldText={password} valueText='password' secureTextEntry={true} color='#23232B' />
             </View>
-            <BottonSignIn onPress={() => onLoginBotton(email, password)} />
+            <CustomCenterBotton onPress={() => onLoginBotton(email, password)} text="Sign in" />
 
             <BottonsPlatforms bottom='23%' />
         </SafeAreaView>

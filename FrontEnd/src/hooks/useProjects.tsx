@@ -7,19 +7,33 @@ import { AuthContext } from "../context/AuthContext"
 
 export const useProjects = () => {
     const [projects, setState] = useState([])
+    const [myProjects, setmyProjects] = useState([])
     const { token } = useContext(AuthContext)
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
-    const getProjects = async () => {
+    const getMyProjects = async () => {
 
         const { data } = await apiCalls.get('/api/projects/myprojects', config)
-        setState(data)
+        console.log(data);
+        setmyProjects(data)
     }
     useEffect(() => {
         getProjects();
 
     }, [])
-    return { projects }
+
+    const getProjects = async () => {
+
+        const { data } = await apiCalls.get('/api/projects/projects', config)
+        console.log(data)
+        setState(data)
+    }
+    useEffect(() => {
+        getMyProjects();
+        getProjects();
+
+    }, [])
+    return { projects, myProjects }
 
 }

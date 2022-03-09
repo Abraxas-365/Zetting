@@ -11,6 +11,7 @@ import { RootStackParamList } from '../navigator/StackNavigator';
 import { useForm } from '../hooks/useForm';
 import { AuthContext } from '../context/AuthContext';
 import { User } from '../interfaces/appInterfaces';
+import CustomCenterBotton from './CustomCenterBotton';
 
 
 
@@ -65,7 +66,7 @@ const RegisterForm = () => {
                     </Text>
                 </View>
             </View>
-            <BottonSignUp onPress={() => onSingUpBotton()} />
+            <CustomCenterBotton onPress={() => onSingUpBotton()} text='Register' top='8%' />
         </ScrollView>
     );
 };

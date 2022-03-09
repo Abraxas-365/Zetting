@@ -90,6 +90,7 @@ const CreateProjectForm = () => {
             <StakeHolders texto='Project Name' stakeHold={onChange} stakeHoldText={name} valueText='name' color='#E5E1F6' />
             <StakeHolders texto='Project description' stakeHold={onChange} stakeHoldText={description} valueText='description' color='#E5E1F6' />
             <StakeHolders texto='Colaboration' stakeHold={onChange} stakeHoldText={collaboration} valueText='collaboration' color='#E5E1F6' />
+            <StakeHolders texto='Color' stakeHold={onChange} stakeHoldText={color} valueText='color' color='#E5E1F6' />
             <View style={{
                 borderBottomColor: '#E5E1F6',
                 borderBottomWidth: 1,

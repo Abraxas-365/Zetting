@@ -6,6 +6,7 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { apiCalls } from '../api/apiCalls';
 import BottonsPlatforms from '../components/BottonPlatform';
 import BottonRegister from '../components/BottonRegister';
+import CustomCenterBotton from '../components/CustomCenterBotton';
 import StakeHolders from '../components/StakeHolders';
 import { AuthContext } from '../context/AuthContext';
 import { useForm } from '../hooks/useForm';
@@ -32,7 +33,7 @@ const RegisterScreen = () => {
 
             <StakeHolders top="15%" texto="Your Email" keyboardType='email-address' stakeHold={onChange} stakeHoldText={email} valueText='email' color='#23232B' />
 
-            <BottonRegister onPress={() => onRegisterBotton()} />
+            <CustomCenterBotton onPress={() => onRegisterBotton()} text='Continue' />
 
             <BottonsPlatforms bottom='39%' />
         </SafeAreaView>

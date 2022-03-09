@@ -109,12 +109,14 @@ func DeleteUser(id string) error {
 	return nil
 
 }
-func AddProject(email string, projectId primitive.ObjectID) error {
+
+//funcion para agregaar un proyecccto a cualquera de los 2 campos o proximos campos ejemplo :"myproject" o "projects"
+func AddProject(email string, projectId primitive.ObjectID, campo string) error {
 
 	filter := bson.M{"email": email}
 	update := bson.M{
 		"$push": bson.M{
-			"projects": projectId,
+			campo: projectId,
 		},
 	}
 

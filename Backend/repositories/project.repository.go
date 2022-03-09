@@ -41,22 +41,24 @@ func CreateProject(p *m.Proyecto, email string) error {
 		if err != nil {
 			return err
 		}
-		AddProject(email, id)
+		AddProject(email, id, "myprojects")
 	} else {
 
 		return fiber.ErrConflict
 	}
-	fmt.Println("nuevo usuario", p)
 	return nil
 }
 
 func GetMyProjects(email string) (m.Proyectos, error) {
 	var ps m.Proyectos
 
-	matchStage := bson.D{{"$match", bson.D{{"email", email}}}}
-	lookupStage := bson.D{{"$lookup", bson.D{{"from", "Projects"}, {"localField", "myprojects"}, {"foreignField", "_id"}, {"as", "myprojects"}}}}
-	unwindStage := bson.D{{"$unwind", bson.D{{"path", "$myprojects"}, {"preserveNullAndEmptyArrays", false}}}}
-	replaceRoot := bson.D{{"$replaceRoot", bson.D{{"newRoot", "$myprojects"}}}}
+	//matchea el email
+	matchStage := bson.D{primitive.E{Key: "$match", Value: bson.D{primitive.E{Key: "email", Value: email}}}}
+	//buca y trae todo los id en proyectos
+	lookupStage := bson.D{primitive.E{Key: "$lookup", Value: bson.D{primitive.E{Key: "from", Value: "Projects"}, {Key: "localField", Value: "myprojects"}, {Key: "foreignField", Value: "_id"}, {Key: "as", Value: "myprojects"}}}}
+	unwindStage := bson.D{primitive.E{Key: "$unwind", Value: bson.D{primitive.E{Key: "path", Value: "$myprojects"}, {Key: "preserveNullAndEmptyArrays", Value: false}}}}
+	//reemplaza todo el objeeto por solo el campo quq queremos
+	replaceRoot := bson.D{primitive.E{Key: "$replaceRoot", Value: bson.D{primitive.E{Key: "newRoot", Value: "$myprojects"}}}}
 
 	cur, err := collectionUser.Aggregate(ctx, mongo.Pipeline{matchStage, lookupStage, unwindStage, replaceRoot})
 	if err != nil {
@@ -71,19 +73,19 @@ func GetMyProjects(email string) (m.Proyectos, error) {
 func GetProjectsWorkingOn(email string) (m.Proyectos, error) {
 	var ps m.Proyectos
 
-	filter := bson.M{"workers": bson.A{email}}
-	cur, err := collectionProject.Find(ctx, filter)
+	matchStage := bson.D{primitive.E{Key: "$match", Value: bson.D{primitive.E{Key: "email", Value: email}}}}
+	lookupStage := bson.D{primitive.E{Key: "$lookup", Value: bson.D{primitive.E{Key: "from", Value: "Projects"}, {Key: "localField", Value: "projects"}, {Key: "foreignField", Value: "_id"}, {Key: "as", Value: "projects"}}}}
+	unwindStage := bson.D{primitive.E{Key: "$unwind", Value: bson.D{primitive.E{Key: "path", Value: "$projects"}, {Key: "preserveNullAndEmptyArrays", Value: false}}}}
+	replaceRoot := bson.D{primitive.E{Key: "$replaceRoot", Value: bson.D{primitive.E{Key: "newRoot", Value: "$projects"}}}}
+
+	cur, err := collectionUser.Aggregate(ctx, mongo.Pipeline{matchStage, lookupStage, unwindStage, replaceRoot})
 	if err != nil {
 		return nil, err
 	}
-	defer cur.Close(ctx)
-	for cur.Next(ctx) {
-		var p m.Proyecto
-		if err = cur.Decode(&p); err != nil {
-			return nil, err
-		}
-		ps = append(ps, &p)
+	if err = cur.All(ctx, &ps); err != nil {
+		panic(err)
 	}
+
 	return ps, nil
 }
 
