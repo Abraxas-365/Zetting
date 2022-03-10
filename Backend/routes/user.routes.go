@@ -8,19 +8,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// users.Get("/prueba", auth.JWTProtected(), func(c *fiber.Ctx) error {
-// 	user, err := auth.ExtractTokenMetadata(c)
-// 	if err != nil {
-// 		return c.Status(500).SendString(err.Error())
-// 	}
-// 	fmt.Println("hoa", user.Email)
-// 	return c.JSON("dd")
-
-// })
 func UsersRoute(app *fiber.App) {
 
 	users := app.Group("/api/users")
-	/**/ //CAmbiar esto despues de almuerxo
+
 	users.Post("/login", func(c *fiber.Ctx) error {
 		fmt.Println("login")
 		body := struct {
@@ -63,15 +54,6 @@ func UsersRoute(app *fiber.App) {
 			return c.Status(500).SendString(err.Error())
 		}
 
-		// user, err = user_service.GetUserByEmail(user.Email)
-		// if err != nil {
-		// 	return c.Status(500).SendString(err.Error())
-		// }
-		// t, err := auth.LoginUser(user.Email, user.Password)
-		// if err != nil {
-		// 	fmt.Println(err)
-		// 	return c.Status(500).SendString(err.Error())
-		// }
 		return c.Status(fiber.StatusOK).JSON(authUser)
 
 	})

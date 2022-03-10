@@ -35,6 +35,7 @@ func CreateUser(user m.User) error {
 		user.Updated = time.Now()
 		user.Projects = []primitive.ObjectID{}
 		user.MyProjects = []primitive.ObjectID{}
+		// user.Profesion = []string{}
 		user.Verified = false
 		fmt.Println(user.Created)
 		if _, err := collectionUser.InsertOne(ctx, user); err != nil {
@@ -104,23 +105,6 @@ func DeleteUser(id string) error {
 	filter := bson.M{"nikname": id}
 
 	if _, err := collectionUser.DeleteOne(ctx, filter); err != nil {
-		return err
-	}
-	return nil
-
-}
-
-//funcion para agregaar un proyecccto a cualquera de los 2 campos o proximos campos ejemplo :"myproject" o "projects"
-func AddProject(email string, projectId primitive.ObjectID, campo string) error {
-
-	filter := bson.M{"email": email}
-	update := bson.M{
-		"$push": bson.M{
-			campo: projectId,
-		},
-	}
-
-	if _, err := collectionUser.UpdateOne(ctx, filter, update); err != nil {
 		return err
 	}
 	return nil

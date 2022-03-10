@@ -18,5 +18,9 @@ export const styleTitles = StyleSheet.create({
 
         fontWeight: 'bold'
     },
-    titleCenterView: { alignSelf: 'center', justifyContent: 'center', top: '4%' }
+    titleCenterView: { alignSelf: 'center', justifyContent: 'center', top: '4%' },
+    subTitle: {
+        fontSize: 20,
+        color: '#E5E1F6',
+    }
 })
