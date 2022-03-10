@@ -1,19 +1,25 @@
 
 
+import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import RegisterForm from '../components/RegisterForm';
+import { RootStackParamList } from '../navigator/StackNavigator';
+import { styleBackgrounds } from '../themes/Backgrounds';
+import { styleTitles } from '../themes/Titles';
 
-const Register2Screen = () => {
+interface Props extends StackScreenProps<RootStackParamList, 'ProyectoScreen'> { }
+const Register2Screen = ({ route }: Props) => {
+    console.log('Register2Screen')
+    console.log("email", route.params.email);
 
     return (
-        <SafeAreaView style={styleRegisterScreen.fondo}>
+        <SafeAreaView style={styleBackgrounds.fondoLight}>
             <View style={{ alignSelf: 'center', justifyContent: 'center', top: '4%' }}>
-                <Text style={styleRegisterScreen.title}>Register</Text>
-
+                <Text style={styleTitles.titleTextDark}>Register</Text>
             </View>
 
-            <RegisterForm />
+            <RegisterForm email={route.params.email} />
 
 
         </SafeAreaView>
@@ -22,15 +28,3 @@ const Register2Screen = () => {
 
 export default Register2Screen;
 
-const styleRegisterScreen = StyleSheet.create({
-    fondo: {
-        flex: 1,
-        backgroundColor: '#E2E0F3',
-    },
-    title: {
-        fontSize: 30,
-        color: '#E5E1F6',
-        fontWeight: 'bold'
-    },
-
-})

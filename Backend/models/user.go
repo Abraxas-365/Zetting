@@ -16,7 +16,7 @@ type User struct {
 	Phone                   string               `json:"phone"`
 	Country                 string               `json:"country"`
 	IdentifierDocumentation string               `json:"identifier_document"`
-	Profesion               string               `json:"profesion"`
+	Profession              []primitive.ObjectID `json:"professions"`
 	Projects                []primitive.ObjectID `json:"projects"`
 	MyProjects              []primitive.ObjectID `json:"my_projects"`
 	Verified                bool                 `json:"verified"`

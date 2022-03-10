@@ -10,6 +10,7 @@ import (
 
 // TokenMetadata struct to describe metadata in JWT.
 type TokenMetadata struct {
+	ID       string
 	Email    string
 	Password string
 }
@@ -26,10 +27,12 @@ func ExtractTokenMetadata(c *fiber.Ctx) (*TokenMetadata, error) {
 	if ok && token.Valid {
 		// Expires time.
 		email := string(claims["email"].(string))
+		id := string(claims["id"].(string))
 		fmt.Println("el email", email)
 		fmt.Println("el password", email)
 
 		return &TokenMetadata{
+			ID:    id,
 			Email: email,
 		}, nil
 	}

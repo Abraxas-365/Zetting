@@ -15,7 +15,7 @@ import ActorsScreen from '../screens/ActorsScreen';
 export type RootStackParamList = {
     LoginScreen: undefined;
     SignInScreen: undefined;
-    Register2Screen: undefined;
+    Register2Screen: { email: string };
     RegisterScreen: undefined;
     HomeScreen: undefined;
     BottomTabs: undefined;

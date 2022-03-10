@@ -28,7 +28,7 @@ func ProjectsRoute(app *fiber.App) {
 		}
 		fmt.Println("el nombre del proyecto", p.Name)
 
-		if err := service.CreateProject(p, u.Email); err != nil {
+		if err := service.CreateProject(p, u.ID); err != nil {
 
 			fmt.Println(err)
 			return fiber.ErrBadRequest
@@ -43,7 +43,7 @@ func ProjectsRoute(app *fiber.App) {
 		if err != nil {
 			return c.Status(500).SendString(err.Error())
 		}
-		ps, err := service.GetMyProjects(u.Email)
+		ps, err := service.GetMyProjects(u.ID)
 		fmt.Println(ps)
 		if err != nil {
 			return c.Status(500).SendString(err.Error())
@@ -57,7 +57,7 @@ func ProjectsRoute(app *fiber.App) {
 		if err != nil {
 			return c.Status(500).SendString(err.Error())
 		}
-		ps, err := service.GetProjectsWorkingOn(u.Email)
+		ps, err := service.GetProjectsWorkingOn(u.ID)
 		fmt.Println(ps)
 		if err != nil {
 			return c.Status(500).SendString(err.Error())

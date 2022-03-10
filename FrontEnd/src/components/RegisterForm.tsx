@@ -2,26 +2,24 @@
 import React, { useContext, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import StakeHolders from './StakeHolders';
-import { Ionicons } from '@expo/vector-icons';
 import MyCheckbox from './CheckBox';
-import BottonSignUp from './SignUpButton';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../navigator/StackNavigator';
 import { useForm } from '../hooks/useForm';
 import { AuthContext } from '../context/AuthContext';
 import { User } from '../interfaces/appInterfaces';
 import CustomCenterBotton from './CustomCenterBotton';
 
+interface FormProps {
+    email: string
+}
 
+const RegisterForm = ({ email }: FormProps) => {
+    console.log('---RegisterForm---', email);
 
-const RegisterForm = () => {
-    const { email, first_name, last_name, country, phone, identifierDocument, password, profesion, onChange } = useForm({
+    var profession: string[] = ["hola"]
+    const { first_name, last_name, country, phone, identifierDocument, password, onChange } = useForm({
 
         first_name: '',
         last_name: '',
-        profesion: '',
-        email: '',
         phone: '',
         country: '',
         identifierDocument: '',
@@ -35,14 +33,13 @@ const RegisterForm = () => {
             last_name: last_name,
             email: email,
             phone: phone,
-            profesion: profesion,
             country: country,
             identifierDocument: '',
             password: password,
             verified: false
 
         }
-        signUp(user)
+        signUp(user, profession)
 
     }
     return (
@@ -51,8 +48,6 @@ const RegisterForm = () => {
 
             <StakeHolders texto='First Name' top='0%' stakeHold={onChange} stakeHoldText={first_name} valueText='first_name' color='#23232B' />
             <StakeHolders texto='Last Name' stakeHold={onChange} stakeHoldText={last_name} valueText='last_name' color='#23232B' />
-            <StakeHolders texto='Your Profession' stakeHold={onChange} stakeHoldText={profesion} valueText='profesion' color='#23232B' />
-            <StakeHolders texto='Your Email' stakeHold={onChange} stakeHoldText={email} valueText='email' color='#23232B' />
             <StakeHolders texto='Phone Numbe' stakeHold={onChange} stakeHoldText={phone} valueText='phone' color='#23232B' />
             <StakeHolders texto='Country' stakeHold={onChange} stakeHoldText={country} valueText='country' color='#23232B' />
             <StakeHolders texto='Password' stakeHold={onChange} stakeHoldText={password} valueText='password' color='#23232B' />

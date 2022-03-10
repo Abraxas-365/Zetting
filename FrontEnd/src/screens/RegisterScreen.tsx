@@ -1,16 +1,11 @@
 
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useContext } from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import { apiCalls } from '../api/apiCalls';
 import BottonsPlatforms from '../components/BottonPlatform';
-import BottonRegister from '../components/BottonRegister';
 import CustomCenterBotton from '../components/CustomCenterBotton';
 import StakeHolders from '../components/StakeHolders';
 import { AuthContext } from '../context/AuthContext';
 import { useForm } from '../hooks/useForm';
-import { RootStackParamList } from '../navigator/StackNavigator';
 import { styleBackgrounds } from '../themes/Backgrounds';
 import { styleTitles } from '../themes/Titles';
 

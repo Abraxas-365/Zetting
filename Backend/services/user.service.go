@@ -20,14 +20,11 @@ func CreateUser(u m.User) (*m.AuthUser, error) {
 }
 
 func AuthUser(email string, password string) (*m.AuthUser, error) {
+	fmt.Println("----AuthUser ----")
 
 	authUser := new(m.AuthUser)
 
-	u, err := repository.GetUserByEmail(email)
-	if err != nil {
-		return nil, err
-	}
-	t, err := auth.LoginUser(email, password)
+	u, t, err := auth.LoginUser(email, password)
 	if err != nil {
 		fmt.Println(err)
 		return nil, err
@@ -36,15 +33,6 @@ func AuthUser(email string, password string) (*m.AuthUser, error) {
 	authUser.User = *u
 	return authUser, nil
 
-}
-
-func GetUsers() (m.Users, error) {
-	users, err := repository.GetUsers()
-	if err != nil {
-
-		return nil, err
-	}
-	return users, nil
 }
 
 func CheckUserExist(email string) (*m.User, error) {

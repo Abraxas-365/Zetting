@@ -8,19 +8,28 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func CreateProject(p *m.Proyecto, email string) error {
-	//crear el proyecto en el correo correcto
-	fmt.Println("crear el proyecto en el correo correct ", email)
+func CreateProject(p *m.Proyecto, id string) error {
+	//crear el proyecto en el Id
+	userId, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return err
+	}
+	fmt.Println("crear el proyecto en el Id ", userId)
 	// enviar a a bd
-	if err := repository.CreateProject(p, email); err != nil {
+	if err := repository.CreateProject(p, userId); err != nil {
 		return err
 	}
 	return nil
 
 }
 
-func GetMyProjects(email string) (m.Proyectos, error) {
-	ps, err := repository.GetMyProjects(email)
+func GetMyProjects(id string) (m.Proyectos, error) {
+
+	userId, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, err
+	}
+	ps, err := repository.GetMyProjects(userId)
 	if err != nil {
 		return nil, err
 	}
@@ -28,21 +37,29 @@ func GetMyProjects(email string) (m.Proyectos, error) {
 
 }
 
-func GetProjectsWorkingOn(email string) (m.Proyectos, error) {
-	ps, err := repository.GetProjectsWorkingOn(email)
+func GetProjectsWorkingOn(id string) (m.Proyectos, error) {
+	userId, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, err
+	}
+	ps, err := repository.GetProjectsWorkingOn(userId)
 	if err != nil {
 		return nil, err
 	}
 	return ps, nil
 
 }
-func AddWorker(email string, projectId string) error {
-	// comprobar que el el proyect id le pertenece al usuario
-	objID, err := primitive.ObjectIDFromHex(projectId)
+func AddWorker(uid string, pid string) error {
+	projectId, err := primitive.ObjectIDFromHex(pid)
 	if err != nil {
 		return err
 	}
-	if err = repository.AddWorker(email, objID); err != nil {
+	userId, err := primitive.ObjectIDFromHex(uid)
+	if err != nil {
+		return err
+	}
+
+	if err = repository.AddWorker(userId, projectId); err != nil {
 		return err
 	}
 	return nil

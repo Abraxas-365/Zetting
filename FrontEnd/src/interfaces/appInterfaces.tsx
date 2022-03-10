@@ -1,4 +1,3 @@
-import React from 'react';
 
 export interface LoginResponse {
     user: User;
@@ -13,7 +12,7 @@ export interface User {
     email?: string;
     phone?: string;
     country?: string;
-    profesion: string;
+    profesion?: Array<string>;
     identifierDocument: string;
     password: string;
     verified: boolean;
@@ -29,6 +28,19 @@ export interface Project {
     collaboration?: string;
     color?: string;
     empleados?: Array<string>;
+
+
+}
+
+export interface Actor {
+    id?: string;
+    userId?: string;
+    height?: number;
+    body?: string;
+    Skin?: string;
+    hair_type?: Array<string>;
+    hair_color?: string;
+    eye_color?: string;
 
 
 }

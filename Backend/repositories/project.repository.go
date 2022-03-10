@@ -14,11 +14,11 @@ import (
 
 var collectionProject = database.GetCollection("Projects")
 
-func CreateProject(p *m.Proyecto, email string) error {
+func CreateProject(p *m.Proyecto, userId primitive.ObjectID) error {
 
 	fmt.Println(p.Name)
 	check := bson.M{}
-	filter := bson.M{"name": p.Name, "propietarios": bson.A{email}}
+	filter := bson.M{"name": p.Name, "propietarios": bson.A{userId}}
 	cur, err := collectionProject.Find(ctx, filter)
 	if err != nil {
 		return err
@@ -32,7 +32,7 @@ func CreateProject(p *m.Proyecto, email string) error {
 
 		p.Created = time.Now()
 		p.Updated = time.Now()
-		p.Propietarios = []string{email}
+		p.Propietarios = []primitive.ObjectID{userId}
 		p.Workers = []string{}
 		fmt.Println(p.Created)
 		result, err := collectionProject.InsertOne(ctx, p)
@@ -41,7 +41,7 @@ func CreateProject(p *m.Proyecto, email string) error {
 		if err != nil {
 			return err
 		}
-		AddProject(email, id, "myprojects")
+		AddProject(userId, id, "myprojects")
 	} else {
 
 		return fiber.ErrConflict
@@ -49,11 +49,11 @@ func CreateProject(p *m.Proyecto, email string) error {
 	return nil
 }
 
-func GetMyProjects(email string) (m.Proyectos, error) {
+func GetMyProjects(userId primitive.ObjectID) (m.Proyectos, error) {
 	var ps m.Proyectos
 
 	//matchea el email
-	matchStage := bson.D{primitive.E{Key: "$match", Value: bson.D{primitive.E{Key: "email", Value: email}}}}
+	matchStage := bson.D{primitive.E{Key: "$match", Value: bson.D{primitive.E{Key: "_id", Value: userId}}}}
 	//buca y trae todo los id en proyectos
 	lookupStage := bson.D{primitive.E{Key: "$lookup", Value: bson.D{primitive.E{Key: "from", Value: "Projects"}, {Key: "localField", Value: "myprojects"}, {Key: "foreignField", Value: "_id"}, {Key: "as", Value: "myprojects"}}}}
 	unwindStage := bson.D{primitive.E{Key: "$unwind", Value: bson.D{primitive.E{Key: "path", Value: "$myprojects"}, {Key: "preserveNullAndEmptyArrays", Value: false}}}}
@@ -70,10 +70,10 @@ func GetMyProjects(email string) (m.Proyectos, error) {
 
 	return ps, nil
 }
-func GetProjectsWorkingOn(email string) (m.Proyectos, error) {
+func GetProjectsWorkingOn(userId primitive.ObjectID) (m.Proyectos, error) {
 	var ps m.Proyectos
 
-	matchStage := bson.D{primitive.E{Key: "$match", Value: bson.D{primitive.E{Key: "email", Value: email}}}}
+	matchStage := bson.D{primitive.E{Key: "$match", Value: bson.D{primitive.E{Key: "_id", Value: userId}}}}
 	lookupStage := bson.D{primitive.E{Key: "$lookup", Value: bson.D{primitive.E{Key: "from", Value: "Projects"}, {Key: "localField", Value: "projects"}, {Key: "foreignField", Value: "_id"}, {Key: "as", Value: "projects"}}}}
 	unwindStage := bson.D{primitive.E{Key: "$unwind", Value: bson.D{primitive.E{Key: "path", Value: "$projects"}, {Key: "preserveNullAndEmptyArrays", Value: false}}}}
 	replaceRoot := bson.D{primitive.E{Key: "$replaceRoot", Value: bson.D{primitive.E{Key: "newRoot", Value: "$projects"}}}}
@@ -89,12 +89,11 @@ func GetProjectsWorkingOn(email string) (m.Proyectos, error) {
 	return ps, nil
 }
 
-//en version v2 cambiar a buscar por usurario
-func AddWorker(email string, projectId primitive.ObjectID) error {
+func AddWorker(userId primitive.ObjectID, projectId primitive.ObjectID) error {
 	filter := bson.M{"_id": projectId}
 	update := bson.M{
 		"$push": bson.M{
-			"workers": email,
+			"workers": userId,
 		},
 	}
 

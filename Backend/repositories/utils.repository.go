@@ -6,9 +6,9 @@ import (
 )
 
 //funcion para agregaar un proyecccto a cualquera de los 2 campos o proximos campos ejemplo :"myproject" o "projects"
-func AddProject(email string, projectId primitive.ObjectID, campo string) error {
+func AddProject(userId primitive.ObjectID, projectId primitive.ObjectID, campo string) error {
 
-	filter := bson.M{"email": email}
+	filter := bson.M{"_id": userId}
 	update := bson.M{
 		"$push": bson.M{
 			campo: projectId,

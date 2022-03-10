@@ -35,7 +35,7 @@ func CreateUser(user m.User) error {
 		user.Updated = time.Now()
 		user.Projects = []primitive.ObjectID{}
 		user.MyProjects = []primitive.ObjectID{}
-		// user.Profesion = []string{}
+		user.Profession = []primitive.ObjectID{}
 		user.Verified = false
 		fmt.Println(user.Created)
 		if _, err := collectionUser.InsertOne(ctx, user); err != nil {
@@ -48,25 +48,8 @@ func CreateUser(user m.User) error {
 	fmt.Println("nuevo usuario", user)
 	return nil
 }
-func GetUsers() (m.Users, error) {
-	var users m.Users
-
-	filter := bson.D{}
-	cur, err := collectionUser.Find(ctx, filter)
-	if err != nil {
-		return nil, err
-	}
-	defer cur.Close(ctx)
-	for cur.Next(ctx) {
-		var user m.User
-		if err = cur.Decode(&user); err != nil {
-			return nil, err
-		}
-		users = append(users, &user)
-	}
-	return users, nil
-}
 func GetUserByEmail(email string) (*m.User, error) {
+	fmt.Println("---GetUserByEmail---")
 	var user m.User
 	filter := bson.M{"email": email}
 	if err := collectionUser.FindOne(ctx, filter).Decode(&user); err != nil {

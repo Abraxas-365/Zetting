@@ -18,7 +18,7 @@ type AuthContextProps = {
     signIn: (email: string, password: string) => void;
     signOut: () => void;
     registerIn: (email: string) => void;
-    signUp: (user: User) => void;
+    signUp: (user: User, profesions: string[]) => void;
     removeError: () => void;
 
 }
@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }: any) => {
             const resp = await apiCalls.get('/api/users/' + email)
             console.log(resp.data);
             if (resp.data.exists == false) {
-                navigation.navigate('Register2Screen')
+                navigation.navigate('Register2Screen', { email: email })
             } else {
                 console.log("la cuenta existe")
             }
@@ -88,9 +88,9 @@ export const AuthProvider = ({ children }: any) => {
 
 
     };
-    const signUp = async (user: User) => {
+    const signUp = async (user: User, profesions: string[]) => {
         try {
-            const { data } = await apiCalls.post('/api/users/register', user);
+            const { data } = await apiCalls.post('/api/users/register', { "user": user, "profesions": profesions });
             console.log('onSignUpBotton')
             dispatch({
                 type: 'signUp',
