@@ -16,7 +16,12 @@ func CreateProject(p *m.Proyecto, id string) error {
 	}
 	fmt.Println("crear el proyecto en el Id ", userId)
 	// enviar a a bd
-	if err := repository.CreateProject(p, userId); err != nil {
+	projectId, err := repository.CreateProject(p, userId)
+	if err != nil {
+		return err
+	}
+
+	if err := repository.AddProject(userId, projectId, "myprojects"); err != nil {
 		return err
 	}
 	return nil

@@ -12,7 +12,7 @@ export interface User {
     email?: string;
     phone?: string;
     country?: string;
-    profesion?: Array<string>;
+    professions?: Array<string>;
     identifierDocument: string;
     password: string;
     verified: boolean;
@@ -32,7 +32,7 @@ export interface Project {
 
 }
 
-export interface Actor {
+export interface Features {
     id?: string;
     userId?: string;
     height?: number;

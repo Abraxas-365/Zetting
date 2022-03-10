@@ -14,18 +14,18 @@ import (
 
 var collectionProject = database.GetCollection("Projects")
 
-func CreateProject(p *m.Proyecto, userId primitive.ObjectID) error {
-
+func CreateProject(p *m.Proyecto, userId primitive.ObjectID) (primitive.ObjectID, error) {
+	var id primitive.ObjectID
 	fmt.Println(p.Name)
 	check := bson.M{}
 	filter := bson.M{"name": p.Name, "propietarios": bson.A{userId}}
 	cur, err := collectionProject.Find(ctx, filter)
 	if err != nil {
-		return err
+		return primitive.ObjectID{}, err
 	}
 	for cur.Next(ctx) {
 		if err = cur.Decode(&check); err != nil {
-			return err
+			return primitive.ObjectID{}, err
 		}
 	}
 	if len(check) < 1 {
@@ -36,17 +36,17 @@ func CreateProject(p *m.Proyecto, userId primitive.ObjectID) error {
 		p.Workers = []string{}
 		fmt.Println(p.Created)
 		result, err := collectionProject.InsertOne(ctx, p)
-		id := result.InsertedID.(primitive.ObjectID)
+		id = result.InsertedID.(primitive.ObjectID)
 
 		if err != nil {
-			return err
+			return primitive.ObjectID{}, err
 		}
-		AddProject(userId, id, "myprojects")
 	} else {
 
-		return fiber.ErrConflict
+		return primitive.ObjectID{}, fiber.ErrConflict
 	}
-	return nil
+	fmt.Println("el id del projecto es:", id)
+	return id, nil
 }
 
 func GetMyProjects(userId primitive.ObjectID) (m.Proyectos, error) {

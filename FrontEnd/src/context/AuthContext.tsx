@@ -18,7 +18,7 @@ type AuthContextProps = {
     signIn: (email: string, password: string) => void;
     signOut: () => void;
     registerIn: (email: string) => void;
-    signUp: (user: User, profesions: string[]) => void;
+    signUp: (user: User) => void;
     removeError: () => void;
 
 }
@@ -88,9 +88,9 @@ export const AuthProvider = ({ children }: any) => {
 
 
     };
-    const signUp = async (user: User, profesions: string[]) => {
+    const signUp = async (user: User) => {
         try {
-            const { data } = await apiCalls.post('/api/users/register', { "user": user, "profesions": profesions });
+            const { data } = await apiCalls.post('/api/users/register', { "user": user });
             console.log('onSignUpBotton')
             dispatch({
                 type: 'signUp',

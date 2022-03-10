@@ -15,18 +15,18 @@ import (
 var collectionUser = database.GetCollection("Users")
 var ctx = context.Background()
 
-func CreateUser(user m.User) error {
-
+func CreateUser(user m.User) (primitive.ObjectID, error) {
+	var id primitive.ObjectID
 	fmt.Println(user.Email)
 	check := bson.M{}
 	filter := bson.M{"email": user.Email}
 	cur, err := collectionUser.Find(ctx, filter)
 	if err != nil {
-		return err
+		return primitive.ObjectID{}, err
 	}
 	for cur.Next(ctx) {
 		if err = cur.Decode(&check); err != nil {
-			return err
+			return primitive.NewObjectID(), err
 		}
 	}
 	if len(check) < 1 {
@@ -35,18 +35,23 @@ func CreateUser(user m.User) error {
 		user.Updated = time.Now()
 		user.Projects = []primitive.ObjectID{}
 		user.MyProjects = []primitive.ObjectID{}
-		user.Profession = []primitive.ObjectID{}
+		user.Profession = []string{}
 		user.Verified = false
 		fmt.Println(user.Created)
-		if _, err := collectionUser.InsertOne(ctx, user); err != nil {
-			return err
+		result, err := collectionUser.InsertOne(ctx, user)
+		id = result.InsertedID.(primitive.ObjectID)
+		if err != nil {
+			return primitive.ObjectID{}, err
 		}
 	} else {
 
-		return fiber.ErrConflict
+		return primitive.ObjectID{}, fiber.ErrConflict
 	}
+
 	fmt.Println("nuevo usuario", user)
-	return nil
+	fmt.Println("id", id)
+	return id, nil
+
 }
 func GetUserByEmail(email string) (*m.User, error) {
 	fmt.Println("---GetUserByEmail---")

@@ -8,8 +8,10 @@ import (
 )
 
 func CreateUser(u m.User) (*m.AuthUser, error) {
+	//crear features
 
-	if err := repository.CreateUser(u); err != nil {
+	//crear usurio
+	if _, err := repository.CreateUser(u); err != nil {
 		return nil, err
 	}
 	authUser, err := AuthUser(u.Email, u.Password)

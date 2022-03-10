@@ -15,7 +15,8 @@ interface FormProps {
 const RegisterForm = ({ email }: FormProps) => {
     console.log('---RegisterForm---', email);
 
-    var profession: string[] = ["hola"]
+    //aqui acumular los botones de profesiones
+    var professions: string[] = ["hola"]
     const { first_name, last_name, country, phone, identifierDocument, password, onChange } = useForm({
 
         first_name: '',
@@ -33,13 +34,14 @@ const RegisterForm = ({ email }: FormProps) => {
             last_name: last_name,
             email: email,
             phone: phone,
+            professions: professions,
             country: country,
             identifierDocument: '',
             password: password,
             verified: false
 
         }
-        signUp(user, profession)
+        signUp(user)
 
     }
     return (
