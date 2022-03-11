@@ -35,7 +35,6 @@ func CreateUser(user m.User) (primitive.ObjectID, error) {
 		user.Updated = time.Now()
 		user.Projects = []primitive.ObjectID{}
 		user.MyProjects = []primitive.ObjectID{}
-		user.Profession = []string{}
 		user.Verified = false
 		fmt.Println(user.Created)
 		result, err := collectionUser.InsertOne(ctx, user)

@@ -40,8 +40,7 @@ func UsersRoute(app *fiber.App) {
 	users.Post("/register", func(c *fiber.Ctx) error {
 		fmt.Println("---Register Route---")
 		body := struct {
-			Profesion []string `json:"profesions"`
-			User      m.User   `json:"user"`
+			User m.User `json:"user"`
 		}{}
 		if err := c.BodyParser(&body); err != nil {
 			a := c.JSON(err)

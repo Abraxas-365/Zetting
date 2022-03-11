@@ -10,14 +10,13 @@ type User struct {
 	ID                      primitive.ObjectID   `bson:"_id,omitempty" json:"id"`
 	FirstName               string               `json:"first_name"`
 	LastName                string               `json:"last_name"`
-	Gender                  string               `json:"gender"`
 	Password                string               `json:"password"`
 	Email                   string               `json:"email"`
 	Phone                   string               `json:"phone"`
 	Country                 string               `json:"country"`
 	IdentifierDocumentation string               `json:"identifier_document"`
 	Profession              []string             `json:"professions"`
-	Features                primitive.ObjectID   `json:"features"`
+	Features                Features             `json:"features"`
 	Projects                []primitive.ObjectID `json:"projects"`
 	MyProjects              []primitive.ObjectID `json:"my_projects"`
 	Verified                bool                 `json:"verified"`
