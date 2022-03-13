@@ -65,7 +65,7 @@ func GetMyProjects(userId primitive.ObjectID) (m.Proyectos, error) {
 		return nil, err
 	}
 	if err = cur.All(ctx, &ps); err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	return ps, nil
@@ -83,7 +83,7 @@ func GetProjectsWorkingOn(userId primitive.ObjectID) (m.Proyectos, error) {
 		return nil, err
 	}
 	if err = cur.All(ctx, &ps); err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	return ps, nil

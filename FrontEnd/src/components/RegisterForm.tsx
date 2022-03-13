@@ -50,7 +50,7 @@ const RegisterForm = ({ email }: FormProps) => {
 
             <StakeHolders texto='First Name' top='0%' stakeHold={onChange} stakeHoldText={first_name} valueText='first_name' color='#23232B' />
             <StakeHolders texto='Last Name' stakeHold={onChange} stakeHoldText={last_name} valueText='last_name' color='#23232B' />
-            <StakeHolders texto='Phone Numbe' stakeHold={onChange} stakeHoldText={phone} valueText='phone' color='#23232B' />
+            <StakeHolders texto='Phone Number' stakeHold={onChange} stakeHoldText={phone} valueText='phone' color='#23232B' />
             <StakeHolders texto='Country' stakeHold={onChange} stakeHoldText={country} valueText='country' color='#23232B' />
             <StakeHolders texto='Password' stakeHold={onChange} stakeHoldText={password} valueText='password' color='#23232B' />
             <View style={styles.section}>

@@ -2,22 +2,21 @@ package repository
 
 import (
 	"fmt"
-	"mongoCrud/database"
 	m "mongoCrud/models"
 
-	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
-var collectionFeatures = database.GetCollection("Features")
-
-func CreateFeatures(a *m.Features) (primitive.ObjectID, error) {
-
-	result, err := collectionFeatures.InsertOne(ctx, a)
-	id := result.InsertedID.(primitive.ObjectID)
-	fmt.Println(id)
+func GetByFeatures(query bson.D) (m.Users, error) {
+	fmt.Println("---GetByFeatures---")
+	var s m.Users
+	cur, err := collectionUser.Find(ctx, query)
 	if err != nil {
-		return primitive.ObjectID{}, err
+		return nil, err
 	}
-
-	return id, nil
+	if err = cur.All(ctx, &s); err != nil {
+		panic(err)
+	}
+	fmt.Println(s)
+	return s, nil
 }
