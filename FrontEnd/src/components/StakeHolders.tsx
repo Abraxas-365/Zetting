@@ -21,7 +21,6 @@ const StakeHolders = ({ height = 60, top = '10%', texto, valueText, stakeHold, s
             borderBottomWidth: 1,
             marginTop: top,
             height: height,
-            marginHorizontal: '10%',
 
         }}>
             <Text style={{ color: color }}>{texto}</Text>

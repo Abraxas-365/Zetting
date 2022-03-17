@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
@@ -5,14 +6,16 @@ type BottonProps = {
     onPress?: any
     top?: string
     borderColor?: string
+    marginLeft?: string
+    marginRight?: string
     width?: number
     height?: number
     color?: string
     text?: string
 }
-const CustomSmallBotton = ({ onPress = () => { }, top, borderColor, color, text = 'texto' }: BottonProps) => {
+const CustomAdjustableBotton = ({ onPress = () => { }, top, borderColor, color, text = 'texto', marginLeft = '0%', marginRight = '0%' }: BottonProps) => {
     return (
-        <TouchableOpacity style={{ ...style.botton, marginTop: top, backgroundColor: color, borderColor: borderColor }}
+        <TouchableOpacity style={{ ...style.botton, marginTop: top, backgroundColor: color, borderColor, marginLeft, marginRight }}
             onPress={onPress}>
             <Text style={{ ...style.text }}>{text}</Text>
 
@@ -22,12 +25,10 @@ const CustomSmallBotton = ({ onPress = () => { }, top, borderColor, color, text 
     );
 };
 
-export default CustomSmallBotton;
+export default CustomAdjustableBotton;
 
 const style = StyleSheet.create({
     botton: {
-        width: 110,
-        height: 26,
         backgroundColor: 'red',
         borderRadius: 20,
         justifyContent: 'center',
@@ -37,6 +38,8 @@ const style = StyleSheet.create({
     text: {
         textAlign: 'center',
         fontSize: 15,
+        paddingVertical: 3,
+        paddingHorizontal: 20,
         color: '#E5E1F6',
     }
 

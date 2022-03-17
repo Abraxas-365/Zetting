@@ -1,9 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import StakeHolders from './StakeHolders';
-import { Ionicons } from '@expo/vector-icons';
-import MyCheckbox from './CheckBox';
-import BottonSignUp from './SignUpButton';
 import { useForm } from '../hooks/useForm';
 import { AuthContext } from '../context/AuthContext';
 import { Project, User } from '../interfaces/appInterfaces';
@@ -13,6 +10,7 @@ import { CommonActions, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigator/StackNavigator';
 import { Entypo } from '@expo/vector-icons';
+import { styleWrappers } from '../themes/Wrappers';
 const creteProject = async (project: Project, navigation: any, token: any) => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
@@ -42,17 +40,64 @@ const creteProject = async (project: Project, navigation: any, token: any) => {
 
 const CreateProjectForm = () => {
 
+    const [color, setColor] = useState('#FF7F39');
 
-    const [checked, onChake] = useState(false);
-    const MyColorbox = () => {
+    const { name, description, calendar, collaboration, onChange } = useForm({
+
+        name: '',
+        description: '',
+        calendar: '',
+        collaboration: '',
+    })
+
+    var project: Project = {
+        name: name,
+        description: description,
+        // collaboration: collaboration,
+        calendar: calendar,
+        color: color
+
+    }
+    const onCreatePtojectBotton = async () => {
+        console.log('creando proyecto', name)
+
+        creteProject(project, navigation, token)
+    }
+    type BottonProps = {
+        color?: string
+        onChake?: any,
+        checked?: any
+        cambairUno?: any
+        cambiarDos?: any
+        cambiarTres?: any
+        cambiarCuatro?: any
+    }
+    const [orange, onOrange] = useState(true);
+    const [yellow, onYellow] = useState(false);
+    const [green, onGreen] = useState(false);
+    const [blue, onBlue] = useState(false);
+    const [purple, onPurple] = useState(false);
+    const MyColorbox = ({ color = "#E5E1F6", onChake, checked, cambairUno, cambiarDos, cambiarTres, cambiarCuatro }: BottonProps) => {
 
         function onCheckmarkPress() {
             onChake(!checked);
+            cambairUno(false)
+            cambiarDos(false)
+            cambiarTres(false)
+            cambiarCuatro(false)
+            setColor(color)
+
+            console.log("el color es", color)
+            console.log(project)
+
+
+
+
         }
 
         return (
             <Pressable
-                style={[styles.checkboxBase, checked && styles.checkboxChecked]}
+                style={[styles.checkboxBase, checked && styles.checkboxChecked, { backgroundColor: color }]}
                 onPress={onCheckmarkPress}>
                 {checked && <Entypo name="check" size={15} color='#23232B' />}
             </Pressable>
@@ -61,48 +106,27 @@ const CreateProjectForm = () => {
 
     const { token } = useContext(AuthContext)
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-    const { name, description, calendar, collaboration, color, onChange } = useForm({
-
-        name: '',
-        description: '',
-        calendar: '',
-        collaboration: '',
-        color: '',
-    })
     console.log(name)
-    const onCreatePtojectBotton = async () => {
-        console.log('creando proyecto', name)
-        var project: Project = {
-            name: name,
-            description: description,
-            // collaboration: collaboration,
-            calendar: calendar,
-            color: color,
-
-        }
-
-        creteProject(project, navigation, token)
-    }
     return (
 
-        <ScrollView style={{ top: '8%', flex: 1 }} contentContainerStyle={{ paddingBottom: 90 }} >
+        <ScrollView style={{ ...styleWrappers.wrapperHorizontalGap, top: '4%', flex: 1 }} contentContainerStyle={{ paddingBottom: 90 }} >
 
             <StakeHolders texto='Project Name' stakeHold={onChange} stakeHoldText={name} valueText='name' color='#E5E1F6' />
             <StakeHolders texto='Project description' stakeHold={onChange} stakeHoldText={description} valueText='description' color='#E5E1F6' />
             <StakeHolders texto='Colaboration' stakeHold={onChange} stakeHoldText={collaboration} valueText='collaboration' color='#E5E1F6' />
-            <StakeHolders texto='Color' stakeHold={onChange} stakeHoldText={color} valueText='color' color='#E5E1F6' />
             <View style={{
                 borderBottomColor: '#E5E1F6',
                 borderBottomWidth: 1,
                 marginTop: '15%',
                 height: '15%',
-                marginHorizontal: '10%',
             }}>
                 <Text style={{ color: '#E5E1F6' }}>Color</Text>
-
                 <View style={{ flexDirection: 'row', width: '100%', height: '40%', position: 'absolute', bottom: 5 }}>
-                    <MyColorbox />
-                    <MyColorbox />
+                    <MyColorbox color='#FF7F39' cambairUno={onYellow} cambiarDos={onGreen} cambiarTres={onBlue} cambiarCuatro={onPurple} checked={orange} onChake={onOrange} />
+                    <MyColorbox color='#F8E5A3' cambairUno={onOrange} cambiarDos={onGreen} cambiarTres={onBlue} cambiarCuatro={onPurple} checked={yellow} onChake={onYellow} />
+                    <MyColorbox color='#BBC79E' cambairUno={onOrange} cambiarDos={onYellow} cambiarTres={onBlue} cambiarCuatro={onPurple} checked={green} onChake={onGreen} />
+                    <MyColorbox color='#8CBBDD' cambairUno={onOrange} cambiarDos={onYellow} cambiarTres={onGreen} cambiarCuatro={onPurple} checked={blue} onChake={onBlue} />
+                    <MyColorbox color='#BD7ABC' cambairUno={onOrange} cambiarDos={onYellow} cambiarTres={onGreen} cambiarCuatro={onBlue} checked={purple} onChake={onPurple} />
                 </View>
             </View>
             <View style={styles.section}>
@@ -123,9 +147,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 100,
-        borderWidth: 2,
         marginRight: '1%',
-        borderColor: '#23232B',
         backgroundColor: 'red',
     },
 

@@ -39,7 +39,6 @@ const BottonsLoginScreen = ({ bottom }: PropsBottons) => {
         }}>
             <BottonLoginScreen texto="Log In" screen="SignInScreen" />
             <BottonLoginScreen texto="Join Now" color="#E5E1F6" colorText='#23232B' screen="RegisterScreen" />
-            <BottonLoginScreen texto="Join Now" color="#E5E1F6" colorText='#23232B' screen="ActorsScreen" />
         </View>
     );
 };

@@ -11,6 +11,6 @@ export const styleBackgrounds = StyleSheet.create({
     },
     fondoLight: {
         flex: 1,
-        backgroundColor: '#E2E0F3',
+        backgroundColor: '#E6E4F5',
     },
 })

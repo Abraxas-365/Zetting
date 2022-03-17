@@ -5,12 +5,18 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { Button, FlatList, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native'
+import styles from 'react-native-switch-toggles/src/switch/styles';
 import CustomSmallBotton from '../components/CustomSmallBotton';
+import PlusButton from '../components/PlusSvg';
 import ProjectBotton from '../components/ProjectBotton';
 import { useProjects } from '../hooks/useProjects';
 import { RootStackParamList } from '../navigator/StackNavigator';
 import { styleBackgrounds } from '../themes/Backgrounds';
 import { styleTitles } from '../themes/Titles';
+import { styleWrappers } from '../themes/Wrappers';
+
+
+
 
 
 const ProyetosScreen = () => {
@@ -50,23 +56,25 @@ const ProyetosScreen = () => {
 
     return (
         <SafeAreaView style={styleBackgrounds.fondoDark}>
-            <View style={{ top: '4%', flexDirection: 'row', marginHorizontal: '10%', }}>
-                <Text style={styleTitles.titleTextLight}>RROJECTS</Text>
-                <TouchableOpacity style={styleProyectosScreen.mas} onPress={() => navigation.navigate('CreateProyectScreen')}>
-                    <Image source={require('../../assets/icons/2x/mas.png')} />
-                </TouchableOpacity>
+            <View style={{ ...styleWrappers.wrapperHorizontalGap }}>
+                <View style={{ ...styleWrappers.wrapperTitles, flexDirection: 'row' }}>
+                    <Text style={styleTitles.titleTextLight}>RROJECTS</Text>
+                    <TouchableOpacity style={styleProyectosScreen.mas} onPress={() => navigation.navigate('CreateProyectScreen')}>
+                        <PlusButton />
+                    </TouchableOpacity>
+                </View>
+                <View style={{
+                    marginTop: '10%', flexDirection: 'row',
+                }}>
+
+
+                    <CustomSmallBotton borderColor={borderColor} color={colorProject} text='My Project' onPress={projectsBotton} />
+                    <View style={{ marginHorizontal: '2%', marginBottom: "12%" }} />
+                    <CustomSmallBotton borderColor={borderColor1} color={colorMyProject} text='Projects' onPress={myprojectsBotton} />
+                </View>
+
             </View>
-            <View style={{
-                marginTop: '10%', flexDirection: 'row', paddingLeft: '10%',
-            }}>
-
-
-                <CustomSmallBotton borderColor={borderColor} color={colorProject} text='My Project' onPress={projectsBotton} />
-                <View style={{ marginHorizontal: '2%', marginBottom: "12%" }} />
-                <CustomSmallBotton borderColor={borderColor1} color={colorMyProject} text='Projects' onPress={myprojectsBotton} />
-            </View>
-
-            <FlatList contentContainerStyle={{ flexGrow: 1, top: '3%' }} data={data} renderItem={({ item }: any) => <ProjectBotton title={item.name} description={item.description} color={item.color} />} />
+            <FlatList contentContainerStyle={{ flexGrow: 1, top: '3%', ...styleWrappers.wrapperHorizontalGap }} data={data} renderItem={({ item }: any) => <ProjectBotton title={item.name} description={item.description} color={item.color} />} />
 
         </SafeAreaView >
     );

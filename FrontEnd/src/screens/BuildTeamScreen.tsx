@@ -1,14 +1,29 @@
 
+import { CommonActions, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { RootStackParamList } from '../navigator/StackNavigator';
 import { styleBackgrounds } from '../themes/Backgrounds';
 import { styleTitles } from '../themes/Titles';
 
 const OmitBottom = () => {
+
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     return (
         <TouchableOpacity
             style={styles.boton}
-            onPress={() => { }}>
+            onPress={() => {
+
+                navigation.dispatch(
+                    CommonActions.reset({
+                        index: 0,
+                        routes: [{ name: 'BottomTabs' }
+                        ]
+
+                    }))
+
+            }}>
             <Text style={styles.botonText}>Omitir</Text>
         </TouchableOpacity>
 
@@ -33,23 +48,9 @@ const CategoriesBotton = ({ onPress = () => { }, text = 'test', image = 'https:/
 
 }
 
-const CategoriesBottons = () => {
-    return (
-        <View>
-            <View style={{ flexDirection: 'row', marginTop: 20, position: 'relative' }}>
-                <View style={{ position: 'relative', left: 0, }}>
-                    <CategoriesBotton />
-                </View>
-                <View style={{ position: 'absolute', right: 0 }}>
-                    <CategoriesBotton />
-                </View>
-            </View>
-
-        </View>
-    )
-}
-
 const BuildTeamScreen = () => {
+
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     return (
         <View style={styleBackgrounds.fondoOrange}>
             <View style={styles.topContainer}>
@@ -61,11 +62,63 @@ const BuildTeamScreen = () => {
             </View>
             <View style={{ ...styleBackgrounds.fondoDark, top: '13%' }}>
                 <ScrollView style={{ ...styleBackgrounds.fondoDark, marginHorizontal: '10%' }}>
-                    <CategoriesBottons />
-                    <CategoriesBottons />
-                    <CategoriesBottons />
-                    <CategoriesBottons />
-                    <CategoriesBottons />
+                    <View>
+                        <View style={{ flexDirection: 'row', marginTop: 20, position: 'relative' }}>
+                            <View style={{ position: 'relative', left: 0, }}>
+                                <CategoriesBotton text='Actors' onPress={() => { navigation.navigate('ActorsScreen') }} />
+                            </View>
+                            <View style={{ position: 'absolute', right: 0 }}>
+                                <CategoriesBotton />
+                            </View>
+                        </View>
+
+                    </View>
+                    <View>
+                        <View style={{ flexDirection: 'row', marginTop: 20, position: 'relative' }}>
+                            <View style={{ position: 'relative', left: 0, }}>
+                                <CategoriesBotton />
+                            </View>
+                            <View style={{ position: 'absolute', right: 0 }}>
+                                <CategoriesBotton />
+                            </View>
+                        </View>
+
+                    </View>
+                    <View>
+                        <View style={{ flexDirection: 'row', marginTop: 20, position: 'relative' }}>
+                            <View style={{ position: 'relative', left: 0, }}>
+                                <CategoriesBotton />
+                            </View>
+                            <View style={{ position: 'absolute', right: 0 }}>
+                                <CategoriesBotton />
+                            </View>
+                        </View>
+
+                    </View>
+                    <View>
+                        <View style={{ flexDirection: 'row', marginTop: 20, position: 'relative' }}>
+                            <View style={{ position: 'relative', left: 0, }}>
+                                <CategoriesBotton />
+                            </View>
+                            <View style={{ position: 'absolute', right: 0 }}>
+                                <CategoriesBotton />
+                            </View>
+                        </View>
+
+                    </View>
+                    <View>
+                        <View style={{ flexDirection: 'row', marginTop: 20, position: 'relative' }}>
+                            <View style={{ position: 'relative', left: 0, }}>
+                                <CategoriesBotton />
+                            </View>
+                            <View style={{ position: 'absolute', right: 0 }}>
+                                <CategoriesBotton />
+                            </View>
+                        </View>
+
+                    </View>
+
+
                 </ScrollView>
             </View>
         </View>

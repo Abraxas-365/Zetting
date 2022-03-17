@@ -3,13 +3,14 @@ import { SafeAreaView, Text, View } from 'react-native';
 import CreateProjectForm from '../components/CreateProyectForm';
 import { styleBackgrounds } from '../themes/Backgrounds';
 import { styleTitles } from '../themes/Titles';
+import { styleWrappers } from '../themes/Wrappers';
 
 const CreateProyectScreen = () => {
     return (
         <SafeAreaView style={styleBackgrounds.fondoDark}>
 
-            <View style={styleTitles.titleCenterView}>
-                <Text style={styleTitles.titleTextLight}>NEW PROYECT</Text>
+            <View style={styleWrappers.wrapperTitles}>
+                <Text style={{ ...styleTitles.titleTextLight, alignSelf: 'center' }}>NEW PROYECT</Text>
             </View>
             <CreateProjectForm />
         </SafeAreaView>

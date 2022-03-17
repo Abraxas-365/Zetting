@@ -1,15 +1,12 @@
-
-
+import { StackScreenProps } from '@react-navigation/stack';
 import React, { Component } from 'react';
 import { Button, Image, SafeAreaView, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native'
-import { styleBackgrounds } from '../themes/Backgrounds';
-import { styleTitles } from '../themes/Titles';
 import { StretchyScrollView } from 'react-native-stretchy';
-import BlackInfoBottons from '../components/perfilComponets/BlackInfoBottons';
-import FeaturesBox from '../components/perfilComponets/FeaturesBox';
-import { StackScreenProps } from '@react-navigation/stack';
-import { RootStackParamList } from '../navigator/StackNavigator';
+import BlackInfoBottons from '../../components/perfilComponets/BlackInfoBottons';
+import FeaturesBox from '../../components/perfilComponets/FeaturesBox';
+import { RootStackParamList } from '../../navigator/StackNavigator';
+import { styleBackgrounds } from '../../themes/Backgrounds';
 
 class SystretchyScrollView extends Component {
     render() {
@@ -54,8 +51,8 @@ class SystretchyScrollView extends Component {
     }
 }
 
-interface Props extends StackScreenProps<RootStackParamList, 'ProfileScreen'> { }
-const ProfileScreen = () => {
+interface Props extends StackScreenProps<RootStackParamList, 'WorkerActorScreen'> { }
+const WorkerActorScreen = () => {
     return (
         <View style={styleBackgrounds.fondoDark}>
             <SystretchyScrollView />
@@ -63,7 +60,7 @@ const ProfileScreen = () => {
     );
 };
 
-export default ProfileScreen;
+export default WorkerActorScreen;
 
 
 

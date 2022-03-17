@@ -15,10 +15,11 @@ type User struct {
 	Phone                   string               `json:"phone"`
 	Country                 string               `json:"country"`
 	IdentifierDocumentation string               `json:"identifier_document"`
-	Profession              []string             `json:"professions"`
+	Profession              string               `json:"professions"`
 	Features                Features             `json:"features"`
 	Projects                []primitive.ObjectID `json:"projects"`
 	MyProjects              []primitive.ObjectID `json:"my_projects"`
+	WorkRequests            []primitive.ObjectID `bson:"work_requests" json:"work_requests"`
 	Verified                bool                 `json:"verified"`
 	Created                 time.Time            `json:"created_at"`
 	Updated                 time.Time            `json:"updated_at,omitempty"`

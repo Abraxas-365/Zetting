@@ -12,11 +12,12 @@ export interface User {
     email?: string;
     phone?: string;
     country?: string;
-    professions?: Array<string>;
+    professions?: string;
     identifierDocument: string;
     password: string;
     verified: boolean;
     img?: string;
+    features?: Features
 
 
 }
@@ -33,8 +34,6 @@ export interface Project {
 }
 
 export interface Features {
-    id?: string;
-    userId?: string;
     height?: number;
     body?: string;
     Skin?: string;

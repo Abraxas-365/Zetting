@@ -3,8 +3,6 @@
 import React from 'react';
 import { Button, Image, SafeAreaView, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native'
-import BottonsLoginScreen from '../components/BottonsLoginScreen';
-
 
 const FavoritosScreen = () => {
     return (
@@ -12,6 +10,7 @@ const FavoritosScreen = () => {
 
             <View style={{ alignSelf: 'center', justifyContent: 'center', top: '30%' }}>
                 <Text style={styleFavoritosScreen.slogan}>HOME</Text>
+
             </View>
         </SafeAreaView>
     );

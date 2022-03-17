@@ -9,14 +9,14 @@ import (
 
 func GetByFeatures(query bson.D) (m.Users, error) {
 	fmt.Println("---GetByFeatures---")
-	var s m.Users
+	var u m.Users
 	cur, err := collectionUser.Find(ctx, query)
 	if err != nil {
 		return nil, err
 	}
-	if err = cur.All(ctx, &s); err != nil {
+	if err = cur.All(ctx, &u); err != nil {
 		panic(err)
 	}
-	fmt.Println(s)
-	return s, nil
+	fmt.Println(u)
+	return u, nil
 }

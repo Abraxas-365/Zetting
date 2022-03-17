@@ -33,7 +33,8 @@ func CreateProject(p *m.Proyecto, userId primitive.ObjectID) (primitive.ObjectID
 		p.Created = time.Now()
 		p.Updated = time.Now()
 		p.Propietarios = []primitive.ObjectID{userId}
-		p.Workers = []string{}
+		p.Workers = []primitive.ObjectID{}
+		p.WorkRequests = []primitive.ObjectID{}
 		fmt.Println(p.Created)
 		result, err := collectionProject.InsertOne(ctx, p)
 		id = result.InsertedID.(primitive.ObjectID)
@@ -89,15 +90,15 @@ func GetProjectsWorkingOn(userId primitive.ObjectID) (m.Proyectos, error) {
 	return ps, nil
 }
 
-func AddWorker(userId primitive.ObjectID, projectId primitive.ObjectID) error {
+func AddWorkRequestToProject(projectId primitive.ObjectID, workRequestId primitive.ObjectID) error {
 	filter := bson.M{"_id": projectId}
 	update := bson.M{
 		"$push": bson.M{
-			"workers": userId,
+			"work_requests": workRequestId,
 		},
 	}
 
-	if _, err := collectionUser.UpdateOne(ctx, filter, update); err != nil {
+	if _, err := collectionProject.UpdateOne(ctx, filter, update); err != nil {
 		return err
 	}
 	return nil

@@ -18,10 +18,10 @@ export const useProjects = () => {
         console.log(data);
         setmyProjects(data)
     }
-    useEffect(() => {
-        getProjects();
+    // useEffect(() => {
+    //     getProjects();
 
-    }, [])
+    // }, [])
 
     const getProjects = async () => {
 

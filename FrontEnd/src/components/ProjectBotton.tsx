@@ -6,6 +6,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../navigator/StackNavigator';
 import MembersPhotos from './MembersPhotos';
 import { Feather } from '@expo/vector-icons';
+import { BellSvgActive, BellSvgInactive } from './BellSvg';
 
 type Props = {
     title?: string
@@ -35,9 +36,11 @@ const ProjectBotton = ({ title = 'Titulo', description = 'description', color = 
                             onChange={(value) => setIsEnabled(value)}
                             activeTrackColor={'#6ab04c'}
                             renderInactiveThumbIcon={() => (
-                                <Feather name="bell-off" size={20} color="black" />)}
+
+                                <BellSvgActive color={'red'} />)}
                             renderActiveThumbIcon={() => (
-                                <Feather name="bell" size={20} color="black" />)}
+
+                                <BellSvgInactive border={'red'} color={color} />)}
                         />
                     </View>
                     <TouchableOpacity style={styles.chat} onPress={() => navigation.navigate('ChatScreen')}>
@@ -55,7 +58,7 @@ export default ProjectBotton;
 const styles = StyleSheet.create({
     boton: {
         alignSelf: 'center',
-        width: '83%',
+        width: '100%',
         height: 138,
         marginBottom: 20,
         // backgroundColor: '#FF7F39',

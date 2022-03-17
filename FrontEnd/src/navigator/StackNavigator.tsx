@@ -11,6 +11,10 @@ import ProyectoScreen from '../screens/ProyectScreen';
 import CreateProyectScreen from '../screens/CreateProyectScreen';
 import BuildTeamScreen from '../screens/BuildTeamScreen';
 import ActorsScreen from '../screens/ActorsScreen';
+import FilterActorScreen from '../screens/FilterActorScreen';
+import WorkerActorScreen from '../screens/workersScreen/WorkerActorScreens';
+import { User } from '../interfaces/appInterfaces';
+import ProfileScreen from '../screens/ProfileScreen';
 
 export type RootStackParamList = {
     LoginScreen: undefined;
@@ -24,6 +28,9 @@ export type RootStackParamList = {
     CreateProyectScreen: undefined;
     BuildTeamScreen: undefined;
     ActorsScreen: undefined;
+    FilterActorScreen: undefined;
+    WorkerActorScreen: { user: User };
+    ProfileScreen: { user: User };
 };
 
 
@@ -55,6 +62,9 @@ export const StackNavigator = () => {
             <Stack.Screen name="CreateProyectScreen" options={{ title: "CreateProyectScreen" }} component={CreateProyectScreen} />
             <Stack.Screen name="BuildTeamScreen" options={{ title: "BuildTeamScreen" }} component={BuildTeamScreen} />
             <Stack.Screen name="ActorsScreen" options={{ title: "ActorsScreen" }} component={ActorsScreen} />
+            <Stack.Screen name="FilterActorScreen" options={{ title: "FilterActorScreen" }} component={FilterActorScreen} />
+            <Stack.Screen name="WorkerActorScreen" options={{ title: "WorkerActorScreen" }} component={WorkerActorScreen} />
+            <Stack.Screen name="ProfileScreen" options={{ title: "ProfileScreen" }} component={ProfileScreen} />
         </Stack.Navigator>
     );
 }

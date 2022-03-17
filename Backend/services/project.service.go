@@ -54,19 +54,3 @@ func GetProjectsWorkingOn(id string) (m.Proyectos, error) {
 	return ps, nil
 
 }
-func AddWorker(uid string, pid string) error {
-	projectId, err := primitive.ObjectIDFromHex(pid)
-	if err != nil {
-		return err
-	}
-	userId, err := primitive.ObjectIDFromHex(uid)
-	if err != nil {
-		return err
-	}
-
-	if err = repository.AddWorker(userId, projectId); err != nil {
-		return err
-	}
-	return nil
-
-}

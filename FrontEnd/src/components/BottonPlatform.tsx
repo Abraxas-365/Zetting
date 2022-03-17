@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 type BottonProps = {
     text?: string
-    bottom?: string;
+    marginTop?: string | number;
     fuction?: any;
     img?: any;
 }
@@ -22,14 +22,14 @@ const BottonPlatform = ({ fuction = () => { }, text, img }: BottonProps) => {
         </TouchableOpacity >
     );
 };
-const BottonsPlatforms = ({ fuction, text, bottom }: BottonProps) => {
+const BottonsPlatforms = ({ fuction, text, marginTop }: BottonProps) => {
     let google = require('../../assets/png/google.png')
     let facebook = require('../../assets/png/facebook.png')
     let apple = require('../../assets/png/apple.png')
     return (
         <View style={{
-            flexDirection: 'column', width: '80%', alignSelf: 'center', justifyContent: 'center', position: 'absolute',
-            bottom: bottom,
+            flexDirection: 'column', width: '100%', alignSelf: 'center',
+            marginTop: marginTop,
         }}>
 
             <BottonPlatform text="Continue with Facebook" img={facebook} />

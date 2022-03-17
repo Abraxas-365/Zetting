@@ -7,6 +7,7 @@ import RegisterForm from '../components/RegisterForm';
 import { RootStackParamList } from '../navigator/StackNavigator';
 import { styleBackgrounds } from '../themes/Backgrounds';
 import { styleTitles } from '../themes/Titles';
+import { styleWrappers } from '../themes/Wrappers';
 
 interface Props extends StackScreenProps<RootStackParamList, 'ProyectoScreen'> { }
 const Register2Screen = ({ route }: Props) => {
@@ -15,9 +16,10 @@ const Register2Screen = ({ route }: Props) => {
 
     return (
         <SafeAreaView style={styleBackgrounds.fondoLight}>
-            <View style={{ alignSelf: 'center', justifyContent: 'center', top: '4%' }}>
-                <Text style={styleTitles.titleTextDark}>Register</Text>
+            <View style={{ ...styleWrappers.wrapperTitles }}>
+                <Text style={{ ...styleTitles.titleTextDark, alignSelf: 'center' }}>REGISTER</Text>
             </View>
+
 
             <RegisterForm email={route.params.email} />
 
