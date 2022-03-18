@@ -2,6 +2,7 @@ package routes
 
 import (
 	"fmt"
+	"mongoCrud/auth"
 	m "mongoCrud/models"
 	service "mongoCrud/services"
 
@@ -76,4 +77,17 @@ func UsersRoute(app *fiber.App) {
 
 	})
 
+	users.Get("/", auth.JWTProtected(), func(c *fiber.Ctx) error {
+
+		t, err := auth.ExtractTokenMetadata(c)
+		if err != nil {
+			return c.Status(500).SendString(err.Error())
+		}
+		u, err := service.GetUser(t.ID)
+		if err != nil {
+			return c.SendStatus(fiber.StatusNetworkAuthenticationRequired)
+		}
+		return c.Status(fiber.StatusOK).JSON(u)
+
+	})
 }

@@ -1,12 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { BellSvgActive, BellSvgInactive } from '../components/BellSvg';
 import HeardSvg from '../components/HeardSvg';
 import SearchSvg from '../components/SearchSvg';
-import FavoritosScreen from '../screens/FavoritosScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ProyetosScreen from '../screens/ProyectosScreen';
 import Svg, { ClipPath, Defs, G, Path } from "react-native-svg"
+import NotificationScreen from '../screens/NotificationScreen';
 const Tab = createBottomTabNavigator();
 const Bell = (props) => (
     <Svg
@@ -50,13 +49,40 @@ const Profile = (props) => (
         </G>
     </Svg>
 )
+
+const Z = () => (
+    <Svg
+        width={18.512}
+        height={21.157}
+    >
+        <Defs>
+            <ClipPath id="a">
+                <Path
+                    data-name="Rectangle 293"
+                    fill="#e5e1f6"
+                    d="M0 0h18.512v21.157H0z"
+                />
+            </ClipPath>
+        </Defs>
+        <G data-name="Group 824" clipPath="url(#a)" fill="#e5e1f6">
+            <Path
+                data-name="Path 534"
+                d="M0 21.156V7.585a4.941 4.941 0 0 1 4.941-4.941h5.638L3.687 18.725A4.012 4.012 0 0 1 0 21.156"
+            />
+            <Path
+                data-name="Path 535"
+                d="M18.512 0v13.571a4.941 4.941 0 0 1-4.941 4.941H7.933l6.893-16.081A4.01 4.01 0 0 1 18.512 0"
+            />
+        </G>
+    </Svg>
+)
 const BottomTabs = () => {
     return (
         <Tab.Navigator
             screenOptions={{
                 headerShown: false,
                 tabBarStyle: { backgroundColor: '#23232B', borderTopColor: '#E5E1F6' }
-            }} initialRouteName='Z' >
+            }} initialRouteName='Zetting' >
             <Tab.Screen name="Search" component={HomeScreen} options={{
                 tabBarIcon: ({ focused }) => (
                     <SearchSvg />
@@ -67,9 +93,14 @@ const BottomTabs = () => {
                     <HeardSvg />
                 ),
             }} />
-            <Tab.Screen name="Z" component={ProyetosScreen} />
+            <Tab.Screen name="Zetting" component={ProyetosScreen} options={{
+                tabBarIcon: ({ focused }) => (
+                    <Z />
+                ),
+            }} />
 
-            <Tab.Screen name="Notification" component={FavoritosScreen} options={{
+
+            <Tab.Screen name="Notification" component={NotificationScreen} options={{
                 tabBarIcon: ({ focused }) => (
                     <Bell />
                 ),

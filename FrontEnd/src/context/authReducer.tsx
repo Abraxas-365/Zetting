@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { User } from "../interfaces/appInterfaces";
+import { AuthContext } from "./AuthContext";
 
 export interface AuthState {
     status: 'checking' | 'autenticated' | 'not-autenticated';
@@ -8,6 +10,7 @@ export interface AuthState {
     exists: boolean | null;
 }
 
+
 export type AuthAction =
     | { type: 'signUp', payload: { token: string, user: User } }
     | { type: 'signIn', payload: { token: string, user: User } }
@@ -15,10 +18,9 @@ export type AuthAction =
     | { type: 'addError', payload: string }
     | { type: 'removeError' }
     | { type: 'notAutenticated' }
+    | { type: 'reloadUser', payload: { user: User } }
     | { type: 'logOut' }
     | { type: 'cleanEexists' }
-
-
 
 export const authReducer = (state: AuthState, action: AuthAction): AuthState => {
 
@@ -64,9 +66,13 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
                 ...state,
                 errorMessage: null,
             }
+        case "reloadUser":
+            return {
+                ...state,
+                user: action.payload.user
+            }
         default:
             return state;
 
     }
-
 }

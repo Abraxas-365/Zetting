@@ -3,6 +3,7 @@ import { CommonActions, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { serveDefaultImages, serveImages } from '../api/apiCalls';
 import { RootStackParamList } from '../navigator/StackNavigator';
 import { styleBackgrounds } from '../themes/Backgrounds';
 import { styleTitles } from '../themes/Titles';
@@ -36,13 +37,13 @@ type BottonProps = {
     text?: string
     image?: string
 }
-const CategoriesBotton = ({ onPress = () => { }, text = 'test', image = 'https://media.istockphoto.com/photos/director-chairmovie-clapper-in-studioconcept-for-film-industry3d-picture-id1305968604?s=612x612' }: BottonProps) => {
+const CategoriesBotton = ({ onPress = () => { }, text = 'test', image = serveDefaultImages + "/laRoca.jpeg" }: BottonProps) => {
     return (
         <TouchableOpacity
             style={{ width: 140, height: 92, borderRadius: 9 }}
             onPress={onPress}>
             <Image style={{ flex: 1, borderRadius: 9 }} resizeMode='cover' source={{ uri: image }} />
-            <Text style={{ position: 'absolute', fontSize: 13, color: '#E5E1F6', fontWeight: 'bold', left: 10, top: 10 }}>{text}</Text>
+            <Text style={{ position: 'absolute', fontSize: 13, color: '#E5E1F6', fontWeight: '800', left: 10, top: 6 }}>{text}</Text>
         </TouchableOpacity>
     )
 
@@ -65,10 +66,10 @@ const BuildTeamScreen = () => {
                     <View>
                         <View style={{ flexDirection: 'row', marginTop: 20, position: 'relative' }}>
                             <View style={{ position: 'relative', left: 0, }}>
-                                <CategoriesBotton text='Actors' onPress={() => { navigation.navigate('ActorsScreen') }} />
+                                <CategoriesBotton text='ACTORS' onPress={() => { navigation.navigate('ActorsScreen') }} image={serveDefaultImages + "/actorButtons.jpeg"} />
                             </View>
                             <View style={{ position: 'absolute', right: 0 }}>
-                                <CategoriesBotton />
+                                <CategoriesBotton image={serveDefaultImages + "/productorButtons.jpeg"} text="PRODUCTOR" />
                             </View>
                         </View>
 
@@ -76,10 +77,10 @@ const BuildTeamScreen = () => {
                     <View>
                         <View style={{ flexDirection: 'row', marginTop: 20, position: 'relative' }}>
                             <View style={{ position: 'relative', left: 0, }}>
-                                <CategoriesBotton />
+                                <CategoriesBotton image={serveDefaultImages + "directorArteButtons.jpg"} text="ART DIRECTOR" />
                             </View>
                             <View style={{ position: 'absolute', right: 0 }}>
-                                <CategoriesBotton />
+                                <CategoriesBotton image={serveDefaultImages + "lightDirectorButtons.jpeg"} text="LIGHT DIRECTION" />
                             </View>
                         </View>
 
@@ -87,10 +88,10 @@ const BuildTeamScreen = () => {
                     <View>
                         <View style={{ flexDirection: 'row', marginTop: 20, position: 'relative' }}>
                             <View style={{ position: 'relative', left: 0, }}>
-                                <CategoriesBotton />
+                                <CategoriesBotton image={serveDefaultImages + "editorButtons.jpeg"} text="EDITOR" />
                             </View>
                             <View style={{ position: 'absolute', right: 0 }}>
-                                <CategoriesBotton />
+                                <CategoriesBotton image={serveDefaultImages + "ilustradorButtons.jpeg"} text="ILUSTATOR" />
                             </View>
                         </View>
 
@@ -98,10 +99,10 @@ const BuildTeamScreen = () => {
                     <View>
                         <View style={{ flexDirection: 'row', marginTop: 20, position: 'relative' }}>
                             <View style={{ position: 'relative', left: 0, }}>
-                                <CategoriesBotton />
+                                <CategoriesBotton image={serveDefaultImages + "/escritorButtons.jpeg"} text="SCRIPT           WRITTER" />
                             </View>
                             <View style={{ position: 'absolute', right: 0 }}>
-                                <CategoriesBotton />
+                                <CategoriesBotton image={serveDefaultImages + "/fotografoButtons.jpeg"} text="PHOTOGRAPHER" />
                             </View>
                         </View>
 

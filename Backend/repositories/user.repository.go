@@ -62,6 +62,18 @@ func GetUserByEmail(email string) (*m.User, error) {
 	}
 	return &user, nil
 }
+
+func GetUserById(uid primitive.ObjectID) (*m.User, error) {
+
+	fmt.Println("---GetUserById---")
+	var user m.User
+	filter := bson.M{"_id": uid}
+	if err := collectionUser.FindOne(ctx, filter).Decode(&user); err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
 func CheckUserExist(email string) (bool, error) {
 	var user m.User
 	filter := bson.M{"email": email}

@@ -12,13 +12,20 @@ export interface User {
     email?: string;
     phone?: string;
     country?: string;
-    professions?: string;
-    identifierDocument: string;
-    password: string;
-    verified: boolean;
-    img?: string;
+    profession?: Profession;
+
+    identifierDocument?: string;
+    password?: string;
+    verified?: boolean;
+    perfil_image?: string;
     features?: Features
 
+
+}
+export interface Profession {
+    name?: string;
+    description?: string;
+    price?: number;
 
 }
 
@@ -34,6 +41,8 @@ export interface Project {
 }
 
 export interface Features {
+    age?: number;
+    gender?: string;
     height?: number;
     body?: string;
     Skin?: string;

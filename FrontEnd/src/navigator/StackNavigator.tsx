@@ -13,7 +13,7 @@ import BuildTeamScreen from '../screens/BuildTeamScreen';
 import ActorsScreen from '../screens/ActorsScreen';
 import FilterActorScreen from '../screens/FilterActorScreen';
 import WorkerActorScreen from '../screens/workersScreen/WorkerActorScreens';
-import { User } from '../interfaces/appInterfaces';
+import { Project, User } from '../interfaces/appInterfaces';
 import ProfileScreen from '../screens/ProfileScreen';
 
 export type RootStackParamList = {
@@ -24,7 +24,7 @@ export type RootStackParamList = {
     HomeScreen: undefined;
     BottomTabs: undefined;
     ChatScreen: undefined;
-    ProyectoScreen: { name: string, description: string, };
+    ProyectoScreen: { project: Project | undefined };
     CreateProyectScreen: undefined;
     BuildTeamScreen: undefined;
     ActorsScreen: undefined;

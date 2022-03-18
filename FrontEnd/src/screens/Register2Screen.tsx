@@ -9,7 +9,7 @@ import { styleBackgrounds } from '../themes/Backgrounds';
 import { styleTitles } from '../themes/Titles';
 import { styleWrappers } from '../themes/Wrappers';
 
-interface Props extends StackScreenProps<RootStackParamList, 'ProyectoScreen'> { }
+interface Props extends StackScreenProps<RootStackParamList, 'Register2Screen'> { }
 const Register2Screen = ({ route }: Props) => {
     console.log('Register2Screen')
     console.log("email", route.params.email);

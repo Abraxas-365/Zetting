@@ -69,9 +69,8 @@ func ProjectsRoute(app *fiber.App) {
 	//agregar un trabajador al proyecto
 	project.Post("/add-work-request", auth.JWTProtected(), func(c *fiber.Ctx) error {
 		body := struct {
-			ProjectId string
-			WorkerId  string
-			OwnerId   string
+			ProjectId string `json:"project_id"`
+			WorkerId  string `json:"worker_id"`
 		}{}
 
 		if err := c.BodyParser(&body); err != nil {
@@ -80,12 +79,32 @@ func ProjectsRoute(app *fiber.App) {
 		}
 		u, err := auth.ExtractTokenMetadata(c)
 		if err != nil {
-			return c.Status(500).SendString(err.Error())
+			return c.SendStatus(fiber.StatusInternalServerError)
 		}
 		if err := service.AddWorkRequest(u.ID, body.ProjectId, body.WorkerId); err != nil {
-			return fiber.ErrInternalServerError
+			return err
 		}
 		return nil
+	})
+
+	project.Post("/respond-work-request", auth.JWTProtected(), func(c *fiber.Ctx) error {
+		body := struct {
+			WorkRequestId string `json:"work_request_id"`
+			Accept        bool   `json:"accept"`
+		}{}
+		if err := c.BodyParser(&body); err != nil {
+			fmt.Println(err)
+			return fiber.ErrBadRequest
+		}
+		u, err := auth.ExtractTokenMetadata(c)
+		if err != nil {
+			return c.SendStatus(fiber.StatusInternalServerError)
+		}
+		if err := service.AcceptWorkRequest(body.WorkRequestId, u.ID, body.Accept); err != nil {
+			return c.SendStatus(fiber.StatusInternalServerError)
+		}
+		return c.SendStatus(fiber.StatusOK)
+
 	})
 
 }

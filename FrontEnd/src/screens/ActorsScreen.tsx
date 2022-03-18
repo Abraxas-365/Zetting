@@ -31,7 +31,7 @@ const ActorsScreen = () => {
                 </View>
             </View>
 
-            <FlatList contentContainerStyle={{ ...styleWrappers.wrapperHorizontalGap }} data={talents} renderItem={({ item }: any) => <TalentsButtonCard name={item.first_name} lastName={item.last_name} description={item.description} color={item.color} />} />
+            <FlatList contentContainerStyle={{ ...styleWrappers.wrapperHorizontalGap }} data={talents} renderItem={({ item }: any) => <TalentsButtonCard user={item} name={item.first_name} lastName={item.last_name} description={item.description} color={item.color} />} />
         </SafeAreaView>
     );
 };

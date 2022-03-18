@@ -18,6 +18,7 @@ func main() {
 	routes.UsersRoute(app)
 	routes.ProjectsRoute(app)
 	routes.ProfessionRoute(app)
+	routes.ServeStatic(app)
 	fmt.Println("inicando en puerto 3000")
 	app.Get("/swagger/*", swagger.New(swagger.Config{
 		URL:         "/swagger/doc.json",

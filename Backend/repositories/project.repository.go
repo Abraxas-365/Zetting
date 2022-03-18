@@ -89,18 +89,3 @@ func GetProjectsWorkingOn(userId primitive.ObjectID) (m.Proyectos, error) {
 
 	return ps, nil
 }
-
-func AddWorkRequestToProject(projectId primitive.ObjectID, workRequestId primitive.ObjectID) error {
-	filter := bson.M{"_id": projectId}
-	update := bson.M{
-		"$push": bson.M{
-			"work_requests": workRequestId,
-		},
-	}
-
-	if _, err := collectionProject.UpdateOne(ctx, filter, update); err != nil {
-		return err
-	}
-	return nil
-
-}

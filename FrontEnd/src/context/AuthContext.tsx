@@ -1,10 +1,10 @@
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import { apiCalls } from "../api/apiCalls";
 import { User } from "../interfaces/appInterfaces";
 import { RootStackParamList } from "../navigator/StackNavigator";
-import { authReducer, AuthState } from "./authReducer";
+import { authReducer, AuthState, reloadReducer, ReloadState } from "./authReducer";
 
 
 
@@ -20,8 +20,10 @@ type AuthContextProps = {
     registerIn: (email: string) => void;
     signUp: (user: User) => void;
     removeError: () => void;
-
+    reloadUser: () => void;
 }
+
+
 const authInitialState: AuthState = {
     status: 'checking',
     token: null,
@@ -117,6 +119,21 @@ export const AuthProvider = ({ children }: any) => {
     };
     const removeError = () => { dispatch({ type: 'removeError' }) };
 
+
+    const reloadUser = async () => {
+        const { token } = useContext(AuthContext)
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+
+        const { data } = await apiCalls.get<User>('/api/users/', config)
+        dispatch({
+            type: 'reloadUser',
+            payload: { user: data }
+
+        })
+    }
+
     return (
 
         <AuthContext.Provider value={{
@@ -126,6 +143,7 @@ export const AuthProvider = ({ children }: any) => {
             signUp,
             registerIn,
             removeError,
+            reloadUser
 
 
         }}>
@@ -133,3 +151,4 @@ export const AuthProvider = ({ children }: any) => {
         </AuthContext.Provider>
     )
 }
+

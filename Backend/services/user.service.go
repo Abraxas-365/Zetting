@@ -5,6 +5,8 @@ import (
 	"mongoCrud/auth"
 	m "mongoCrud/models"
 	repository "mongoCrud/repositories"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func CreateUser(u m.User) (*m.AuthUser, error) {
@@ -20,6 +22,20 @@ func CreateUser(u m.User) (*m.AuthUser, error) {
 	return authUser, nil
 }
 
+func GetUser(id string) (*m.User, error) {
+
+	userId, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, err
+	}
+	u, err := repository.GetUserById(userId)
+	if err != nil {
+		return nil, err
+	}
+	return u, nil
+
+}
+
 func AuthUser(email string, password string) (*m.AuthUser, error) {
 	fmt.Println("----AuthUser ----")
 
@@ -33,7 +49,6 @@ func AuthUser(email string, password string) (*m.AuthUser, error) {
 	authUser.Token = t
 	authUser.User = *u
 	return authUser, nil
-
 }
 
 func CheckUserExist(email string) (*m.User, error) {

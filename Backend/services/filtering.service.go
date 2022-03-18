@@ -11,7 +11,7 @@ import (
 
 func FilterByFeatures(profession string, filter m.Filter) (m.Users, error) {
 	fmt.Println("---GetByFeatures service ---")
-	query := bson.D{primitive.E{Key: "profession", Value: bson.D{primitive.E{Key: "$all", Value: bson.A{profession}}}}}
+	query := bson.D{primitive.E{Key: "profession.name", Value: profession}}
 	//filtro de edad
 	if filter.AgeTop != 0 {
 		query = append(query, primitive.E{Key: "features.age", Value: bson.D{primitive.E{Key: "$gte", Value: filter.AgeLow}}})

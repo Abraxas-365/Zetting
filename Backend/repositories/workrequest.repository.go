@@ -2,6 +2,7 @@ package repository
 
 import (
 	"fmt"
+	"mongoCrud/database"
 	m "mongoCrud/models"
 	"time"
 
@@ -10,21 +11,24 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+var collectionWorkRequest = database.GetCollection("WorkRequest")
+
 func CreateWorkRequest(ownerId primitive.ObjectID, projectId primitive.ObjectID, workerId primitive.ObjectID) error {
 	var id primitive.ObjectID
 	wrq := new(m.WorkRequest)
 	fmt.Println("---CreateWorkRequest---")
 	check := bson.M{}
-	filter := bson.M{"projectId": projectId, "workerId": workerId}
-	cur, err := collectionProject.Find(ctx, filter)
+	filter := bson.M{"project_id": projectId, "worker_id": workerId}
+	cur, err := collectionWorkRequest.Find(ctx, filter)
 	if err != nil {
-		return err
+		return fiber.ErrConflict
 	}
 	for cur.Next(ctx) {
 		if err = cur.Decode(&check); err != nil {
 			return err
 		}
 	}
+	fmt.Println("tamano", len(check))
 	if len(check) < 1 {
 
 		wrq.OwnerId = ownerId
@@ -33,7 +37,7 @@ func CreateWorkRequest(ownerId primitive.ObjectID, projectId primitive.ObjectID,
 		wrq.Created = time.Now()
 		wrq.Updated = time.Now()
 		fmt.Println(wrq.Created)
-		result, err := collectionProject.InsertOne(ctx, wrq)
+		result, err := collectionWorkRequest.InsertOne(ctx, wrq)
 		id = result.InsertedID.(primitive.ObjectID)
 
 		if err != nil {
@@ -67,5 +71,49 @@ func CreateWorkRequest(ownerId primitive.ObjectID, projectId primitive.ObjectID,
 		return err
 	}
 	return nil
+}
 
+func AcceptWorkRequest(workRequestId primitive.ObjectID, userId primitive.ObjectID) error {
+	workRequest := new(m.WorkRequest)
+	//encontrar el work request que coincidan con ambos params cambiar estado
+	filter := bson.D{primitive.E{Key: "_id", Value: workRequestId}, primitive.E{Key: "worker_id", Value: userId}}
+	if err := collectionWorkRequest.FindOne(ctx, filter).Decode(&workRequest); err != nil {
+	}
+
+	fmt.Println(workRequest)
+	//buscar el projecto y anadir al paramtro usuario en worker
+	filter = bson.D{primitive.E{Key: "_id", Value: workRequest.ProjectId}}
+	update := bson.M{
+		"$push": bson.M{
+			"workers": workRequest.WorkerId,
+		},
+	}
+	if _, err := collectionProject.UpdateOne(ctx, filter, update); err != nil {
+		return err
+	}
+
+	//anadir el proyect id proyectos del usuario
+
+	filter = bson.D{primitive.E{Key: "_id", Value: workRequest.WorkerId}}
+	update = bson.M{
+		"$push": bson.M{
+			"projects": workRequest.ProjectId,
+		},
+	}
+	if _, err := collectionUser.UpdateOne(ctx, filter, update); err != nil {
+		return err
+	}
+	//eliminar el workRequest del usuario
+
+	filter = bson.D{primitive.E{Key: "_id", Value: workRequest.WorkerId}}
+	update = bson.M{
+		"$pull": bson.M{
+			"work_requests": workRequest.ID,
+		},
+	}
+	if _, err := collectionUser.UpdateOne(ctx, filter, update); err != nil {
+		return err
+	}
+
+	return nil
 }

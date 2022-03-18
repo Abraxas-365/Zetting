@@ -1,6 +1,6 @@
 
 
-import React, { Component } from 'react';
+import React, { Component, useContext, useEffect } from 'react';
 import { Button, Image, SafeAreaView, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native'
 import { styleBackgrounds } from '../themes/Backgrounds';
@@ -8,57 +8,65 @@ import { styleTitles } from '../themes/Titles';
 import { StretchyScrollView } from 'react-native-stretchy';
 import BlackInfoBottons from '../components/perfilComponets/BlackInfoBottons';
 import FeaturesBox from '../components/perfilComponets/FeaturesBox';
-import { StackScreenProps } from '@react-navigation/stack';
-import { RootStackParamList } from '../navigator/StackNavigator';
+import { AuthContext } from '../context/AuthContext';
 
-class SystretchyScrollView extends Component {
-    render() {
-        return (
-            <StretchyScrollView
-                image={{ uri: 'https://dvyvvujm9h0uq.cloudfront.net/com/articles/1525891879-886386-sam-burriss-457746-unsplashjpg.jpg' }}
-            >
 
-                <View style={styleBackgrounds.fondoDark}>
-                    <View style={styleViews.wrapper}>
-                        <View style={styleViews.nameAndPerfil}>
-                            <View style={styleViews.nameAndProfession}>
-                                <Text style={styleText.name}>LUIS FERNANDO MIRANDA</Text>
-                                <Text style={styleText.professions}>ACTOR</Text>
-                            </View>
-                            <View style={styleViews.perfilPercents}></View>
-                        </View>
-                        <View style={styleViews.infoBoxes}>
-                            <BlackInfoBottons width={86} marginRight={'4%'} numbers={1} text={'Projects'} />
-                            <BlackInfoBottons width={103} marginRight={'4%'} numbers={5} text={'Comments'} />
-                            <BlackInfoBottons width={109} numbers={'_'} text={'Price'} />
-                        </View>
-                        <FeaturesBox age={22} gender={"alien"} tamano={180} />
-                        <View style={styleViews.aboutBox}>
-                            <Text style={styleText.smalTitles}>About</Text>
-                            <Text style={styleText.normal}>osdfjhfskhfgousdhgdnfsakjfnisjdfhosguih</Text>
-                        </View>
-                        <View style={styleViews.SkillsBox}>
-                            <Text style={styleText.smalTitles}>About</Text>
-                        </View>
-                        <View style={styleViews.ReelBox}>
-                            <Text style={styleText.smalTitles}>Acting Reel</Text>
-                        </View>
-                        <View style={styleViews.workExpBox}>
-                            <Text style={styleText.smalTitles}>Work Experience</Text>
-                        </View>
+type PropsScroll = {
+    user?: any
 
+}
+const SystretchyScrollView = ({ user = {} }: PropsScroll) => {
+
+    let price = user.profession!.price == 0 ? "_" : "S/" + user.profession!.price
+    let tamano = user.features!.height == 0 ? "-" : user.features!.height
+    let age = user.features!!.age == 0 ? "-" : user.features!!.age
+    let gender = user.features!.gender == "" ? "alien" : user.features!.gender
+    let description = user.profession!.description == "" ? "si no sabes donde ir no puedes estar perdido" : user.profession!.description
+    return (
+        <StretchyScrollView
+            image={{ uri: 'https://dvyvvujm9h0uq.cloudfront.net/com/articles/1525891879-886386-sam-burriss-457746-unsplashjpg.jpg' }}
+        >
+
+            <View style={styleBackgrounds.fondoDark}>
+                <View style={styleViews.wrapper}>
+                    <View style={styleViews.nameAndPerfil}>
+                        <View style={styleViews.nameAndProfession}>
+                            <Text style={styleText.name}>{user.first_name}</Text>
+                            <Text style={styleText.professions}>Actor</Text>
+                        </View>
+                        <View style={styleViews.perfilPercents}></View>
                     </View>
+                    <View style={styleViews.infoBoxes}>
+                        <BlackInfoBottons width={86} marginRight={'4%'} numbers={1} text={'Projects'} />
+                        <BlackInfoBottons width={103} marginRight={'4%'} numbers={5} text={'Comments'} />
+                        <BlackInfoBottons width={109} numbers={price} text={'Price'} />
+                    </View>
+                    <FeaturesBox age={age} gender={gender} tamano={tamano} />
+                    <View style={styleViews.aboutBox}>
+                        <Text style={styleText.smalTitles}>About</Text>
+                        <Text style={styleText.normal}>{description}</Text>
+                    </View>
+                    <View style={styleViews.SkillsBox}>
+                        <Text style={styleText.smalTitles}>Skills/Qualities</Text>
+                    </View>
+                    <View style={styleViews.ReelBox}>
+                        <Text style={styleText.smalTitles}>Acting Reel</Text>
+                    </View>
+                    <View style={styleViews.workExpBox}>
+                        <Text style={styleText.smalTitles}>Work Experience</Text>
+                    </View>
+
                 </View>
-            </StretchyScrollView>
-        );
-    }
+            </View>
+        </StretchyScrollView>
+    );
 }
 
-interface Props extends StackScreenProps<RootStackParamList, 'ProfileScreen'> { }
 const ProfileScreen = () => {
+    const { user } = useContext(AuthContext)
     return (
         <View style={styleBackgrounds.fondoDark}>
-            <SystretchyScrollView />
+            <SystretchyScrollView user={user} />
         </View>
     );
 };

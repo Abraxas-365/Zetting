@@ -5,7 +5,7 @@ import StakeHolders from './StakeHolders';
 import MyCheckbox from './CheckBox';
 import { useForm } from '../hooks/useForm';
 import { AuthContext } from '../context/AuthContext';
-import { Features, User } from '../interfaces/appInterfaces';
+import { Features, Profession, User } from '../interfaces/appInterfaces';
 import CustomCenterBotton from './CustomCenterBotton';
 import { Picker } from '@react-native-picker/picker';
 import PhoneInput from "react-native-phone-number-input";
@@ -35,12 +35,13 @@ const RegisterForm = ({ email }: FormProps) => {
     const onSingUpBotton = async () => {
         console.log('register')
         var features: Features = {}
+        var profession: Profession = { name: professions }
         var user: User = {
             first_name: first_name.trim(),
             last_name: last_name.trim(),
             email: email,
             phone: phone,
-            professions: professions,
+            profession: profession,
             country: country,
             identifierDocument: '',
             password: password.trim(),
