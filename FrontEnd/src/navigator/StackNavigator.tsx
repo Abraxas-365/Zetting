@@ -26,10 +26,10 @@ export type RootStackParamList = {
     ChatScreen: undefined;
     ProyectoScreen: { project: Project | undefined };
     CreateProyectScreen: undefined;
-    BuildTeamScreen: undefined;
-    ActorsScreen: undefined;
+    BuildTeamScreen: { data: any };
+    ActorsScreen: { pid: string };
     FilterActorScreen: undefined;
-    WorkerActorScreen: { user: User };
+    WorkerActorScreen: { user: User, pid?: string };
     ProfileScreen: { user: User };
 };
 

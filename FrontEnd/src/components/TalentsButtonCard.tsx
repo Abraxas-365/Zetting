@@ -10,6 +10,7 @@ import { serveDefaultImages } from '../api/apiCalls';
 type Props = {
     user?: User
     name?: string
+    pid?: string
     lastName?: string
     description?: string
     color?: string
@@ -17,13 +18,14 @@ type Props = {
     notifications?: boolean
 }
 
-const TalentsButtonCard = ({ user = {}, color = '#FF7F39' }: Props) => {
+const TalentsButtonCard = ({ user = {}, color = '#FF7F39', pid }: Props) => {
+    console.log('talets button pid', pid);
     const defaultPic = serveDefaultImages + "noPerfil.png"
 
-    let perfilImage = user.perfil_image == "" ? user.perfil_image : defaultPic
+    let perfilImage = user.perfil_image == "" ? defaultPic : serveDefaultImages + user.perfil_image
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     return (
-        <TouchableOpacity style={{ ...styles.boton, backgroundColor: color }} onPress={() => navigation.navigate('WorkerActorScreen', { user })}>
+        <TouchableOpacity style={{ ...styles.boton, backgroundColor: color }} onPress={() => navigation.navigate('WorkerActorScreen', { user, pid })}>
             <View style={styles.wrapper}>
                 <View style={{ ...styles.viewLeft, overflow: 'hidden' }}>
                     <Image style={{ flex: 1, overflow: 'hidden', borderTopLeftRadius: 9, borderBottomLeftRadius: 9 }} source={{ uri: perfilImage }} />

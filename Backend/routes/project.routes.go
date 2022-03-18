@@ -28,12 +28,12 @@ func ProjectsRoute(app *fiber.App) {
 		}
 		fmt.Println("el nombre del proyecto", p.Name)
 
-		if err := service.CreateProject(p, u.ID); err != nil {
-
+		projectId, err := service.CreateProject(p, u.ID)
+		if err != nil {
 			fmt.Println(err)
 			return fiber.ErrBadRequest
 		}
-		return c.Status(fiber.StatusOK).JSON(fiber.Map{"msg": "correcto"})
+		return c.Status(fiber.StatusOK).JSON(fiber.Map{"msg": "correcto", "pid": projectId})
 	})
 
 	// get proyectos que yo cree

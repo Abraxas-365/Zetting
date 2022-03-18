@@ -12,10 +12,11 @@ type BottonProps = {
     height?: number
     color?: string
     text?: string
+    borderWidth?: number
 }
-const CustomAdjustableBotton = ({ onPress = () => { }, top, borderColor, color, text = 'texto', marginLeft = '0%', marginRight = '0%' }: BottonProps) => {
+const CustomAdjustableBotton = ({ onPress = () => { }, top, borderColor, color, text = 'texto', marginLeft = '0%', marginRight = '0%', borderWidth = 1.5 }: BottonProps) => {
     return (
-        <TouchableOpacity style={{ ...style.botton, marginTop: top, backgroundColor: color, borderColor, marginLeft, marginRight }}
+        <TouchableOpacity style={{ ...style.botton, marginTop: top, backgroundColor: color, borderColor, marginLeft, marginRight, borderWidth }}
             onPress={onPress}>
             <Text style={{ ...style.text }}>{text}</Text>
 
@@ -32,8 +33,6 @@ const style = StyleSheet.create({
         backgroundColor: 'red',
         borderRadius: 20,
         justifyContent: 'center',
-        borderColor: 'blue',
-        borderWidth: 1.5
     },
     text: {
         textAlign: 'center',

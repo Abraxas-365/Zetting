@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import TalentsButtonCard from '../components/TalentsButtonCard';
@@ -9,8 +9,10 @@ import { styleBackgrounds } from '../themes/Backgrounds';
 import { styleTitles } from '../themes/Titles';
 import { styleWrappers } from '../themes/Wrappers';
 
-const ActorsScreen = () => {
+interface Props extends StackScreenProps<RootStackParamList, 'ActorsScreen'> { }
+const ActorsScreen = ({ route }: Props) => {
 
+    console.log('ActorsScreen params ', route.params.pid);
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
     const { talents } = useTalents("actor");
@@ -31,7 +33,8 @@ const ActorsScreen = () => {
                 </View>
             </View>
 
-            <FlatList contentContainerStyle={{ ...styleWrappers.wrapperHorizontalGap }} data={talents} renderItem={({ item }: any) => <TalentsButtonCard user={item} name={item.first_name} lastName={item.last_name} description={item.description} color={item.color} />} />
+            <FlatList contentContainerStyle={{ ...styleWrappers.wrapperHorizontalGap }} data={talents} renderItem={({ item }: any) => <TalentsButtonCard user={item}
+                name={item.first_name} lastName={item.last_name} description={item.description} color={item.color} pid={route.params.pid} />} />
         </SafeAreaView>
     );
 };

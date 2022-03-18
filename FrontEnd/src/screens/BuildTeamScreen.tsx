@@ -1,6 +1,6 @@
 
 import { CommonActions, useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { serveDefaultImages, serveImages } from '../api/apiCalls';
@@ -49,7 +49,10 @@ const CategoriesBotton = ({ onPress = () => { }, text = 'test', image = serveDef
 
 }
 
-const BuildTeamScreen = () => {
+interface Props extends StackScreenProps<RootStackParamList, 'BuildTeamScreen'> { }
+const BuildTeamScreen = ({ route }: Props) => {
+    const pid = route.params.data.pid
+    console.log('el pid: ' + pid)
 
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     return (
@@ -66,7 +69,7 @@ const BuildTeamScreen = () => {
                     <View>
                         <View style={{ flexDirection: 'row', marginTop: 20, position: 'relative' }}>
                             <View style={{ position: 'relative', left: 0, }}>
-                                <CategoriesBotton text='ACTORS' onPress={() => { navigation.navigate('ActorsScreen') }} image={serveDefaultImages + "/actorButtons.jpeg"} />
+                                <CategoriesBotton text='ACTORS' onPress={() => { navigation.navigate('ActorsScreen', { pid }) }} image={serveDefaultImages + "/actorButtons.jpeg"} />
                             </View>
                             <View style={{ position: 'absolute', right: 0 }}>
                                 <CategoriesBotton image={serveDefaultImages + "/productorButtons.jpeg"} text="PRODUCTOR" />

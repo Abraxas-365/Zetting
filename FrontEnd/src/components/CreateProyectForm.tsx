@@ -21,14 +21,15 @@ const creteProject = async (project: Project, navigation: any, token: any) => {
         console.log("el color es", project.color);
         const { data } = await apiCalls.post('/api/projects/new', project, config);
 
-        console.log(data.data);
+        console.log(data);
         navigation.dispatch(
             CommonActions.reset({
                 index: 0,
-                routes: [{ name: 'BuildTeamScreen' }
+                routes: [{ name: 'BuildTeamScreen', params: { data } }
                 ]
 
-            }))
+            })
+        )
 
     } catch (err) {
         console.error(err);

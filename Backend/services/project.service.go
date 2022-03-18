@@ -8,23 +8,23 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func CreateProject(p *m.Proyecto, id string) error {
+func CreateProject(p *m.Proyecto, id string) (primitive.ObjectID, error) {
 	//crear el proyecto en el Id
 	userId, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
-		return err
+		return primitive.ObjectID{}, err
 	}
 	fmt.Println("crear el proyecto en el Id ", userId)
 	// enviar a a bd
 	projectId, err := repository.CreateProject(p, userId)
 	if err != nil {
-		return err
+		return primitive.ObjectID{}, err
 	}
 
 	if err := repository.AddProject(userId, projectId, "myprojects"); err != nil {
-		return err
+		return primitive.ObjectID{}, err
 	}
-	return nil
+	return projectId, nil
 
 }
 

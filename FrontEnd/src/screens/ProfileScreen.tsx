@@ -9,29 +9,32 @@ import { StretchyScrollView } from 'react-native-stretchy';
 import BlackInfoBottons from '../components/perfilComponets/BlackInfoBottons';
 import FeaturesBox from '../components/perfilComponets/FeaturesBox';
 import { AuthContext } from '../context/AuthContext';
+import { User } from '../interfaces/appInterfaces';
+import { serveDefaultImages } from '../api/apiCalls';
 
 
 type PropsScroll = {
-    user?: any
+    user?: User | null,
 
 }
 const SystretchyScrollView = ({ user = {} }: PropsScroll) => {
 
-    let price = user.profession!.price == 0 ? "_" : "S/" + user.profession!.price
-    let tamano = user.features!.height == 0 ? "-" : user.features!.height
-    let age = user.features!!.age == 0 ? "-" : user.features!!.age
-    let gender = user.features!.gender == "" ? "alien" : user.features!.gender
-    let description = user.profession!.description == "" ? "si no sabes donde ir no puedes estar perdido" : user.profession!.description
+    let price = user!.profession!.price == 0 ? "_" : "S/" + user!.profession!.price
+    let tamano = user!.features!.height == 0 ? "-" : user!.features!.height
+    let age = user!.features!.age == 0 ? "-" : user!.features!.age
+    let gender = user!.features!.gender == "" ? "alien" : user!.features!.gender
+    let foto = user!.perfil_image == "" ? serveDefaultImages + "noPerfil.png" : serveDefaultImages + user!.perfil_image
+    let description = user!.profession!.description == "" ? "si no sabes donde ir no puedes estar perdido" : user!.profession!.description
     return (
         <StretchyScrollView
-            image={{ uri: 'https://dvyvvujm9h0uq.cloudfront.net/com/articles/1525891879-886386-sam-burriss-457746-unsplashjpg.jpg' }}
+            image={{ uri: foto }}
         >
 
             <View style={styleBackgrounds.fondoDark}>
                 <View style={styleViews.wrapper}>
                     <View style={styleViews.nameAndPerfil}>
                         <View style={styleViews.nameAndProfession}>
-                            <Text style={styleText.name}>{user.first_name}</Text>
+                            <Text style={styleText.name}>{user!.first_name} {user!.last_name}</Text>
                             <Text style={styleText.professions}>Actor</Text>
                         </View>
                         <View style={styleViews.perfilPercents}></View>
