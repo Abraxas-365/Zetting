@@ -119,7 +119,7 @@ const RegisterForm = ({ email }: FormProps) => {
                     placeholder={{ label: "Select Profession" }}
                     items={[
                         { label: 'Actor', value: 'actor' },
-                        { label: 'Striper', value: 'striper' },
+                        { label: 'Musico', value: 'striper' },
                     ]}
                     style={{ inputIOS: { fontSize: 16 } }}
                 />

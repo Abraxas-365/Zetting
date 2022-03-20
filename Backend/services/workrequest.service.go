@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	m "mongoCrud/models"
 	repository "mongoCrud/repositories"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -44,4 +45,8 @@ func AcceptWorkRequest(workRequest string, user string, accept bool) error {
 	}
 	repository.AcceptWorkRequest(workRequestId, userId)
 	return nil
+}
+func GetWorkRequest(workRequest string) (*m.WorkRequest, error) {
+
+	return nil, nil
 }

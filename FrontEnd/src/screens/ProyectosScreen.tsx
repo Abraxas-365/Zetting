@@ -14,8 +14,30 @@ import { RootStackParamList } from '../navigator/StackNavigator';
 import { styleBackgrounds } from '../themes/Backgrounds';
 import { styleTitles } from '../themes/Titles';
 import { styleWrappers } from '../themes/Wrappers';
+import { SVGProps } from "react"
+import Svg, { G, Path } from 'react-native-svg';
 
-
+const Arrow = (props: SVGProps<SVGSVGElement>) => (
+    <Svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={55.462}
+        height={104.263}
+        {...props}
+    >
+        <G
+            data-name="Group 782"
+            fill="none"
+            stroke="#e5e1f6"
+            strokeLinecap="round"
+            strokeWidth={2}
+        >
+            <Path
+                data-name="Path 513"
+                d="M1.016 103.257s46.014.747 46.591-43.678 0-55.8 0-55.8"
+            />
+            <Path data-name="Path 514" d="m41.463 10.451 6.127-8.739 6.47 8.739" />
+        </G>
+    </Svg>)
 
 
 
@@ -72,16 +94,23 @@ const ProyetosScreen = () => {
                     <View style={{ marginHorizontal: '2%', marginBottom: "12%" }} />
                     <CustomSmallBotton borderColor={borderColor1} color={colorMyProject} text='Projects' onPress={myprojectsBotton} />
                 </View>
-
             </View>
-            <FlatList contentContainerStyle={{ flexGrow: 1, top: '3%', ...styleWrappers.wrapperHorizontalGap }} data={data} renderItem={({ item }: any) => <ProjectBotton title={item.name} description={item.description} color={item.color} />} />
+
+            <FlatList ListEmptyComponent={<EmptyFlatList />} contentContainerStyle={{ flexGrow: 1, top: '3%', ...styleWrappers.wrapperHorizontalGap }} data={data} renderItem={({ item }: any) => <ProjectBotton title={item.name} description={item.description} color={item.color} />} />
 
         </SafeAreaView >
     );
 };
 
 export default ProyetosScreen;
-
+const EmptyFlatList = () => {
+    return (
+        <View style={{ position: 'absolute', right: "-15%", flexDirection: 'row' }}>
+            <Text style={{ color: '#e5e1f6', width: '50%', top: '28%', fontSize: 16, fontWeight: '500' }}>Press the + button to create new project</Text>
+            <Arrow />
+        </View>
+    )
+}
 
 
 export const styleProyectosScreen = StyleSheet.create({
