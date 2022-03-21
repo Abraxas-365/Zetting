@@ -16,7 +16,6 @@ func UsersRoute(app *fiber.App) {
 	users.Post("/register", controller.RegisterController)
 	/*Check email exist*/
 	users.Get("/:email", controller.CheckEmailExist)
-
 	/*Get user*/
 	users.Get("/", auth.JWTProtected(), controller.GetUser)
 }

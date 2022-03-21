@@ -22,11 +22,19 @@ type Proyecto struct {
 
 type Proyectos []*Proyecto
 
+type ProyectCreator struct {
+	Name         string `json:"name"`
+	Description  string `json:"description"`
+	Color        string `json:"color"`
+	DateStarted  string `json:"date_started"`
+	DateFinished string `json:"date_finished"`
+}
+
 type WorkRequest struct {
 	ID        primitive.ObjectID `bson:"_id,omitempty" json:"id"`
 	ProjectId primitive.ObjectID `bson:"project_id" json:"project_id"`
 	OwnerId   primitive.ObjectID `bson:"owner_id" json:"owner_id"`
-	WorkerId  primitive.ObjectID `bson:"worker_id" json:"Worker_id"`
+	WorkerId  primitive.ObjectID `bson:"worker_id" json:"worker_id"`
 	Acepted   bool               `bson:"acepted" json:"acepted"`
 	Created   time.Time          `json:"created_at"`
 	Updated   time.Time          `json:"updated_at,omitempty"`

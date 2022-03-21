@@ -24,6 +24,77 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/project/myprojects": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "tags": [
+                    "Project"
+                ],
+                "summary": "get my projects.",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/project/new": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Project"
+                ],
+                "summary": "crear project.",
+                "parameters": [
+                    {
+                        "description": "Project",
+                        "name": "project",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ProyectCreator"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/project/projects": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "tags": [
+                    "Project"
+                ],
+                "summary": "get projects in my .",
+                "responses": {
+                    "200": {
+                        "description": ""
+                    }
+                }
+            }
+        },
         "/users/": {
             "get": {
                 "security": [
@@ -196,6 +267,26 @@ const docTemplate = `{
                 },
                 "price": {
                     "type": "integer"
+                }
+            }
+        },
+        "models.ProyectCreator": {
+            "type": "object",
+            "properties": {
+                "color": {
+                    "type": "string"
+                },
+                "date_finished": {
+                    "type": "string"
+                },
+                "date_started": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
                 }
             }
         },

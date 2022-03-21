@@ -44,6 +44,19 @@ definitions:
       price:
         type: integer
     type: object
+  models.ProyectCreator:
+    properties:
+      color:
+        type: string
+      date_finished:
+        type: string
+      date_started:
+        type: string
+      description:
+        type: string
+      name:
+        type: string
+    type: object
   models.User:
     properties:
       contact:
@@ -127,6 +140,47 @@ info:
   title: Zetting APi
   version: "1.0"
 paths:
+  /project/myprojects:
+    get:
+      responses:
+        "200":
+          description: ""
+      security:
+      - ApiKeyAuth: []
+      summary: get my projects.
+      tags:
+      - Project
+  /project/new:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Project
+        in: body
+        name: project
+        required: true
+        schema:
+          $ref: '#/definitions/models.ProyectCreator'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ""
+      security:
+      - ApiKeyAuth: []
+      summary: crear project.
+      tags:
+      - Project
+  /project/projects:
+    get:
+      responses:
+        "200":
+          description: ""
+      security:
+      - ApiKeyAuth: []
+      summary: get projects in my .
+      tags:
+      - Project
   /users/:
     get:
       responses:

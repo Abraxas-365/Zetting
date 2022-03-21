@@ -16,17 +16,15 @@ import (
 // @Accept   json
 // @Produce  json
 // @Param    login  body      models.UserLogin  true  "Login"
-// @Success  200       {object}  models.AuthUser
+// @Success   200       {object}  models.AuthUser
 // @Router   /users/login [post]
 func LoginController(c *fiber.Ctx) error {
 	fmt.Println("---login route----")
-	body := new(models.UserLogin)
-	if err := c.BodyParser(&body); err != nil {
+	userLoginData := new(models.UserLogin)
+	if err := c.BodyParser(&userLoginData); err != nil {
 		return fiber.ErrBadRequest
 	}
-
-	fmt.Println("El email", body.Email)
-	authUser, err := service.AuthUser(body.Email, body.Password)
+	authUser, err := service.AuthUser(userLoginData.Email, userLoginData.Password)
 	if err != nil {
 		if err == fiber.ErrUnauthorized {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Bad Credentials"})
@@ -49,13 +47,13 @@ func LoginController(c *fiber.Ctx) error {
 // @Router   /users/register [post]
 func RegisterController(c *fiber.Ctx) error {
 	fmt.Println("---Register Route---")
-	body := new(models.User)
-	if err := c.BodyParser(&body); err != nil {
+	userRegisterData := new(models.User)
+	if err := c.BodyParser(&userRegisterData); err != nil {
 		return fiber.ErrBadRequest
 	}
-	fmt.Println(body)
+	fmt.Println(userRegisterData)
 
-	authUser, err := service.CreateUser(*body)
+	authUser, err := service.CreateUser(*userRegisterData)
 	if err != nil {
 		fmt.Println(err)
 		return c.Status(500).SendString(err.Error())
@@ -93,21 +91,21 @@ func CheckEmailExist(c *fiber.Ctx) error {
 
 // GetUser.
 // @GetUser
-// @Summary  get user.
-// @Tags     User
+// @Summary   get user.
+// @Tags      User
 // @Success  200
-// @Security ApiKeyAuth
-// @Router   /users/ [get]
+// @Security  ApiKeyAuth
+// @Router    /users/ [get]
 func GetUser(c *fiber.Ctx) error {
 
-	t, err := auth.ExtractTokenMetadata(c)
+	tokenData, err := auth.ExtractTokenMetadata(c)
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}
-	u, err := service.GetUser(t.ID)
+	user, err := service.GetUser(tokenData.ID)
 	if err != nil {
 		return c.SendStatus(fiber.StatusNetworkAuthenticationRequired)
 	}
-	return c.Status(fiber.StatusOK).JSON(u)
+	return c.Status(fiber.StatusOK).JSON(user)
 
 }

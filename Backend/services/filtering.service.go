@@ -2,14 +2,14 @@ package service
 
 import (
 	"fmt"
-	m "mongoCrud/models"
+	"mongoCrud/models"
 	repository "mongoCrud/repositories"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func FilterByFeatures(profession string, filter m.Filter) (m.Users, error) {
+func FilterByFeatures(profession string, filter *models.Filter) (models.Users, error) {
 	fmt.Println("---GetByFeatures service ---")
 	query := bson.D{primitive.E{Key: "profession.name", Value: profession}}
 	//filtro de edad
