@@ -1,10 +1,8 @@
 package routes
 
 import (
-	"fmt"
 	"mongoCrud/auth"
-	m "mongoCrud/models"
-	service "mongoCrud/services"
+	controller "mongoCrud/controllers"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -12,82 +10,13 @@ import (
 func UsersRoute(app *fiber.App) {
 
 	users := app.Group("/api/users")
+	/*Login user*/
+	users.Post("/login", controller.LoginController)
+	/*Register user*/
+	users.Post("/register", controller.RegisterController)
+	/*Check email exist*/
+	users.Get("/:email", controller.CheckEmailExist)
 
-	users.Post("/login", func(c *fiber.Ctx) error {
-		fmt.Println("---login route----")
-		body := struct {
-			Email    string `json:"email"`
-			Password string `json:"password"`
-		}{}
-		if err := c.BodyParser(&body); err != nil {
-			a := c.JSON(err)
-			fmt.Println(a)
-			return fiber.ErrBadRequest
-		}
-
-		fmt.Println("El email", body.Email)
-		authUser, err := service.AuthUser(body.Email, body.Password)
-		if err != nil {
-			if err == fiber.ErrUnauthorized {
-				return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Bad Credentials"})
-			}
-			return c.Status(500).SendString(err.Error())
-		}
-
-		return c.Status(fiber.StatusOK).JSON(authUser)
-
-	})
-
-	users.Post("/register", func(c *fiber.Ctx) error {
-		fmt.Println("---Register Route---")
-		body := struct {
-			User m.User `json:"user"`
-		}{}
-		if err := c.BodyParser(&body); err != nil {
-			return fiber.ErrBadRequest
-		}
-		fmt.Println(body)
-
-		authUser, err := service.CreateUser(*&body.User)
-		if err != nil {
-			fmt.Println(err)
-			return c.Status(500).SendString(err.Error())
-		}
-
-		return c.Status(fiber.StatusOK).JSON(authUser)
-
-	})
-
-	users.Get("/:email", func(c *fiber.Ctx) error {
-		email := c.Params("email")
-		user, err := service.CheckUserExist(email)
-		body := struct {
-			Exists bool `json:"exists"`
-		}{}
-
-		if err != nil {
-			fmt.Println(err.Error())
-			if err.Error() == "mongo: no documents in result" {
-
-				return c.JSON(body)
-			}
-			return c.SendStatus(fiber.StatusRequestTimeout)
-		}
-		return c.JSON(user)
-
-	})
-
-	users.Get("/", auth.JWTProtected(), func(c *fiber.Ctx) error {
-
-		t, err := auth.ExtractTokenMetadata(c)
-		if err != nil {
-			return c.Status(500).SendString(err.Error())
-		}
-		u, err := service.GetUser(t.ID)
-		if err != nil {
-			return c.SendStatus(fiber.StatusNetworkAuthenticationRequired)
-		}
-		return c.Status(fiber.StatusOK).JSON(u)
-
-	})
+	/*Get user*/
+	users.Get("/", auth.JWTProtected(), controller.GetUser)
 }

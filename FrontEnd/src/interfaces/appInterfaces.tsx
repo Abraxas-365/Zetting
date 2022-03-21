@@ -9,12 +9,8 @@ export interface User {
     id?: string;
     first_name?: string;
     last_name?: string;
-    email?: string;
-    phone?: string;
-    country?: string;
+    contact?: UserContact;
     profession?: Profession;
-
-    identifierDocument?: string;
     password?: string;
     verified?: boolean;
     perfil_image?: string;
@@ -22,6 +18,15 @@ export interface User {
 
 
 }
+
+export interface UserContact {
+
+    email?: string;
+    phone?: string;
+    country?: string;
+    identifierDocument?: string;
+}
+
 export interface Profession {
     name?: string;
     description?: string;

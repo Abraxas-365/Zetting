@@ -17,9 +17,9 @@ var ctx = context.Background()
 
 func CreateUser(user m.User) (primitive.ObjectID, error) {
 	var id primitive.ObjectID
-	fmt.Println(user.Email)
+	fmt.Println(user.Contact.Email)
 	check := bson.M{}
-	filter := bson.M{"email": user.Email}
+	filter := bson.M{"email": user.Contact.Email}
 	cur, err := collectionUser.Find(ctx, filter)
 	if err != nil {
 		return primitive.ObjectID{}, err
@@ -36,6 +36,7 @@ func CreateUser(user m.User) (primitive.ObjectID, error) {
 		user.Projects = []primitive.ObjectID{}
 		user.MyProjects = []primitive.ObjectID{}
 		user.WorkRequests = []primitive.ObjectID{}
+		user.Features.Skills = []string{}
 		user.Verified = false
 		fmt.Println(user.Created)
 		result, err := collectionUser.InsertOne(ctx, user)
@@ -54,9 +55,9 @@ func CreateUser(user m.User) (primitive.ObjectID, error) {
 
 }
 func GetUserByEmail(email string) (*m.User, error) {
-	fmt.Println("---GetUserByEmail---")
+	fmt.Println("---GetUserByEmail---", email)
 	var user m.User
-	filter := bson.M{"email": email}
+	filter := bson.M{"contact.email": email}
 	if err := collectionUser.FindOne(ctx, filter).Decode(&user); err != nil {
 		return nil, err
 	}
@@ -76,7 +77,7 @@ func GetUserById(uid primitive.ObjectID) (*m.User, error) {
 
 func CheckUserExist(email string) (bool, error) {
 	var user m.User
-	filter := bson.M{"email": email}
+	filter := bson.M{"contact.email": email}
 	if err := collectionUser.FindOne(ctx, filter).Decode(&user); err != nil {
 		return false, err
 	}
@@ -89,7 +90,7 @@ func UpdateUser(user m.User, id string) error {
 	update := bson.M{
 		"$set": bson.M{
 			"name":       user.FirstName,
-			"email":      user.Email,
+			"email":      user.Contact.Email,
 			"updated_at": time.Now(),
 		},
 	}

@@ -117,3 +117,22 @@ func AcceptWorkRequest(workRequestId primitive.ObjectID, userId primitive.Object
 
 	return nil
 }
+
+// func GetWorkRequest(workRequestId primitive.ObjectID) error {
+
+// 	matchStage := bson.D{primitive.E{Key: "$match", Value: bson.D{primitive.E{Key: "_id", Value: userId}}}}
+// 	lookupStage := bson.D{primitive.E{Key: "$lookup", Value: bson.D{primitive.E{Key: "from", Value: "Projects"}, {Key: "localField", Value: "projects"}, {Key: "foreignField", Value: "_id"}, {Key: "as", Value: "projects"}}}}
+// 	unwindStage := bson.D{primitive.E{Key: "$unwind", Value: bson.D{primitive.E{Key: "path", Value: "$projects"}, {Key: "preserveNullAndEmptyArrays", Value: false}}}}
+// 	replaceRoot := bson.D{primitive.E{Key: "$replaceRoot", Value: bson.D{primitive.E{Key: "newRoot", Value: "$projects"}}}}
+
+// 	cur, err := collectionUser.Aggregate(ctx, mongo.Pipeline{matchStage, lookupStage, unwindStage, replaceRoot})
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	if err = cur.All(ctx, &ps); err != nil {
+// 		return nil, err
+// 	}
+
+// 	return ps, nil
+
+// }

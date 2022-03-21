@@ -26,7 +26,7 @@ func LoginUser(email string, password string) (*m.User, string, error) {
 	stringObjectID := user.ID.Hex()
 	fmt.Println(stringObjectID)
 	claims := jwt.MapClaims{
-		"email":    user.Email,
+		"email":    user.Contact.Email,
 		"password": user.Password,
 		"id":       stringObjectID,
 	}

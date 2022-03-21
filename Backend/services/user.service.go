@@ -15,7 +15,7 @@ func CreateUser(u m.User) (*m.AuthUser, error) {
 	if _, err := repository.CreateUser(u); err != nil {
 		return nil, err
 	}
-	authUser, err := AuthUser(u.Email, u.Password)
+	authUser, err := AuthUser(u.Contact.Email, u.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func AuthUser(email string, password string) (*m.AuthUser, error) {
 	return authUser, nil
 }
 
-func CheckUserExist(email string) (*m.User, error) {
+func CheckEmailExist(email string) (*m.User, error) {
 	user, err := repository.GetUserByEmail(email)
 	if err != nil {
 		return nil, err

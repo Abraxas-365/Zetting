@@ -1,0 +1,201 @@
+basePath: /api
+definitions:
+  models.AuthUser:
+    properties:
+      token:
+        type: string
+      user:
+        $ref: '#/definitions/models.User'
+    type: object
+  models.Features:
+    properties:
+      age:
+        type: integer
+      body:
+        type: string
+      eye_color:
+        type: string
+      facial_hair:
+        type: string
+      gender:
+        type: string
+      hair_color:
+        type: string
+      hair_type:
+        type: string
+      hair_zise:
+        type: string
+      height:
+        description: desde aqui es actores
+        type: integer
+      skills:
+        items:
+          type: string
+        type: array
+      skin:
+        type: string
+    type: object
+  models.Profession:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      price:
+        type: integer
+    type: object
+  models.User:
+    properties:
+      contact:
+        $ref: '#/definitions/models.UserContact'
+      created_at:
+        type: string
+      features:
+        $ref: '#/definitions/models.Features'
+      first_name:
+        type: string
+      id:
+        type: string
+      last_name:
+        type: string
+      my_projects:
+        items:
+          type: string
+        type: array
+      password:
+        type: string
+      perfil_image:
+        type: string
+      profession:
+        $ref: '#/definitions/models.Profession'
+      projects:
+        items:
+          type: string
+        type: array
+      updated_at:
+        type: string
+      verified:
+        type: boolean
+      work_requests:
+        items:
+          type: string
+        type: array
+    type: object
+  models.UserContact:
+    properties:
+      country:
+        type: string
+      email:
+        type: string
+      identifier_document:
+        type: string
+      phone:
+        type: string
+    type: object
+  models.UserLogin:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  models.UserRegistration:
+    properties:
+      contact:
+        $ref: '#/definitions/models.UserContact'
+      first_name:
+        type: string
+      last_name:
+        type: string
+      password:
+        type: string
+      perfil_image:
+        type: string
+      profession:
+        $ref: '#/definitions/models.Profession'
+    type: object
+host: localhost:3000
+info:
+  contact:
+    email: fiber@swagger.io
+    name: API Support
+  description: API for Zetting
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Zetting APi
+  version: "1.0"
+paths:
+  /users/:
+    get:
+      responses:
+        "200":
+          description: ""
+      security:
+      - ApiKeyAuth: []
+      summary: get user.
+      tags:
+      - User
+  /users/{email}:
+    get:
+      parameters:
+      - description: Email
+        in: path
+        name: email
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+      summary: check user exists.
+      tags:
+      - Helper
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Login
+        in: body
+        name: login
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserLogin'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AuthUser'
+      summary: authentication.
+      tags:
+      - Auth
+  /users/register:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Register
+        in: body
+        name: register
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserRegistration'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AuthUser'
+      summary: register.
+      tags:
+      - Auth
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
