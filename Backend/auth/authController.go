@@ -1,43 +1,25 @@
 package auth
 
 import (
-	"fmt"
-	m "mongoCrud/models"
-	repository "mongoCrud/repositories"
-
 	"github.com/gofiber/fiber/v2"
 	jwtMiddleware "github.com/gofiber/jwt/v2"
 	"github.com/golang-jwt/jwt/v4"
 )
 
-func LoginUser(email string, password string) (*m.User, string, error) {
+func GereteToken(email string, id string) (string, error) {
 
-	fmt.Println("---LoginUser ---")
 	secret := "JWT_SECRET_KEY"
-	//jalar de la base de datos los datos con el correo
-	user, _ := repository.GetUserByEmail(email)
-	if user == nil {
-		return nil, "", fiber.ErrUnauthorized
-	}
-	if user.Password != password {
-		return nil, "", fiber.ErrUnauthorized
-	}
-	fmt.Println(user.ID)
-	stringObjectID := user.ID.Hex()
-	fmt.Println(stringObjectID)
 	claims := jwt.MapClaims{
-		"email":    user.Contact.Email,
-		"password": user.Password,
-		"id":       stringObjectID,
+		"email": email,
+		"id":    id,
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
 	t, err := token.SignedString([]byte(secret))
 	if err != nil {
-		return nil, "", err
+		return "", err
 	}
-
-	return user, t, nil
+	return t, nil
 }
 
 // JWTProtected func for specify routes group with JWT authentication.
