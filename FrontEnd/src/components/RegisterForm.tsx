@@ -52,7 +52,6 @@ const RegisterForm = ({ email }: FormProps) => {
             features: features
 
         }
-        console.log(user)
         signUp(user)
 
     }

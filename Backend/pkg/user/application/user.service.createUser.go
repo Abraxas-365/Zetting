@@ -10,6 +10,7 @@ func (r *userService) CreateUser(user models.User) (*models.User, error) {
 
 	_, err := r.userRepo.CreateUser(user)
 	if err != nil {
+
 		return nil, err
 	}
 

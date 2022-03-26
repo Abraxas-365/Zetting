@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }: any) => {
     };
     const signUp = async (user: User) => {
         try {
-            const { data } = await apiCalls.post('/api/users/register', { user });
+            const { data } = await apiCalls.post('/api/users/register', user);
             console.log('onSignUpBotton')
             dispatch({
                 type: 'signUp',

@@ -22,7 +22,7 @@ func (s *projectController) GetProjectsWorkingOn(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}
-	myProjects, err := s.projectService.GetProjects(userTokenData.ID, "myprojects")
+	myProjects, err := s.projectService.GetProjects(userTokenData.ID, "projects")
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}

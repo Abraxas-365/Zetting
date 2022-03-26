@@ -13,37 +13,23 @@ func (r *mongoRepository) CreateUser(user models.User) (*models.User, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), r.timeout)
 	defer cancel()
 	collection := r.client.Database(r.database).Collection(r.collection)
-	var id primitive.ObjectID
-	check := bson.M{}
-	filter := bson.M{"email": user.Contact.Email}
-	cur, err := collection.Find(ctx, filter)
-	if err != nil {
-		return nil, err
-	}
-	for cur.Next(ctx) {
-		if err = cur.Decode(&check); err != nil {
-			return nil, err
-		}
-	}
-	if len(check) < 1 {
+	check := new(models.User)
+	filter := bson.M{"contact.email": user.Contact.Email}
+	if err := collection.FindOne(ctx, filter).Decode(&check); err != nil {
 		user.Created = time.Now()
 		user.Updated = time.Now()
-		user.Projects = []primitive.ObjectID{}
 		user.MyProjects = []primitive.ObjectID{}
+		user.Projects = []primitive.ObjectID{}
 		user.WorkRequests = []primitive.ObjectID{}
 		user.Features.Skills = []string{}
 		user.Verified = false
 		result, err := collection.InsertOne(ctx, user)
-		id = result.InsertedID.(primitive.ObjectID)
 		if err != nil {
 			return nil, err
 		}
-		user.ID = id
-	} else {
+		user.ID = result.InsertedID
+		return &user, nil
 
-		return nil, ErrConflict
 	}
-
-	return &user, nil
-
+	return nil, ErrConflict
 }

@@ -26,8 +26,11 @@ func (s *userController) CreateUser(c *fiber.Ctx) error {
 	}
 
 	user, err := s.userService.CreateUser(*userRegisterData)
-	stringObjectID := user.ID.Hex()
-	token, err := auth.GereteToken(user.Contact.Email, stringObjectID)
+
+	if err != nil {
+		return c.Status(500).SendString(err.Error())
+	}
+	token, err := auth.GereteToken(user.Contact.Email, user.ID)
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}

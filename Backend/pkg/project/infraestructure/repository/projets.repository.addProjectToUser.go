@@ -8,17 +8,18 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func (r *mongoRepository) AddProject(userId string, projectId string, campo string) error {
+func (r *mongoRepository) AddProject(userId interface{}, projectId interface{}, campo string) error {
+	fmt.Println("___add_project__")
 
 	ctx, cancel := context.WithTimeout(context.Background(), r.timeout)
 	defer cancel()
 	collection := r.client.Database(r.database).Collection("Users")
 
-	userObjecId, err := primitive.ObjectIDFromHex(userId)
+	userObjecId, err := primitive.ObjectIDFromHex(userId.(string))
 	if err != nil {
 		return err
 	}
-	projectObjecId, err := primitive.ObjectIDFromHex(projectId)
+	projectObjecId, err := primitive.ObjectIDFromHex(projectId.(string))
 	if err != nil {
 		return err
 	}

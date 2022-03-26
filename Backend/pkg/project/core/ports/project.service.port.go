@@ -5,6 +5,6 @@ import (
 )
 
 type ProjectService interface {
-	CreateProject(newProject *models.Project, userId string) (string, error)
-	GetProjects(userId string, document string) (models.Projects, error)
+	CreateProject(newProject *models.Project, userId interface{}) (interface{}, error)
+	GetProjects(userId interface{}, document string) (models.Projects, error)
 }

@@ -8,7 +8,6 @@ import { AuthContext } from "../context/AuthContext"
 export const useProjects = () => {
     const [projects, setState] = useState([])
     const [myProjects, setmyProjects] = useState([])
-    const [tamanoMyProjects, setTamanoMyProjects] = useState(0)
     const { token } = useContext(AuthContext)
     const config = {
         headers: { Authorization: `Bearer ${token}` }
@@ -18,7 +17,6 @@ export const useProjects = () => {
         const { data } = await apiCalls.get('/api/projects/myprojects', config)
         console.log(data);
         setmyProjects(data)
-        setTamanoMyProjects(data.length)
     }
     // useEffect(() => {
     //     getProjects();
@@ -37,6 +35,6 @@ export const useProjects = () => {
         getProjects();
 
     }, [])
-    return { projects, myProjects, tamanoMyProjects }
+    return { projects, myProjects }
 
 }

@@ -35,8 +35,7 @@ func (s *userController) LoginUser(c *fiber.Ctx) error {
 		fmt.Println(err)
 		return c.Status(500).SendString(err.Error())
 	}
-	stringObjectID := user.ID.Hex()
-	token, err := auth.GereteToken(user.Contact.Email, stringObjectID)
+	token, err := auth.GereteToken(user.Contact.Email, user.ID)
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}

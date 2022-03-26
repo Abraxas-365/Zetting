@@ -6,7 +6,7 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 )
 
-func GereteToken(email string, id string) (string, error) {
+func GereteToken(email string, id interface{}) (string, error) {
 
 	secret := "JWT_SECRET_KEY"
 	claims := jwt.MapClaims{

@@ -7,7 +7,7 @@ import (
 )
 
 type Project struct {
-	ID           primitive.ObjectID   `bson:"_id,omitempty" json:"id"`
+	ID           interface{}          `bson:"_id,omitempty" json:"id"`
 	Name         string               `json:"name"`
 	Description  string               `json:"description"`
 	Propietarios []primitive.ObjectID `json:"propietarios"`

@@ -9,14 +9,18 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func (r *mongoRepository) GetProjects(userId string, document string) (models.Projects, error) {
+func (r *mongoRepository) GetProjects(userId interface{}, document string) (models.Projects, error) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), r.timeout)
 	defer cancel()
 	collection := r.client.Database(r.database).Collection("Users")
 
 	var projects models.Projects
-	userObjecId, err := primitive.ObjectIDFromHex(userId)
+
+	userObjecId, err := primitive.ObjectIDFromHex(userId.(string))
+	if err != nil {
+		return nil, err
+	}
 
 	//matchea el email
 	matchStage := bson.D{primitive.E{Key: "$match", Value: bson.D{primitive.E{Key: "_id", Value: userObjecId}}}}
