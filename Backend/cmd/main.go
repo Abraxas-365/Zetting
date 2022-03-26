@@ -5,6 +5,7 @@ import (
 	_ "zetting/docs"
 
 	project "zetting/pkg/project"
+	static "zetting/pkg/static/infraestructure/rest/routes"
 	user "zetting/pkg/user"
 
 	"github.com/arsmn/fiber-swagger/v2"
@@ -18,6 +19,7 @@ func main() {
 	//Routes.
 	user.UserInit(app)
 	project.ProjectInit(app)
+	static.ServeStatic(app)
 	fmt.Println("inicando en puerto 3000")
 	app.Get("/swagger/*", swagger.HandlerDefault)
 	app.Get("/swagger/*", swagger.New(swagger.Config{

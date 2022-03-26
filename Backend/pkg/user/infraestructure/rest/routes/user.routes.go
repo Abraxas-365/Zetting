@@ -19,6 +19,6 @@ func UsersRoute(app *fiber.App, controller ports.UserController) {
 	/*Get user*/
 	users.Get("/", auth.JWTProtected(), controller.GetUserById)
 	/*Get users by profession*/
-	users.Get("/:profession", auth.JWTProtected(), controller.GetUsersByProfession)
+	users.Get("/profession/:profession", auth.JWTProtected(), controller.GetUsersByProfession)
 
 }

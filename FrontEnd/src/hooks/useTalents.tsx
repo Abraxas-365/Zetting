@@ -14,7 +14,7 @@ export const useTalents = (talent: string) => {
     };
     const getTalets = async () => {
 
-        const { data } = await apiCalls.get('/api/profession/' + talent, config)
+        const { data } = await apiCalls.get('/api/users/profession/' + talent, config)
         console.log(data);
         setTalents(data)
     }
