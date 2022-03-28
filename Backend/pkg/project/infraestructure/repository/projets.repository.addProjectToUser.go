@@ -23,8 +23,6 @@ func (r *mongoRepository) AddProject(userId interface{}, projectId interface{}, 
 	if err != nil {
 		return err
 	}
-	fmt.Println("obj", userObjecId)
-	fmt.Println("obj", projectObjecId)
 
 	filter := bson.M{"_id": userObjecId}
 	update := bson.M{

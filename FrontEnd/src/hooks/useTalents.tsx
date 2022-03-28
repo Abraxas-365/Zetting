@@ -13,7 +13,6 @@ export const useTalents = (talent: string) => {
         headers: { Authorization: `Bearer ${token}` }
     };
     const getTalets = async () => {
-
         const { data } = await apiCalls.get('/api/users/profession/' + talent, config)
         console.log(data);
         setTalents(data)

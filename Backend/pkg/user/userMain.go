@@ -4,7 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	service "zetting/pkg/user/application"
 	repo "zetting/pkg/user/infraestructure/repository"
-	controller "zetting/pkg/user/infraestructure/rest/controllers"
+	controller "zetting/pkg/user/infraestructure/rest/handlers"
 	routes "zetting/pkg/user/infraestructure/rest/routes"
 )
 

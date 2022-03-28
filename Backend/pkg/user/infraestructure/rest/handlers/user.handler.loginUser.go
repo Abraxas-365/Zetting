@@ -1,8 +1,7 @@
-package user_controllers
+package user_handlers
 
 import (
 	"fmt"
-	"zetting/auth"
 	models "zetting/pkg/user/core/models"
 
 	"github.com/gofiber/fiber/v2"
@@ -30,16 +29,12 @@ func (s *userController) LoginUser(c *fiber.Ctx) error {
 		return fiber.ErrBadRequest
 	}
 
-	user, err := s.userService.LoginUser(userLoginData.Email, userLoginData.Password)
+	authUser, err := s.userService.LoginUser(userLoginData.Email, userLoginData.Password)
 	if err != nil {
 		fmt.Println(err)
 		return c.Status(500).SendString(err.Error())
 	}
-	token, err := auth.GereteToken(user.Contact.Email, user.ID)
-	if err != nil {
-		return c.Status(500).SendString(err.Error())
-	}
 
-	return c.Status(fiber.StatusOK).JSON(models.AuthUser{User: *user, Token: token})
+	return c.Status(fiber.StatusOK).JSON(authUser)
 
 }

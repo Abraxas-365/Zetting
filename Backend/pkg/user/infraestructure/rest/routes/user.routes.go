@@ -2,13 +2,17 @@ package user_routes
 
 import (
 	"zetting/auth"
-	ports "zetting/pkg/user/core/ports"
+	handler "zetting/pkg/user/infraestructure/rest/handlers"
 
 	"github.com/gofiber/fiber/v2"
 )
 
-func UsersRoute(app *fiber.App, controller ports.UserController) {
-
+func UsersRoute(app *fiber.App, controller handler.UserController) {
+	/*SERVE*/
+	static := app.Group("/static")
+	static.Static("/app_default_images", "./../Static/app_default_images", fiber.Static{
+		Browse: false, // default: false
+	})
 	users := app.Group("/api/users")
 	/*Login user*/
 	users.Post("/login", controller.LoginUser)
@@ -20,5 +24,7 @@ func UsersRoute(app *fiber.App, controller ports.UserController) {
 	users.Get("/", auth.JWTProtected(), controller.GetUserById)
 	/*Get users by profession*/
 	users.Get("/profession/:profession", auth.JWTProtected(), controller.GetUsersByProfession)
+	/*Upload file image*/
+	users.Put("/upload/perfil", auth.JWTProtected(), controller.UploadProfileImage)
 
 }

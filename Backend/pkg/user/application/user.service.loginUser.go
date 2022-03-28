@@ -1,10 +1,11 @@
 package user_service
 
 import (
+	"zetting/auth"
 	models "zetting/pkg/user/core/models"
 )
 
-func (r *userService) LoginUser(email string, password string) (*models.User, error) {
+func (r *userService) LoginUser(email string, password string) (*models.AuthUser, error) {
 
 	switch true {
 	case email == "":
@@ -17,10 +18,15 @@ func (r *userService) LoginUser(email string, password string) (*models.User, er
 
 	switch true {
 	case user == nil:
-		return nil, ErrUnauthorized
-	case user.Password != password:
 		return nil, ErrUserNotFound
+	case user.Password != password:
+		return nil, ErrUnauthorized
 	}
 
-	return user, nil
+	token, err := auth.GereteToken(email, user.ID)
+	if err != nil {
+		return nil, err
+	}
+
+	return &models.AuthUser{User: *user, Token: token}, nil
 }

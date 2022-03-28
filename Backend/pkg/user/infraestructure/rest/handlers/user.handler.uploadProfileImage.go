@@ -1,4 +1,4 @@
-package static_cotrollers
+package user_handlers
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func HandleUploadProfileImage(c *fiber.Ctx) error {
+func (s *userController) UploadProfileImage(c *fiber.Ctx) error {
 
 	file, err := c.FormFile("image")
 	if err != nil {

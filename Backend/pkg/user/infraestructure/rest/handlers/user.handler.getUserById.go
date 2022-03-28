@@ -1,4 +1,4 @@
-package user_controllers
+package user_handlers
 
 import (
 	"zetting/auth"
