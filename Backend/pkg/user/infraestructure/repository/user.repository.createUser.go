@@ -27,7 +27,7 @@ func (r *mongoRepository) CreateUser(user models.User) (*models.User, error) {
 		if err != nil {
 			return nil, err
 		}
-		user.ID = result.InsertedID
+		user.ID = result.InsertedID.(primitive.ObjectID).Hex()
 		return &user, nil
 
 	}

@@ -10,7 +10,7 @@ import (
 func UsersRoute(app *fiber.App, controller handler.UserController) {
 	/*SERVE*/
 	static := app.Group("/static")
-	static.Static("/app_default_images", "./../Static/app_default_images", fiber.Static{
+	static.Static("/app_default_images", "./static/app_default_images", fiber.Static{
 		Browse: false, // default: false
 	})
 	users := app.Group("/api/users")

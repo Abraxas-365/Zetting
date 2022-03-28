@@ -19,8 +19,8 @@ func (s *userController) UploadProfileImage(c *fiber.Ctx) error {
 		return c.Status(500).SendString(err.Error())
 	}
 	fileExt := strings.Split(file.Filename, ".")[1]
-	imageName := fmt.Sprintf("%s.%s", userTokenData.ID, fileExt)
-	if err := c.SaveFile(file, fmt.Sprintf("./../Static/perfil_images/%s", imageName)); err != nil {
+	imageName := fmt.Sprintf("%s.%s", (userTokenData).ID, fileExt)
+	if err := c.SaveFile(file, fmt.Sprintf("./../static/images/"+userTokenData.ID+"/%s", imageName)); err != nil {
 		return fiber.ErrInternalServerError
 	}
 
