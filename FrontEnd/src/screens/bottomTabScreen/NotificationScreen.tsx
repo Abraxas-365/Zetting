@@ -3,10 +3,9 @@
 import React from 'react';
 import { Button, Image, SafeAreaView, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native'
-import BottonsLoginScreen from '../components/BottonsLoginScreen';
-import { styleBackgrounds } from '../themes/Backgrounds';
-import { styleTitles } from '../themes/Titles';
-import { styleWrappers } from '../themes/Wrappers';
+import { styleBackgrounds } from '../../themes/Backgrounds';
+import { styleTitles } from '../../themes/Titles';
+import { styleWrappers } from '../../themes/Wrappers';
 
 
 const NotificationScreen = () => {

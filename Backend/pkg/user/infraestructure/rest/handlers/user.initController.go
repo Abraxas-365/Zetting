@@ -8,6 +8,7 @@ import "github.com/gofiber/fiber/v2"
 
 type UserController interface {
 	CreateUser(c *fiber.Ctx) error
+	UpdateUser(c *fiber.Ctx) error
 	LoginUser(c *fiber.Ctx) error
 	GetUserById(c *fiber.Ctx) error
 	CheckEmailExist(c *fiber.Ctx) error

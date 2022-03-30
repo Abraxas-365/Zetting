@@ -3,10 +3,8 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Switch from 'react-native-switch-toggles';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../navigator/StackNavigator';
-import MembersPhotos from './MembersPhotos';
-import { Feather } from '@expo/vector-icons';
-import { BellSvgActive, BellSvgInactive } from './BellSvg';
+import { RootStackParamList } from '../../navigator/StackNavigator';
+import { BellSvgActive, BellSvgInactive } from '../svg/BellSvg';
 
 type Props = {
     title?: string
@@ -25,7 +23,12 @@ const ProjectBotton = ({ title = 'Titulo', description = 'description', color = 
                 <View style={styles.viewLeft}>
                     <Text style={styles.title}>{title}</Text>
                     <View style={styles.members}>
-                        <MembersPhotos />
+                        <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <View style={[styles.memberPhotos]}></View>
+                            <View style={[styles.memberPhotos]}></View>
+                            <View style={[styles.memberPhotos]}></View>
+
+                        </View>
                     </View>
                 </View>
                 <View style={styles.viewRight}>
@@ -116,6 +119,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginVertical: '7%',
         marginHorizontal: '7%',
+    },
+
+    memberPhotos: {
+        marginHorizontal: '-7%',
+        backgroundColor: 'red',
+        borderRadius: 100,
+        height: '100%',
+        width: '33.3%'
     }
 
 })

@@ -23,9 +23,9 @@ const BottonPlatform = ({ fuction = () => { }, text, img }: BottonProps) => {
     );
 };
 const BottonsPlatforms = ({ fuction, text, marginTop }: BottonProps) => {
-    let google = require('../../assets/png/google.png')
-    let facebook = require('../../assets/png/facebook.png')
-    let apple = require('../../assets/png/apple.png')
+    let google = require('../../../assets/png/google.png')
+    let facebook = require('../../../assets/png/facebook.png')
+    let apple = require('../../../assets/png/apple.png')
     return (
         <View style={{
             flexDirection: 'column', width: '100%', alignSelf: 'center',

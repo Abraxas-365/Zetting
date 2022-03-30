@@ -1,7 +1,7 @@
 import * as React from "react"
 import Svg, { G, Circle, Path } from "react-native-svg"
 
-const PlusButton = (props: any) => (
+const PlusButtonSvg = (props: any) => (
     <Svg xmlns="http://www.w3.org/2000/svg" width={38} height={38} {...props}>
         <G fill="none" stroke="#e5e1f6" data-name="Group 15">
             <G data-name="Ellipse 2">
@@ -16,4 +16,4 @@ const PlusButton = (props: any) => (
     </Svg>
 )
 
-export default PlusButton
+export default PlusButtonSvg

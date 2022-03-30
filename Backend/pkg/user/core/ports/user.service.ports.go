@@ -5,9 +5,10 @@ import (
 )
 
 type UserService interface {
+	UpdateUser(user *models.User) (*models.User, error)
 	CreateUser(user models.User) (*models.User, error)
 	LoginUser(email string, password string) (*models.AuthUser, error)
-	GetUserById(id string) (*models.User, error)
+	GetUserById(userId interface{}) (*models.User, error)
 	CheckEmailExist(email string) bool
 	GetUsersByProfession(string) (models.Users, error)
 }

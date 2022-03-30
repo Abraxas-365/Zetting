@@ -4,7 +4,7 @@ import (
 	models "zetting/pkg/user/core/models"
 )
 
-func (r *userService) GetUserById(id string) (*models.User, error) {
-	return r.userRepo.GetUserById(id)
+func (r *userService) GetUserById(userId interface{}) (*models.User, error) {
+	return r.userRepo.GetUserById(userId)
 
 }

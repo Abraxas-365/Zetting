@@ -1,16 +1,17 @@
 import React, { useContext, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import StakeHolders from './StakeHolders';
-import { useForm } from '../hooks/useForm';
-import { AuthContext } from '../context/AuthContext';
-import { Project, User } from '../interfaces/appInterfaces';
-import CustomBotton from './CustomBotton';
-import { apiCalls } from '../api/apiCalls';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { RootStackParamList } from '../navigator/StackNavigator';
 import { Entypo } from '@expo/vector-icons';
-import { styleWrappers } from '../themes/Wrappers';
+import { Project } from '../../interfaces/appInterfaces';
+import { apiCalls } from '../../api/apiCalls';
+import { useForm } from '../../hooks/useForm';
+import { AuthContext } from '../../context/AuthContext';
+import { RootStackParamList } from '../../navigator/StackNavigator';
+import { styleWrappers } from '../../themes/Wrappers';
+import StakeHolders from '../stakeHolds/StakeHolders';
+import CustomAdjustableBotton from '../buttons/CustomAdjustableButton';
+import CustomCenterBotton from '../buttons/CustomCenterBotton';
 const creteProject = async (project: Project, navigation: any, token: any) => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
@@ -133,7 +134,7 @@ const CreateProjectForm = () => {
             <View style={styles.section}>
             </View>
             <View>
-                <CustomBotton onPress={() => onCreatePtojectBotton()} text="Create Project" />
+                <CustomCenterBotton onPress={() => onCreatePtojectBotton()} text="Create Project" />
             </View>
         </ScrollView >
     );

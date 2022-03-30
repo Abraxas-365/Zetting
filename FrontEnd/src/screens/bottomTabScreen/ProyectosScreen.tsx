@@ -3,19 +3,18 @@
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
-import { Button, FlatList, Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native'
-import styles from 'react-native-switch-toggles/src/switch/styles';
-import CustomSmallBotton from '../components/CustomSmallBotton';
-import PlusButton from '../components/PlusSvg';
-import ProjectBotton from '../components/ProjectBotton';
-import { useProjects } from '../hooks/useProjects';
-import { RootStackParamList } from '../navigator/StackNavigator';
-import { styleBackgrounds } from '../themes/Backgrounds';
-import { styleTitles } from '../themes/Titles';
-import { styleWrappers } from '../themes/Wrappers';
 import { SVGProps } from "react"
 import Svg, { G, Path } from 'react-native-svg';
+import { RootStackParamList } from '../../navigator/StackNavigator';
+import { useProjects } from '../../hooks/useProjects';
+import { styleBackgrounds } from '../../themes/Backgrounds';
+import { styleWrappers } from '../../themes/Wrappers';
+import { styleTitles } from '../../themes/Titles';
+import PlusButtonSvg from '../../components/svg/PlusSvg';
+import CustomSmallBotton from '../../components/buttons/CustomSmallBotton';
+import ProjectBotton from '../../components/buttons/ProjectButton';
 
 const Arrow = (props: SVGProps<SVGSVGElement>) => (
     <Svg
@@ -82,7 +81,7 @@ const ProyetosScreen = () => {
                 <View style={{ ...styleWrappers.wrapperTitles, flexDirection: 'row' }}>
                     <Text style={styleTitles.titleTextLight}>RROJECTS</Text>
                     <TouchableOpacity style={styleProyectosScreen.mas} onPress={() => navigation.navigate('CreateProyectScreen')}>
-                        <PlusButton />
+                        <PlusButtonSvg />
                     </TouchableOpacity>
                 </View>
                 <View style={{

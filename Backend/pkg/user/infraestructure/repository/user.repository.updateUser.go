@@ -2,26 +2,29 @@ package user_repository
 
 import (
 	"context"
-	models "zetting/pkg/user/core/models"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func (r *mongoRepository) GetUserById(userId interface{}) (*models.User, error) {
+func (r *mongoRepository) UpdateUser(query interface{}, userId interface{}) error {
 	ctx, cancel := context.WithTimeout(context.Background(), r.timeout)
 	defer cancel()
 	collection := r.client.Database(r.database).Collection(r.collection)
+
 	userObjecId, err := primitive.ObjectIDFromHex(userId.(string))
 	if err != nil {
-		return nil, err
+		return err
 	}
-	var user models.User
-	filter := bson.M{"_id": userObjecId}
-	if err := collection.FindOne(ctx, filter).Decode(&user); err != nil {
-		return nil, err
-	}
-	user.Password = ""
-	return &user, nil
 
+	filter := bson.M{"_id": userObjecId}
+	updateQuery := bson.M{
+		"$set": query,
+	}
+	_, err = collection.UpdateOne(ctx, filter, updateQuery)
+	if err != nil {
+		return err
+
+	}
+	return nil
 }

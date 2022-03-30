@@ -1,14 +1,14 @@
 
 import React, { useContext, useEffect } from 'react';
 import { Alert, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import BottonsPlatforms from '../components/BottonPlatform';
-import CustomCenterBotton from '../components/CustomCenterBotton';
-import StakeHolders from '../components/StakeHolders';
-import { AuthContext } from '../context/AuthContext';
-import { useForm } from '../hooks/useForm';
-import { styleBackgrounds } from '../themes/Backgrounds';
-import { styleTitles } from '../themes/Titles';
-import { styleWrappers } from '../themes/Wrappers';
+import BottonsPlatforms from '../../components/buttons/ButtonPlatform';
+import CustomCenterBotton from '../../components/buttons/CustomCenterBotton';
+import StakeHolders from '../../components/stakeHolds/StakeHolders';
+import { AuthContext } from '../../context/AuthContext';
+import { useForm } from '../../hooks/useForm';
+import { styleBackgrounds } from '../../themes/Backgrounds';
+import { styleTitles } from '../../themes/Titles';
+import { styleWrappers } from '../../themes/Wrappers';
 
 const SignInScreen = () => {
 

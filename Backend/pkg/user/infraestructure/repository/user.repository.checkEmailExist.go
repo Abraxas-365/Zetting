@@ -7,7 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func (r *mongoRepository) GetUserByEmail(email string) (*models.User, error) {
+func (r *mongoRepository) CheckEmailExist(email string) (*models.User, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), r.timeout)
 	defer cancel()
 	collection := r.client.Database(r.database).Collection("Users")

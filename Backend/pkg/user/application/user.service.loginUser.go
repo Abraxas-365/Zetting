@@ -14,7 +14,7 @@ func (r *userService) LoginUser(email string, password string) (*models.AuthUser
 		return nil, ErrEmptyParams
 	}
 
-	user, _ := r.userRepo.GetUserByEmail(email)
+	user, _ := r.userRepo.CheckEmailExist(email)
 
 	switch true {
 	case user == nil:

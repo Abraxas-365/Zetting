@@ -1,16 +1,14 @@
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
-import React, { Component, useContext } from 'react';
-import { Button, Image, SafeAreaView, Text, View } from 'react-native';
+import React, { useContext } from 'react';
+import { Text, View } from 'react-native';
 import { StyleSheet } from 'react-native'
 import { StretchyScrollView } from 'react-native-stretchy';
 import { apiCalls, serveDefaultImages } from '../../api/apiCalls';
-import CustomAdjustableBotton from '../../components/CustomAdjustableButton';
-import CustomCenterBotton from '../../components/CustomCenterBotton';
-import CustomSmallBotton from '../../components/CustomSmallBotton';
+import CustomAdjustableBotton from '../../components/buttons/CustomAdjustableButton';
 import BlackInfoBottons from '../../components/perfilComponets/BlackInfoBottons';
 import FeaturesBox from '../../components/perfilComponets/FeaturesBox';
-import { AuthContext, AuthProvider } from '../../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import { User } from '../../interfaces/appInterfaces';
 import { RootStackParamList } from '../../navigator/StackNavigator';
 import { styleBackgrounds } from '../../themes/Backgrounds';

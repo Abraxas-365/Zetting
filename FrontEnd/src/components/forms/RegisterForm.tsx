@@ -1,16 +1,15 @@
 
 import React, { useContext, useRef, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import StakeHolders from './StakeHolders';
-import MyCheckbox from './CheckBox';
-import { useForm } from '../hooks/useForm';
-import { AuthContext } from '../context/AuthContext';
-import { Features, Profession, User, UserContact } from '../interfaces/appInterfaces';
-import CustomCenterBotton from './CustomCenterBotton';
-import { Picker } from '@react-native-picker/picker';
 import PhoneInput from "react-native-phone-number-input";
 import RNPickerSelect from 'react-native-picker-select';
-import { styleWrappers } from '../themes/Wrappers';
+import { AuthContext } from '../../context/AuthContext';
+import { useForm } from '../../hooks/useForm';
+import { Features, Profession, User, UserContact } from '../../interfaces/appInterfaces';
+import { styleWrappers } from '../../themes/Wrappers';
+import CustomCenterBotton from '../buttons/CustomCenterBotton';
+import MyCheckbox from '../checkbox/CheckBox';
+import StakeHolders from '../stakeHolds/StakeHolders';
 interface FormProps {
     email: string
 }

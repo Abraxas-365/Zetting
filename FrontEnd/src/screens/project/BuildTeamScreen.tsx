@@ -1,12 +1,13 @@
 
+
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { serveDefaultImages, serveImages } from '../api/apiCalls';
-import { RootStackParamList } from '../navigator/StackNavigator';
-import { styleBackgrounds } from '../themes/Backgrounds';
-import { styleTitles } from '../themes/Titles';
+import { serveDefaultImages } from '../../api/apiCalls';
+import { RootStackParamList } from '../../navigator/StackNavigator';
+import { styleBackgrounds } from '../../themes/Backgrounds';
+import { styleTitles } from '../../themes/Titles';
 
 const OmitBottom = () => {
 

@@ -1,16 +1,16 @@
 import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
-import CustomAdjustableBotton from '../components/CustomAdjustableButton';
-import CustomCenterBotton from '../components/CustomCenterBotton';
-import CustomSmallBotton from '../components/CustomSmallBotton';
-import { styleBackgrounds } from '../themes/Backgrounds';
-import { styleTitles } from '../themes/Titles';
+import CustomAdjustableBotton from '../../components/buttons/CustomAdjustableButton';
+import CustomCenterBotton from '../../components/buttons/CustomCenterBotton';
+import { styleBackgrounds } from '../../themes/Backgrounds';
+import { styleTitles } from '../../themes/Titles';
+import { styleWrappers } from '../../themes/Wrappers';
 
 const FilterActorScreen = () => {
     return (
         <SafeAreaView style={styleBackgrounds.fondoDark}>
             <View style={{ marginTop: '4%', marginBottom: '5%' }}>
-                <View style={{ ...styleTitles.titleCenterView, top: 0 }}>
+                <View style={{ ...styleWrappers.wrapperTitles, top: 0 }}>
                     <Text style={styleTitles.titleTextLight}>FILTERS</Text>
                 </View>
             </View>

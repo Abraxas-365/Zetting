@@ -2,11 +2,11 @@
 
 import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
-import { Button, Image, SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native'
-import { RootStackParamList } from '../navigator/StackNavigator';
-import { styleBackgrounds } from '../themes/Backgrounds';
-import { styleTitles } from '../themes/Titles';
+import { RootStackParamList } from '../../navigator/StackNavigator';
+import { styleBackgrounds } from '../../themes/Backgrounds';
+import { styleTitles } from '../../themes/Titles';
 
 interface Props extends StackScreenProps<RootStackParamList, 'ProyectoScreen'> { }
 const ProyectoScreen = ({ route }: Props) => {

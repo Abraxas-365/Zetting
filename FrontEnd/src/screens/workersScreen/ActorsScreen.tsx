@@ -2,12 +2,12 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import TalentsButtonCard from '../components/TalentsButtonCard';
-import { useTalents } from '../hooks/useTalents';
-import { RootStackParamList } from '../navigator/StackNavigator';
-import { styleBackgrounds } from '../themes/Backgrounds';
-import { styleTitles } from '../themes/Titles';
-import { styleWrappers } from '../themes/Wrappers';
+import TalentsButtonCard from '../../components/buttons/TalentsButtonCard';
+import { useTalents } from '../../hooks/useTalents';
+import { RootStackParamList } from '../../navigator/StackNavigator';
+import { styleBackgrounds } from '../../themes/Backgrounds';
+import { styleTitles } from '../../themes/Titles';
+import { styleWrappers } from '../../themes/Wrappers';
 
 interface Props extends StackScreenProps<RootStackParamList, 'ActorsScreen'> { }
 const ActorsScreen = ({ route }: Props) => {

@@ -1,7 +1,7 @@
 package user_models
 
 type Profession struct {
-	Name        string `json:"name"`
-	Price       int    `json:"price"`
-	Description string `json:"description"`
+	Name        string `json:"name,omitempty"`
+	Price       int    `json:"price,omitempty"`
+	Description string `json:"description,omitempty"`
 }

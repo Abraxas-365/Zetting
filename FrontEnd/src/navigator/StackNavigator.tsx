@@ -1,20 +1,20 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import LoginScreen from '../screens/LoginScreen';
-import SignInScreen from '../screens/SignInScreen';
-import RegisterScreen from '../screens/RegisterScreen';
-import Register2Screen from '../screens/Register2Screen';
-import HomeScreen from '../screens/HomeScreen';
 import BottomTabs from './BottonTabs';
-import ChatScreen from '../screens/ChatScreen';
-import ProyectoScreen from '../screens/ProyectScreen';
-import CreateProyectScreen from '../screens/CreateProyectScreen';
-import BuildTeamScreen from '../screens/BuildTeamScreen';
-import ActorsScreen from '../screens/ActorsScreen';
-import FilterActorScreen from '../screens/FilterActorScreen';
 import WorkerActorScreen from '../screens/workersScreen/WorkerActorScreens';
 import { Project, User } from '../interfaces/appInterfaces';
-import ProfileScreen from '../screens/ProfileScreen';
+import LoginScreen from '../screens/signInUp/LoginScreen';
+import SignInScreen from '../screens/signInUp/SignInScreen';
+import RegisterScreen from '../screens/signInUp/RegisterScreen';
+import Register2Screen from '../screens/signInUp/Register2Screen';
+import HomeScreen from '../screens/bottomTabScreen/HomeScreen';
+import ChatScreen from '../screens/project/ChatScreen';
+import ProyectoScreen from '../screens/project/ProyectScreen';
+import CreateProyectScreen from '../screens/project/CreateProyectScreen';
+import BuildTeamScreen from '../screens/project/BuildTeamScreen';
+import ActorsScreen from '../screens/workersScreen/ActorsScreen';
+import FilterActorScreen from '../screens/filters/FilterActorScreen';
+import ProfileScreen from '../screens/bottomTabScreen/ProfileScreen';
 
 export type RootStackParamList = {
     LoginScreen: undefined;

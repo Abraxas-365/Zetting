@@ -1,11 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HeardSvg from '../components/HeardSvg';
-import SearchSvg from '../components/SearchSvg';
-import HomeScreen from '../screens/HomeScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import ProyetosScreen from '../screens/ProyectosScreen';
 import Svg, { ClipPath, Defs, G, Path } from "react-native-svg"
-import NotificationScreen from '../screens/NotificationScreen';
+import HeardSvg from '../components/svg/HeardSvg';
+import SearchSvg from '../components/svg/SearchSvg';
+import HomeScreen from '../screens/bottomTabScreen/HomeScreen';
+import NotificationScreen from '../screens/bottomTabScreen/NotificationScreen';
+import ProfileScreen from '../screens/bottomTabScreen/ProfileScreen';
+import ProyetosScreen from '../screens/bottomTabScreen/ProyectosScreen';
 const Tab = createBottomTabNavigator();
 const Bell = (props) => (
     <Svg

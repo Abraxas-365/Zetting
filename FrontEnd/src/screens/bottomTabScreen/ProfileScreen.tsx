@@ -1,16 +1,15 @@
 
 
-import React, { Component, useContext, useEffect } from 'react';
-import { Button, Image, SafeAreaView, Text, View } from 'react-native';
+import React, { useContext } from 'react';
+import { Text, View } from 'react-native';
 import { StyleSheet } from 'react-native'
-import { styleBackgrounds } from '../themes/Backgrounds';
-import { styleTitles } from '../themes/Titles';
 import { StretchyScrollView } from 'react-native-stretchy';
-import BlackInfoBottons from '../components/perfilComponets/BlackInfoBottons';
-import FeaturesBox from '../components/perfilComponets/FeaturesBox';
-import { AuthContext } from '../context/AuthContext';
-import { User } from '../interfaces/appInterfaces';
-import { serveDefaultImages } from '../api/apiCalls';
+import { serveDefaultImages } from '../../api/apiCalls';
+import BlackInfoBottons from '../../components/perfilComponets/BlackInfoBottons';
+import FeaturesBox from '../../components/perfilComponets/FeaturesBox';
+import { AuthContext } from '../../context/AuthContext';
+import { User } from '../../interfaces/appInterfaces';
+import { styleBackgrounds } from '../../themes/Backgrounds';
 
 
 type PropsScroll = {
