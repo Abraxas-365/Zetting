@@ -17,7 +17,7 @@ func (s *workRequestHandler) CreateWorkRequest(c *fiber.Ctx) error {
 		return c.Status(500).SendString(err.Error())
 	}
 	newWorkrequestData.OwnerId = userTokenData.ID
-	if err := s.userService.CreateWorkRequest(*newWorkrequestData); err != nil {
+	if err := s.workRequestService.CreateWorkRequest(*newWorkrequestData); err != nil {
 		return c.Status(500).SendString(err.Error())
 	}
 	return c.SendStatus(fiber.StatusOK)

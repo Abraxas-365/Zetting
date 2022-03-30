@@ -6,7 +6,7 @@ import (
 
 type WorkRequestService interface {
 	CreateWorkRequest(workRequest models.WorkRequest) error
-	// GetWorkRequestByProject(projectId interface{}) (models.WorkRequests, error)
+	GetWorkRequests(id string, page int, document string) (models.WorkRequests, error)
 	// GetWorkRequestByWorker(workerId interface{}) (models.WorkRequests, error)
 	// GetWorkRequestByOwner(ownerId interface{}) (models.WorkRequests, error)
 }
