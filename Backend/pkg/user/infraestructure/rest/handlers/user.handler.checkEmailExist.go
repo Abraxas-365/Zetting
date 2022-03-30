@@ -12,7 +12,7 @@ import (
 // @Succes   200
 // @Router   /users/{email} [get]
 
-func (s *userController) CheckEmailExist(c *fiber.Ctx) error {
+func (s *userHandler) CheckEmailExist(c *fiber.Ctx) error {
 	email := c.Params("email")
 	check := s.userService.CheckEmailExist(email)
 	resp := struct {

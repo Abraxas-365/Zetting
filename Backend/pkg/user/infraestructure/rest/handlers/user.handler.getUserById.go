@@ -14,7 +14,7 @@ import (
 // @Security  ApiKeyAuth
 // @Router    /users/ [get]
 
-func (s *userController) GetUserById(c *fiber.Ctx) error {
+func (s *userHandler) GetUserById(c *fiber.Ctx) error {
 	userTokenData, err := auth.ExtractTokenMetadata(c)
 	if err != nil {
 		return c.Status(500).SendString(err.Error())

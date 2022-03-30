@@ -2,6 +2,7 @@ package project_repository
 
 import (
 	"context"
+	"fmt"
 	models "zetting/pkg/project/core/models"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -20,6 +21,7 @@ func (r *mongoRepository) GetProjects(userId interface{}, document string, page 
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println(userObjectId, document, page)
 
 	filter := bson.M{document: bson.A{userObjectId}}
 	options := options.Find()

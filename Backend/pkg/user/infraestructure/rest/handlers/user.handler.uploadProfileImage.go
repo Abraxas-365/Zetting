@@ -8,7 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func (s *userController) UploadProfileImage(c *fiber.Ctx) error {
+func (s *userHandler) UploadProfileImage(c *fiber.Ctx) error {
 
 	file, err := c.FormFile("image")
 	if err != nil {

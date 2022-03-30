@@ -10,9 +10,8 @@ import (
 
 // TokenMetadata struct to describe metadata in JWT.
 type TokenMetadata struct {
-	ID       string
-	Email    string
-	Password string
+	ID    string
+	Email string
 }
 
 // ExtractTokenMetadata func to extract metadata from JWT.

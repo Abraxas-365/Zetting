@@ -7,17 +7,17 @@ import (
 	handler "zetting/pkg/project/infraestructure/rest/handlers"
 )
 
-func ProjectsRoute(app *fiber.App, controller handler.ProjectController) {
+func ProjectsRoute(app *fiber.App, handler handler.ProjectHandler) {
 
 	project := app.Group("/api/projects")
 
 	/*Create a new project*/
-	project.Post("/new", auth.JWTProtected(), controller.CreateProject)
+	project.Post("/new", auth.JWTProtected(), handler.CreateProject)
 
 	/*Get my projects*/
-	project.Get("/myprojects", auth.JWTProtected(), controller.GetMyProjects)
+	project.Get("/myprojects/:page", auth.JWTProtected(), handler.GetMyProjects)
 
 	/*get projects im in*/
-	project.Get("/projects", auth.JWTProtected(), controller.GetProjectsWorkingOn)
+	project.Get("/projects/:page", auth.JWTProtected(), handler.GetProjectsWorkingOn)
 
 }

@@ -17,7 +17,7 @@ import (
 // @Success   200   {object}  models.AuthUser
 // @Router   /users/login [post]
 
-func (s *userController) LoginUser(c *fiber.Ctx) error {
+func (s *userHandler) LoginUser(c *fiber.Ctx) error {
 	fmt.Println("---Register Route---")
 	userLoginData := new(models.UserLogin)
 	if err := c.BodyParser(&userLoginData); err != nil {

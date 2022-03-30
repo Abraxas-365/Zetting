@@ -1,4 +1,4 @@
-package models
+package workRequest_models
 
 import (
 	"time"

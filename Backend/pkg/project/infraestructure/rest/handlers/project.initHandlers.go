@@ -6,17 +6,17 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-type ProjectController interface {
+type ProjectHandler interface {
 	CreateProject(c *fiber.Ctx) error
 	GetMyProjects(c *fiber.Ctx) error
 	GetProjectsWorkingOn(c *fiber.Ctx) error
 }
-type projectController struct {
+type projectHandler struct {
 	projectService ports.ProjectService
 }
 
-func NewProjectController(projectService ports.ProjectService) ProjectController {
-	return &projectController{
+func NewProjectHandler(projectService ports.ProjectService) ProjectHandler {
+	return &projectHandler{
 		projectService,
 	}
 }

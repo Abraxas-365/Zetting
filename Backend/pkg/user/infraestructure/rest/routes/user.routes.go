@@ -7,7 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func UsersRoute(app *fiber.App, controller handler.UserController) {
+func UsersRoute(app *fiber.App, handler handler.UserHandler) {
 	/*SERVE*/
 	static := app.Group("/static")
 	static.Static("/app_default_images", "./static/app_default_images", fiber.Static{
@@ -15,18 +15,18 @@ func UsersRoute(app *fiber.App, controller handler.UserController) {
 	})
 	users := app.Group("/api/users")
 	/*Login user*/
-	users.Post("/login", controller.LoginUser)
+	users.Post("/login", handler.LoginUser)
 	/*Register user*/
-	users.Post("/register", controller.CreateUser)
+	users.Post("/register", handler.CreateUser)
 	/*Check email exist*/
-	users.Get("/:email", controller.CheckEmailExist)
+	users.Get("/:email", handler.CheckEmailExist)
 	/*Update user*/
-	users.Put("/update", auth.JWTProtected(), controller.UpdateUser)
+	users.Put("/update", auth.JWTProtected(), handler.UpdateUser)
 	/*Get user*/
-	users.Get("/", auth.JWTProtected(), controller.GetUserById)
+	users.Get("/", auth.JWTProtected(), handler.GetUserById)
 	/*Get users by profession*/
-	users.Get("/profession/:profession", auth.JWTProtected(), controller.GetUsersByProfession)
+	users.Get("/profession/:profession/:page", auth.JWTProtected(), handler.GetUsersByProfession)
 	/*Upload file image*/
-	users.Put("/upload/perfil_image", auth.JWTProtected(), controller.UploadProfileImage)
+	users.Put("/upload/perfil_image", auth.JWTProtected(), handler.UploadProfileImage)
 
 }

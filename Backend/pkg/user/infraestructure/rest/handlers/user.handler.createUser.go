@@ -17,7 +17,7 @@ import (
 // @Success  200    {object}  models.AuthUser
 // @Router   /users/register [post]
 
-func (s *userController) CreateUser(c *fiber.Ctx) error {
+func (s *userHandler) CreateUser(c *fiber.Ctx) error {
 	fmt.Println("---Register Route---")
 	userRegisterData := new(models.User)
 	if err := c.BodyParser(&userRegisterData); err != nil {

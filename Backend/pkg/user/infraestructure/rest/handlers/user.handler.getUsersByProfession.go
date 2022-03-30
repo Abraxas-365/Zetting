@@ -6,7 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func (s *userController) GetUsersByProfession(c *fiber.Ctx) error {
+func (s *userHandler) GetUsersByProfession(c *fiber.Ctx) error {
 
 	profession := c.Params("profession")
 	page, _ := strconv.Atoi(c.Params("page"))

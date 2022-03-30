@@ -6,7 +6,7 @@ import (
 	models "zetting/pkg/project/core/models"
 )
 
-func (s *projectController) CreateProject(c *fiber.Ctx) error {
+func (s *projectHandler) CreateProject(c *fiber.Ctx) error {
 	userTokenData, err := auth.ExtractTokenMetadata(c)
 	createProjectData := new(models.Project)
 	if err := c.BodyParser(&createProjectData); err != nil {
@@ -17,7 +17,7 @@ func (s *projectController) CreateProject(c *fiber.Ctx) error {
 	}
 	newProjectId, err := s.projectService.CreateProject(createProjectData, userTokenData.ID)
 	if err != nil {
-		return c.SendStatus(fiber.StatusNetworkAuthenticationRequired)
+		return c.SendStatus(fiber.ErrConflict.Code)
 	}
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{"msg": "correcto", "pid": newProjectId})
 

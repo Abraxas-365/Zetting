@@ -13,6 +13,6 @@ func ProjectInit(app *fiber.App) {
 
 	repo, _ := repo.NewMongoRepository("mongodb://localhost:27017", "Zetting", 10, "Projects")
 	service := service.NewProjectService(repo)
-	handlers := handlers.NewProjectController(service)
+	handlers := handlers.NewProjectHandler(service)
 	routes.ProjectsRoute(app, handlers) //User routes
 }

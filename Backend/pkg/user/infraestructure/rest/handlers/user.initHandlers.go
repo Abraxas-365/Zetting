@@ -6,7 +6,7 @@ import (
 
 import "github.com/gofiber/fiber/v2"
 
-type UserController interface {
+type UserHandler interface {
 	CreateUser(c *fiber.Ctx) error
 	UpdateUser(c *fiber.Ctx) error
 	LoginUser(c *fiber.Ctx) error
@@ -15,12 +15,12 @@ type UserController interface {
 	GetUsersByProfession(c *fiber.Ctx) error
 	UploadProfileImage(c *fiber.Ctx) error
 }
-type userController struct {
+type userHandler struct {
 	userService ports.UserService
 }
 
-func NewUserController(userService ports.UserService) UserController {
-	return &userController{
+func NewUserHandler(userService ports.UserService) UserHandler {
+	return &userHandler{
 		userService,
 	}
 }
