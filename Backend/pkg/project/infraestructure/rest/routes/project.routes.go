@@ -2,12 +2,12 @@ package project_routes
 
 import (
 	"zetting/auth"
-	ports "zetting/pkg/project/core/ports"
 
 	"github.com/gofiber/fiber/v2"
+	handler "zetting/pkg/project/infraestructure/rest/handlers"
 )
 
-func ProjectsRoute(app *fiber.App, controller ports.ProjectController) {
+func ProjectsRoute(app *fiber.App, controller handler.ProjectController) {
 
 	project := app.Group("/api/projects")
 

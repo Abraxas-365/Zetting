@@ -5,39 +5,44 @@ import (
 	models "zetting/pkg/user/core/models"
 )
 
-func (r *userService) UpdateUser(user *models.User) (*models.User, error) {
+func (r *userService) UpdateUser(userDataToUpdate *models.User, userId interface{}) error {
 
-	// user, _ := r.userRepo.GetUserByEmail(email)
+	// userDataToUpdate, _ := r.userRepo.GetUserByEmail(email)
 	updateQuery := make(map[string]interface{})
 
-	switch true {
-	case len(user.FirstName) > 0:
-		updateQuery["first_name"] = user.FirstName
+	if len(userDataToUpdate.FirstName) > 0 {
+		updateQuery["first_name"] = userDataToUpdate.FirstName
+	}
+	if len(userDataToUpdate.LastName) > 0 {
+		updateQuery["last_name"] = userDataToUpdate.LastName
+	}
 
-	case len(user.LastName) > 0:
-		updateQuery["last_name"] = user.LastName
-
-	case len(user.Password) > 0:
+	if len(userDataToUpdate.Password) > 0 {
 		/*funcion de crear password*/
 		fmt.Println("funcion para encriptar el password")
-		updateQuery["password"] = user.Password
-
-	case len(user.PerfilImage) > 0:
-		updateQuery["perfil_image"] = user.PerfilImage
-
-	case len(user.Contact.Country) > 0:
-		updateQuery["contact.country"] = user.Contact.Country
-
-	case len(user.Contact.Email) > 0:
-		updateQuery["contact.email"] = user.Contact.Email
-	case len(user.Contact.Phone) > 0:
-		updateQuery["contact.phone"] = user.Contact.Phone
-
+		updateQuery["password"] = userDataToUpdate.Password
 	}
-	err := r.userRepo.UpdateUser(updateQuery, user.ID)
+
+	if len(userDataToUpdate.PerfilImage) > 0 {
+		updateQuery["perfil_image"] = userDataToUpdate.PerfilImage
+	}
+
+	if len(userDataToUpdate.Contact.Country) > 0 {
+		updateQuery["contact.country"] = userDataToUpdate.Contact.Country
+	}
+
+	if len(userDataToUpdate.Contact.Email) > 0 {
+		updateQuery["contact.email"] = userDataToUpdate.Contact.Email
+	}
+
+	if len(userDataToUpdate.Contact.Phone) > 0 {
+		updateQuery["contact.phone"] = userDataToUpdate.Contact.Phone
+	}
+
+	err := r.userRepo.UpdateUser(updateQuery, userId)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return nil, nil
+	return nil
 }

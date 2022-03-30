@@ -1,8 +1,10 @@
 package project_controllers
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"strconv"
 	"zetting/auth"
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func (s *projectController) GetMyProjects(c *fiber.Ctx) error {
@@ -10,7 +12,8 @@ func (s *projectController) GetMyProjects(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}
-	myProjects, err := s.projectService.GetProjects(userTokenData.ID, "myprojects")
+	page, _ := strconv.Atoi(c.Params("page"))
+	myProjects, err := s.projectService.GetProjects(userTokenData.ID, "owner", page)
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}
@@ -22,7 +25,9 @@ func (s *projectController) GetProjectsWorkingOn(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}
-	myProjects, err := s.projectService.GetProjects(userTokenData.ID, "projects")
+
+	page, _ := strconv.Atoi(c.Params("page"))
+	myProjects, err := s.projectService.GetProjects(userTokenData.ID, "workers", page)
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}

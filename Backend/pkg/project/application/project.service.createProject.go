@@ -11,9 +11,6 @@ func (s *projectService) CreateProject(newProject *models.Project, userId interf
 		return "", err
 	}
 
-	if err := s.projectRepo.AddProject(userId, projectId, "myprojects"); err != nil {
-		return "", err
-	}
 	return projectId, nil
 
 }

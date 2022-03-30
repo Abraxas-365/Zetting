@@ -8,9 +8,8 @@ type Project struct {
 	ID           interface{} `bson:"_id,omitempty" json:"id"`
 	Name         string      `json:"name"`
 	Description  string      `json:"description"`
-	Propietarios interface{} `json:"propietarios"`
+	Owners       interface{} `json:"owners"`
 	Workers      interface{} `json:"workers"`
-	WorkRequests interface{} `bson:"work_requests" json:"work_requests"`
 	Color        string      `json:"color"`
 	DateStarted  string      `json:"date_started"`
 	DateFinished string      `json:"date_finished"`

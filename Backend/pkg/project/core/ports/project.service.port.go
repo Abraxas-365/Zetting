@@ -6,5 +6,5 @@ import (
 
 type ProjectService interface {
 	CreateProject(newProject *models.Project, userId interface{}) (interface{}, error)
-	GetProjects(userId interface{}, document string) (models.Projects, error)
+	GetProjects(userId interface{}, document string, page int) (models.Projects, error)
 }

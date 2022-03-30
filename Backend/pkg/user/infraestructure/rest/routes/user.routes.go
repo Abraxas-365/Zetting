@@ -20,11 +20,13 @@ func UsersRoute(app *fiber.App, controller handler.UserController) {
 	users.Post("/register", controller.CreateUser)
 	/*Check email exist*/
 	users.Get("/:email", controller.CheckEmailExist)
+	/*Update user*/
+	users.Put("/update", auth.JWTProtected(), controller.UpdateUser)
 	/*Get user*/
 	users.Get("/", auth.JWTProtected(), controller.GetUserById)
 	/*Get users by profession*/
 	users.Get("/profession/:profession", auth.JWTProtected(), controller.GetUsersByProfession)
 	/*Upload file image*/
-	users.Put("/upload/perfil", auth.JWTProtected(), controller.UploadProfileImage)
+	users.Put("/upload/perfil_image", auth.JWTProtected(), controller.UploadProfileImage)
 
 }

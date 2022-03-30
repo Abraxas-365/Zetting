@@ -1,11 +1,16 @@
 package user_handlers
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"strconv"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 func (s *userController) GetUsersByProfession(c *fiber.Ctx) error {
 
 	profession := c.Params("profession")
-	users, err := s.userService.GetUsersByProfession(profession)
+	page, _ := strconv.Atoi(c.Params("page"))
+	users, err := s.userService.GetUsersByProfession(profession, page)
 	if err != nil {
 		return fiber.ErrNotFound
 	}

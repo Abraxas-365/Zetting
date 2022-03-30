@@ -5,20 +5,17 @@ import (
 )
 
 type User struct {
-	ID           interface{} `bson:"_id,omitempty" json:"id"`
-	FirstName    string      `json:"first_name"`
-	LastName     string      `json:"last_name,omitempty"`
-	Password     string      `json:"password,omitempty"`
-	PerfilImage  string      `json:"perfil_image,omitempty"`
-	Contact      Contact     `json:"contact,omitempty"`
-	Profession   Profession  `json:"profession,omitempty"`
-	Features     Features    `json:"features,omitempty"`
-	Projects     interface{} `json:"projects,omitempty"`
-	MyProjects   interface{} `json:"my_projects,omitempty"`
-	WorkRequests interface{} `bson:"work_requests" json:"work_requests,omitempty"`
-	Verified     bool        `json:"verified,omitempty"`
-	Created      time.Time   `json:"created_at,omitempty"`
-	Updated      time.Time   `json:"updated_at,omitempty"`
+	ID          interface{} `bson:"_id,omitempty" json:"id"`
+	FirstName   string      `bson:"first_name" json:"first_name,omitempty"`
+	LastName    string      `bson:"last_name" json:"last_name,omitempty"`
+	Password    string      `bson:"password" json:"password,omitempty"`
+	PerfilImage string      `bson:"perfil_image" json:"perfil_image,omitempty"`
+	Contact     Contact     `bson:"contact" json:"contact,omitempty"`
+	Profession  Profession  `bson:"profession" json:"profession,omitempty"`
+	Features    Features    `bson:"features" json:"features,omitempty"`
+	Verified    bool        `bson:"verified" json:"verified,omitempty"`
+	Created     time.Time   `bson:"created_at" json:"created_at,omitempty"`
+	Updated     time.Time   `bson:"updated_at" json:"updated_at,omitempty"`
 }
 
 type Users []*User

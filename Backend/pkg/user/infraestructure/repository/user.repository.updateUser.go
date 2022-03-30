@@ -2,6 +2,7 @@ package user_repository
 
 import (
 	"context"
+	"fmt"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -21,6 +22,7 @@ func (r *mongoRepository) UpdateUser(query interface{}, userId interface{}) erro
 	updateQuery := bson.M{
 		"$set": query,
 	}
+	fmt.Println(query)
 	_, err = collection.UpdateOne(ctx, filter, updateQuery)
 	if err != nil {
 		return err

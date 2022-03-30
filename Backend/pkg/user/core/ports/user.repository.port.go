@@ -9,5 +9,5 @@ type UserRepository interface {
 	UpdateUser(query interface{}, userId interface{}) error
 	CheckEmailExist(email string) (*models.User, error)
 	GetUserById(userId interface{}) (*models.User, error)
-	GetUsersByProfession(string) (models.Users, error)
+	GetUsersByProfession(profession string, page int) (models.Users, error)
 }

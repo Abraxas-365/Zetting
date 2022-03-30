@@ -18,9 +18,6 @@ func (r *mongoRepository) CreateUser(user models.User) (*models.User, error) {
 	if err := collection.FindOne(ctx, filter).Decode(&check); err != nil {
 		user.Created = time.Now()
 		user.Updated = time.Now()
-		user.MyProjects = []primitive.ObjectID{}
-		user.Projects = []primitive.ObjectID{}
-		user.WorkRequests = []primitive.ObjectID{}
 		user.Features.Skills = []string{}
 		user.Verified = false
 		result, err := collection.InsertOne(ctx, user)
