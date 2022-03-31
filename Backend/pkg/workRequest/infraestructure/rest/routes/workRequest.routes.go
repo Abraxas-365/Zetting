@@ -17,5 +17,7 @@ func ProjectsRoute(app *fiber.App, handler handler.WorkRequestHandler) {
 	workRequest.Get("/project_id=:project_id/page=:page", auth.JWTProtected(), handler.GetWorkRequestsByProject)
 	/*Get all the work request a user have resive*/
 	workRequest.Get("/worker_id=:worker_id/page=:page", auth.JWTProtected(), handler.GetWorkRequestsByWorker)
+	/*Answer a work request*/
+	workRequest.Post("/answer", auth.JWTProtected(), handler.AnswerWorkRequest)
 
 }

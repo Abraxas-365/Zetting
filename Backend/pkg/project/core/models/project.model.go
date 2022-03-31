@@ -12,7 +12,7 @@ type Project struct {
 	Workers      interface{} `json:"workers"`
 	Color        string      `json:"color"`
 	DateStarted  string      `json:"date_started"`
-	DateFinished string      `json:"date_finished"`
+	DateFinished string      `json:"date_finish"`
 	Created      time.Time   `json:"created_at"`
 	Updated      time.Time   `json:"updated_at,omitempty"`
 }

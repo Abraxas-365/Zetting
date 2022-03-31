@@ -7,4 +7,5 @@ import (
 type ProjectRepository interface {
 	CreateProject(project *models.Project, userId interface{}) (interface{}, error)
 	GetProjects(userId interface{}, document string, page int) (models.Projects, error)
+	AddUserToProject(addUserData models.AddUserToProject, document string) error
 }

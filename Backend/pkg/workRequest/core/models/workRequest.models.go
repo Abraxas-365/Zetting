@@ -11,13 +11,13 @@ import (
 // "D"=denied
 // }
 type WorkRequest struct {
-	ID        interface{} `bson:"_id,omitempty" json:"id"`
-	OwnerId   interface{} `bson:"owner_id" json:"owner_id"`
-	ProjectId interface{} `bson:"project_id" json:"project_id"`
-	WorkerId  interface{} `bson:"worker_id" json:"worker_id"`
-	Status    string      `bson:"acepted" json:"acepted"`
-	Created   time.Time   `json:"created_at"`
-	Updated   time.Time   `json:"updated_at,omitempty"`
+	ID        interface{} `bson:"_id,omitempty" json:"id,omitempty"`
+	OwnerId   interface{} `bson:"owner_id" json:"owner_id,omitempty"`
+	ProjectId interface{} `bson:"project_id" json:"project_id,omitempty"`
+	WorkerId  interface{} `bson:"worker_id" json:"worker_id,omitempty"`
+	Status    string      `bson:"status" json:"acepted,omitempty"`
+	Created   time.Time   `bson:"created_at" json:"created_at,omitempty"`
+	Updated   time.Time   `bson:"updated_at" json:"updated_at,omitempty"`
 }
 
 type WorkRequests []*WorkRequest
