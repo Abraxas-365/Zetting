@@ -1,8 +1,8 @@
 package user_models
 
 type Features struct {
-	Gender string `json:"gender"`
-	Age    int    `json:"age"`
+	Gender string `json:"gender,omitempty"`
+	Age    int    `json:"age,omitempty"`
 	// desde aqui es actores
 	Height     int      `json:"height,omitempty"`
 	Body       string   `json:"body,omitempty"`

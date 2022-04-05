@@ -22,7 +22,7 @@ const TalentsButtonCard = ({ user = {}, color = '#FF7F39', pid }: Props) => {
     console.log('talets button pid', pid);
     const defaultPic = serveDefaultImages + "noPerfil.png"
 
-    let perfilImage = user.perfil_image == "" ? defaultPic : serveDefaultImages + user.perfil_image
+    let perfilImage = user.perfil_image == null ? defaultPic : serveDefaultImages + user.perfil_image
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     return (
         <TouchableOpacity style={{ ...styles.boton, backgroundColor: color }} onPress={() => navigation.navigate('WorkerActorScreen', { user, pid })}>

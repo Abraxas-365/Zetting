@@ -41,7 +41,7 @@ type BottonProps = {
 const CategoriesBotton = ({ onPress = () => { }, text = 'test', image = serveDefaultImages + "/laRoca.jpeg" }: BottonProps) => {
     return (
         <TouchableOpacity
-            style={{ width: 140, height: 92, borderRadius: 9 }}
+            style={{ width: 152, height: 92, borderRadius: 9 }}
             onPress={onPress}>
             <Image style={{ flex: 1, borderRadius: 9 }} resizeMode='cover' source={{ uri: image }} />
             <Text style={{ position: 'absolute', fontSize: 13, color: '#E5E1F6', fontWeight: '800', left: 10, top: 6 }}>{text}</Text>
@@ -66,7 +66,7 @@ const BuildTeamScreen = ({ route }: Props) => {
                 </View>
             </View>
             <View style={{ ...styleBackgrounds.fondoDark, top: '13%' }}>
-                <ScrollView style={{ ...styleBackgrounds.fondoDark, marginHorizontal: '10%' }}>
+                <ScrollView style={{ ...styleBackgrounds.fondoDark, marginHorizontal: '8%' }}>
                     <View>
                         <View style={{ flexDirection: 'row', marginTop: 20, position: 'relative' }}>
                             <View style={{ position: 'relative', left: 0, }}>
@@ -135,7 +135,7 @@ export default BuildTeamScreen;
 const styles = StyleSheet.create({
     topContainer: {
         top: '8%',
-        marginHorizontal: '10%'
+        marginHorizontal: '8%'
     },
     slogan: {
         fontSize: 20,

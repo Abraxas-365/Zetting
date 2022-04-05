@@ -1,29 +1,30 @@
 
 
 import React, { useContext } from 'react';
-import { Text, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native'
 import { StretchyScrollView } from 'react-native-stretchy';
 import { serveDefaultImages } from '../../api/apiCalls';
 import BlackInfoBottons from '../../components/perfilComponets/BlackInfoBottons';
 import FeaturesBox from '../../components/perfilComponets/FeaturesBox';
 import { AuthContext } from '../../context/AuthContext';
+import { usePerfil } from '../../hooks/usePerfil';
 import { User } from '../../interfaces/appInterfaces';
 import { styleBackgrounds } from '../../themes/Backgrounds';
 
 
 type PropsScroll = {
-    user?: User | null,
+    user?: User,
 
 }
-const SystretchyScrollView = ({ user = {} }: PropsScroll) => {
+const SystretchyScrollView = ({ user }: PropsScroll) => {
+    let price = user!.profession!.price == null ? "_" : "S/" + user!.profession!.price
+    let tamano = user!.features!.height == null ? "-" : user!.features!.height
+    let age = user!.features!.age == null ? "-" : user!.features!.age
+    let gender = user!.features!.gender == null ? "alien" : user!.features!.gender
+    let foto = user!.perfil_image == null ? serveDefaultImages + "noPerfil.png" : serveDefaultImages + user!.perfil_image
+    let description = user!.profession!.description == null ? "si no sabes donde ir no puedes estar perdido" : user!.profession!.description
 
-    let price = user!.profession!.price == 0 ? "_" : "S/" + user!.profession!.price
-    let tamano = user!.features!.height == 0 ? "-" : user!.features!.height
-    let age = user!.features!.age == 0 ? "-" : user!.features!.age
-    let gender = user!.features!.gender == "" ? "alien" : user!.features!.gender
-    let foto = user!.perfil_image == "" ? serveDefaultImages + "noPerfil.png" : serveDefaultImages + user!.perfil_image
-    let description = user!.profession!.description == "" ? "si no sabes donde ir no puedes estar perdido" : user!.profession!.description
     return (
         <StretchyScrollView
             image={{ uri: foto }}
@@ -65,11 +66,18 @@ const SystretchyScrollView = ({ user = {} }: PropsScroll) => {
 }
 
 const ProfileScreen = () => {
-    const { user } = useContext(AuthContext)
+    const { userId } = useContext(AuthContext)
+    const { user, isLoading } = usePerfil(userId)
     return (
-        <View style={styleBackgrounds.fondoDark}>
-            <SystretchyScrollView user={user} />
-        </View>
+
+        isLoading
+            ?
+            <View>
+                <ActivityIndicator size={50} />
+            </View>
+            : <View style={styleBackgrounds.fondoDark}>
+                <SystretchyScrollView user={user} />
+            </View>
     );
 };
 

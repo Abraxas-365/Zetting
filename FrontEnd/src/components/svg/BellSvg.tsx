@@ -50,3 +50,20 @@ export const BellSvgActive = ({ color = "white", border = "black", width = 11.62
     </Svg>
 )
 
+export const Bell = ({ color = "white", width = 16.766, height = 18.437 }: Props) => (
+    <Svg
+        width={width}
+        height={height}
+    >
+        <G data-name="Group 28" fill={color}>
+            <Path
+                data-name="Path 13"
+                d="M15.218 8.582c-.193-.923-.414-1.97-.534-3.006a6.349 6.349 0 0 0-12.6 0c-.118 1.021-.33 2.031-.531 2.994l-1.55 6.776h16.763ZM1.766 13.937l1.159-5.066c.2-.961.429-2.049.554-3.133a4.942 4.942 0 0 1 9.807 0c.126 1.1.353 2.18.557 3.145l1.155 5.054Z"
+            />
+            <Path
+                data-name="Path 14"
+                d="M11.563 17.019H5.2a.704.704 0 0 0 0 1.408h6.363a.704.704 0 0 0 0-1.408"
+            />
+        </G>
+    </Svg>
+)

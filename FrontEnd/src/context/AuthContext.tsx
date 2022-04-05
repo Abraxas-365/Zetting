@@ -1,16 +1,17 @@
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useReducer } from "react";
 import { apiCalls } from "../api/apiCalls";
 import { User } from "../interfaces/appInterfaces";
 import { RootStackParamList } from "../navigator/StackNavigator";
-import { authReducer, AuthState, reloadReducer, ReloadState } from "./authReducer";
+import { authReducer, AuthState } from "./authReducer";
 
 
 
 
 type AuthContextProps = {
     errorMessage: string | null,
+    userId: string | null | undefined,
     token: string | null;
     user: User | null;
     status: 'checking' | 'autenticated' | 'not-autenticated'
@@ -20,13 +21,13 @@ type AuthContextProps = {
     registerIn: (email: string) => void;
     signUp: (user: User) => void;
     removeError: () => void;
-    reloadUser: () => void;
 }
 
 
 const authInitialState: AuthState = {
     status: 'checking',
     token: null,
+    userId: null,
     user: null,
     exists: null,
     errorMessage: null,
@@ -76,7 +77,7 @@ export const AuthProvider = ({ children }: any) => {
     const signOut = () => { console.log('d') };
     const registerIn = async (email: string) => {
         try {
-            const resp = await apiCalls.get('/api/users/' + email)
+            const resp = await apiCalls.get('/api/users/email=' + email)
             console.log(resp.data);
             if (resp.data.exists == false) {
                 navigation.navigate('Register2Screen', { email: email })
@@ -120,22 +121,8 @@ export const AuthProvider = ({ children }: any) => {
     const removeError = () => { dispatch({ type: 'removeError' }) };
 
 
-    const reloadUser = async () => {
-        const { token } = useContext(AuthContext)
-        const config = {
-            headers: { Authorization: `Bearer ${token}` }
-        };
-
-        const { data } = await apiCalls.get<User>('/api/users/', config)
-        dispatch({
-            type: 'reloadUser',
-            payload: { user: data }
-
-        })
-    }
 
     return (
-
         <AuthContext.Provider value={{
             ...state,
             signIn,
@@ -143,7 +130,6 @@ export const AuthProvider = ({ children }: any) => {
             signUp,
             registerIn,
             removeError,
-            reloadUser
 
 
         }}>

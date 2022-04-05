@@ -8,7 +8,7 @@ import { StyleSheet } from 'react-native'
 import { SVGProps } from "react"
 import Svg, { G, Path } from 'react-native-svg';
 import { RootStackParamList } from '../../navigator/StackNavigator';
-import { useProjects } from '../../hooks/useProjects';
+import { useMyProjects, useProjects } from '../../hooks/useProjects';
 import { styleBackgrounds } from '../../themes/Backgrounds';
 import { styleWrappers } from '../../themes/Wrappers';
 import { styleTitles } from '../../themes/Titles';
@@ -52,13 +52,8 @@ const ProyetosScreen = () => {
     const [borderColor1, setBorderColor1] = useState('#E5E1F6');
     const [tipo, setTipo] = useState(false);
 
-    const { projects, myProjects } = useProjects();
-    var data = myProjects
-    if (tipo == false) {
-        data = myProjects
-    } else {
-        data = projects
-    }
+    const { projects, isLoadingProjects } = useProjects();
+    const { myProjects, isLoadingMyProjects } = useMyProjects();
     const projectsBotton = () => {
 
         setColorProject('#FF7F39')
@@ -74,31 +69,60 @@ const ProyetosScreen = () => {
         setBorderColor1('#FF7F39')
         setTipo(true)
     }
+    if (tipo == false) {
 
-    return (
-        <SafeAreaView style={styleBackgrounds.fondoDark}>
-            <View style={{ ...styleWrappers.wrapperHorizontalGap }}>
-                <View style={{ ...styleWrappers.wrapperTitles, flexDirection: 'row' }}>
-                    <Text style={styleTitles.titleTextLight}>RROJECTS</Text>
-                    <TouchableOpacity style={styleProyectosScreen.mas} onPress={() => navigation.navigate('CreateProyectScreen')}>
-                        <PlusButtonSvg />
-                    </TouchableOpacity>
+        return (
+            <SafeAreaView style={styleBackgrounds.fondoDark}>
+                <View style={{ ...styleWrappers.wrapperHorizontalGap }}>
+                    <View style={{ ...styleWrappers.wrapperTitles, flexDirection: 'row' }}>
+                        <Text style={styleTitles.titleTextLight}>RROJECTS</Text>
+                        <TouchableOpacity style={styleProyectosScreen.mas} onPress={() => navigation.navigate('CreateProyectScreen')}>
+                            <PlusButtonSvg />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{
+                        marginTop: '10%', flexDirection: 'row',
+                    }}>
+
+
+                        <CustomSmallBotton borderColor={borderColor} color={colorProject} text='My Project' onPress={projectsBotton} />
+                        <View style={{ marginHorizontal: '2%', marginBottom: "12%" }} />
+                        <CustomSmallBotton borderColor={borderColor1} color={colorMyProject} text='Projects' onPress={myprojectsBotton} />
+                    </View>
                 </View>
-                <View style={{
-                    marginTop: '10%', flexDirection: 'row',
-                }}>
+                <FlatList ListEmptyComponent={<EmptyFlatList />} contentContainerStyle={{ flexGrow: 1, top: '3%', ...styleWrappers.wrapperHorizontalGap }} data={myProjects} renderItem={({ item }: any) => <ProjectBotton title={item.name} description={item.description} color={item.color} />} />
+            </SafeAreaView >
+        );
+    }
+    if (tipo == true) {
+
+        return (
+            <SafeAreaView style={styleBackgrounds.fondoDark}>
+                <View style={{ ...styleWrappers.wrapperHorizontalGap }}>
+                    <View style={{ ...styleWrappers.wrapperTitles, flexDirection: 'row' }}>
+                        <Text style={styleTitles.titleTextLight}>RROJECTS</Text>
+                        <TouchableOpacity style={styleProyectosScreen.mas} onPress={() => navigation.navigate('CreateProyectScreen')}>
+                            <PlusButtonSvg />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{
+                        marginTop: '10%', flexDirection: 'row',
+                    }}>
 
 
-                    <CustomSmallBotton borderColor={borderColor} color={colorProject} text='My Project' onPress={projectsBotton} />
-                    <View style={{ marginHorizontal: '2%', marginBottom: "12%" }} />
-                    <CustomSmallBotton borderColor={borderColor1} color={colorMyProject} text='Projects' onPress={myprojectsBotton} />
+                        <CustomSmallBotton borderColor={borderColor} color={colorProject} text='My Project' onPress={projectsBotton} />
+                        <View style={{ marginHorizontal: '2%', marginBottom: "12%" }} />
+                        <CustomSmallBotton borderColor={borderColor1} color={colorMyProject} text='Projects' onPress={myprojectsBotton} />
+                    </View>
                 </View>
-            </View>
 
-            <FlatList ListEmptyComponent={<EmptyFlatList />} contentContainerStyle={{ flexGrow: 1, top: '3%', ...styleWrappers.wrapperHorizontalGap }} data={data} renderItem={({ item }: any) => <ProjectBotton title={item.name} description={item.description} color={item.color} />} />
+                <FlatList contentContainerStyle={{ flexGrow: 1, top: '3%', ...styleWrappers.wrapperHorizontalGap }} data={projects} renderItem={({ item }: any) => <ProjectBotton title={item.name} description={item.description} color={item.color} />} />
 
-        </SafeAreaView >
-    );
+            </SafeAreaView >
+        );
+
+    }
+
 };
 
 export default ProyetosScreen;

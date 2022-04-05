@@ -12,7 +12,6 @@ import { styleWrappers } from '../../themes/Wrappers';
 interface Props extends StackScreenProps<RootStackParamList, 'ActorsScreen'> { }
 const ActorsScreen = ({ route }: Props) => {
 
-    console.log('ActorsScreen params ', route.params.pid);
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
     const { talents } = useTalents("actor");

@@ -1,8 +1,7 @@
-import { useContext } from "react";
 import { User } from "../interfaces/appInterfaces";
-import { AuthContext } from "./AuthContext";
 
 export interface AuthState {
+    userId: string | null | undefined;
     status: 'checking' | 'autenticated' | 'not-autenticated';
     token: string | null;
     errorMessage: string | null;
@@ -18,7 +17,6 @@ export type AuthAction =
     | { type: 'addError', payload: string }
     | { type: 'removeError' }
     | { type: 'notAutenticated' }
-    | { type: 'reloadUser', payload: { user: User } }
     | { type: 'logOut' }
     | { type: 'cleanEexists' }
 
@@ -32,6 +30,7 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
                 exists: null,
                 token: null,
                 errorMessage: null,
+                userId: null,
                 status: 'not-autenticated'
 
             }
@@ -42,7 +41,8 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
                 errorMessage: null,
                 status: 'autenticated',
                 token: action.payload.token,
-                user: action.payload.user
+                user: action.payload.user,
+                userId: action.payload.user.id
             }
         case 'notAutenticated':
         case 'logOut':
@@ -50,7 +50,8 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
                 ...state,
                 status: 'not-autenticated',
                 token: null,
-                user: null
+                user: null,
+                userId: null
             }
         case "addError":
             return {
@@ -58,6 +59,7 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
                 user: null,
                 status: 'not-autenticated',
                 token: null,
+                userId: null,
                 errorMessage: action.payload,
 
             }
@@ -65,11 +67,6 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
             return {
                 ...state,
                 errorMessage: null,
-            }
-        case "reloadUser":
-            return {
-                ...state,
-                user: action.payload.user
             }
         default:
             return state;

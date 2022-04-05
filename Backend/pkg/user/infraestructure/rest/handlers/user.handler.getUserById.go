@@ -1,7 +1,7 @@
 package user_handlers
 
 import (
-	"zetting/auth"
+	"fmt"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -15,14 +15,13 @@ import (
 // @Router    /users/ [get]
 
 func (s *userHandler) GetUserById(c *fiber.Ctx) error {
-	userTokenData, err := auth.ExtractTokenMetadata(c)
+	userId := c.Params("id")
+	fmt.Println(userId)
+	user, err := s.userService.GetUserById(userId)
 	if err != nil {
-		return c.Status(500).SendString(err.Error())
+		return c.SendStatus(fiber.StatusBadRequest)
 	}
-	user, err := s.userService.GetUserById(userTokenData.ID)
-	if err != nil {
-		return c.SendStatus(fiber.StatusNetworkAuthenticationRequired)
-	}
+	fmt.Println(user.FirstName)
 	return c.Status(fiber.StatusOK).JSON(user)
 
 }

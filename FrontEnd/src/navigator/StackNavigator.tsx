@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import BottomTabs from './BottonTabs';
+import BottomTabs from './BottomTabs';
 import WorkerActorScreen from '../screens/workersScreen/WorkerActorScreens';
 import { Project, User } from '../interfaces/appInterfaces';
 import LoginScreen from '../screens/signInUp/LoginScreen';

@@ -47,12 +47,12 @@ const SystretchyScrollView = ({ user = {}, pid }: PropsScroll) => {
 
     const { token } = useContext(AuthContext);
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-    let price = user.profession!.price == 0 ? "_" : "S/" + user.profession!.price
-    let tamano = user.features!.height == 0 ? "-" : user.features!.height
-    let age = user.features!!.age == 0 ? "-" : user.features!!.age
-    let gender = user.features!.gender == "" ? "alien" : user.features!.gender
-    let description = user.profession!.description == "" ? "si no sabes donde ir no puedes estar perdido" : user.profession!.description
-    let foto = user!.perfil_image == "" ? serveDefaultImages + "noPerfil.png" : serveDefaultImages + user!.perfil_image
+    let price = user!.profession!.price == null ? "_" : "S/" + user!.profession!.price
+    let tamano = user!.features!.height == null ? "-" : user!.features!.height
+    let age = user!.features!.age == null ? "-" : user!.features!.age
+    let gender = user!.features!.gender == null ? "alien" : user!.features!.gender
+    let foto = user!.perfil_image == null ? serveDefaultImages + "noPerfil.png" : serveDefaultImages + user!.perfil_image
+    let description = user!.profession!.description == null ? "si no sabes donde ir no puedes estar perdido" : user!.profession!.description
     return (
         <StretchyScrollView
             image={{ uri: foto }}

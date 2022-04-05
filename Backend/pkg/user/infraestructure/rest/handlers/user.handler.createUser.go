@@ -21,7 +21,7 @@ func (s *userHandler) CreateUser(c *fiber.Ctx) error {
 	fmt.Println("---Register Route---")
 	userRegisterData := new(models.User)
 	if err := c.BodyParser(&userRegisterData); err != nil {
-		return fiber.ErrBadRequest
+		return c.Status(500).SendString(err.Error())
 	}
 
 	Newuser, err := s.userService.CreateUser(*userRegisterData)
