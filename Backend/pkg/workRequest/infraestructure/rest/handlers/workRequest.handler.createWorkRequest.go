@@ -7,7 +7,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func (s *workRequestHandler) CreateWorkRequest(c *fiber.Ctx) error {
+func (h *workRequestHandler) CreateWorkRequest(c *fiber.Ctx) error {
 	newWorkrequestData := new(models.WorkRequest)
 	if err := c.BodyParser(&newWorkrequestData); err != nil {
 		return fiber.ErrBadRequest
@@ -17,9 +17,10 @@ func (s *workRequestHandler) CreateWorkRequest(c *fiber.Ctx) error {
 		return c.Status(500).SendString(err.Error())
 	}
 	newWorkrequestData.OwnerId = userTokenData.ID
-	if err := s.workRequestService.CreateWorkRequest(*newWorkrequestData); err != nil {
+	newWorkrequestData, err = h.workRequestService.CreateWorkRequest(*newWorkrequestData)
+	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}
-	return c.SendStatus(fiber.StatusOK)
+	return c.Status(fiber.StatusOK).JSON(newWorkrequestData)
 
 }

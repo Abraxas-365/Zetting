@@ -14,10 +14,10 @@ import (
 // @Security  ApiKeyAuth
 // @Router    /users/ [get]
 
-func (s *userHandler) GetUserById(c *fiber.Ctx) error {
+func (h *userHandler) GetUserById(c *fiber.Ctx) error {
 	userId := c.Params("id")
 	fmt.Println(userId)
-	user, err := s.userService.GetUserById(userId)
+	user, err := h.userService.GetUserById(userId)
 	if err != nil {
 		return c.SendStatus(fiber.StatusBadRequest)
 	}

@@ -2,11 +2,14 @@ package workRequest_service
 
 import models "zetting/pkg/workRequest/core/models"
 
-func (r *workRequestService) CreateWorkRequest(newWorkRequest models.WorkRequest) error {
+func (r *workRequestService) CreateWorkRequest(newWorkRequest models.WorkRequest) (*models.WorkRequest, error) {
 
-	if err := r.projectRepo.CreateWorkRequest(newWorkRequest); err != nil {
-		return err
+	WorkRequest, err := r.projectRepo.CreateWorkRequest(newWorkRequest)
+	if err != nil {
+		return nil, err
 	}
-	return nil
+	/*TODO: add adapter to send the id to the rabbitMQ*/
+
+	return WorkRequest, nil
 
 }

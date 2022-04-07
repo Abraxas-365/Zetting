@@ -12,9 +12,9 @@ import (
 // @Succes   200
 // @Router   /users/{email} [get]
 
-func (s *userHandler) CheckEmailExist(c *fiber.Ctx) error {
+func (h *userHandler) CheckEmailExist(c *fiber.Ctx) error {
 	email := c.Params("email")
-	check := s.userService.CheckEmailExist(email)
+	check := h.userService.CheckEmailExist(email)
 	resp := struct {
 		Exists bool `json:"exists"`
 	}{}

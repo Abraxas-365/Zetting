@@ -14,5 +14,5 @@ func WorkRequestInit(app *fiber.App) {
 	repo, _ := repo.NewMongoRepository("mongodb://localhost:27017", "Zetting", 10, "WorkRequests")
 	service := service.NewWorkRequestService(repo)
 	handlers := handlers.NewWorkRequestHandler(service)
-	routes.ProjectsRoute(app, handlers) //User routes
+	routes.WorkRequestRoute(app, handlers)
 }

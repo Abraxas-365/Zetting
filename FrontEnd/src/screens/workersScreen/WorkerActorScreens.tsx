@@ -1,41 +1,20 @@
-import { CommonActions, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp, StackScreenProps } from '@react-navigation/stack';
 import React, { useContext } from 'react';
 import { Text, View } from 'react-native';
 import { StyleSheet } from 'react-native'
 import { StretchyScrollView } from 'react-native-stretchy';
-import { apiCalls, serveDefaultImages } from '../../api/apiCalls';
+import { serveDefaultImages } from '../../api/apiCalls';
 import CustomAdjustableBotton from '../../components/buttons/CustomAdjustableButton';
 import BlackInfoBottons from '../../components/perfilComponets/BlackInfoBottons';
 import FeaturesBox from '../../components/perfilComponets/FeaturesBox';
 import { AuthContext } from '../../context/AuthContext';
+import { sendWorkRequest } from '../../hooks/useSendWorkRequest';
 import { User } from '../../interfaces/appInterfaces';
 import { RootStackParamList } from '../../navigator/StackNavigator';
 import { styleBackgrounds } from '../../themes/Backgrounds';
 
 
-const sendRequest = async (worker_id: any, project_id: any, token: any, navigation: any) => {
-
-    const config = {
-        headers: { Authorization: `Bearer ${token}` }
-    };
-    console.log(config);
-
-    try {
-        const { data } = await apiCalls.post('/api/projects/add-work-request', { worker_id, project_id }, config);
-        console.log(data.data);
-        navigation.dispatch(
-            CommonActions.reset({
-                index: 0,
-                routes: [{ name: 'BottomTabs' }
-                ]
-
-            }))
-
-    } catch (err) {
-        console.error(err);
-    }
-}
 
 
 type PropsScroll = {
@@ -65,7 +44,7 @@ const SystretchyScrollView = ({ user = {}, pid }: PropsScroll) => {
                             <Text style={styleText.professions}>Actor</Text>
                         </View>
                         <View style={styleViews.addButton}>
-                            <CustomAdjustableBotton color="#FE893C" borderWidth={0} text="Add" onPress={() => sendRequest(user.id, pid, token, navigation)} />
+                            <CustomAdjustableBotton color="#FE893C" borderWidth={0} text="Add" onPress={() => sendWorkRequest(user.id, pid, token, navigation)} />
                         </View>
                     </View>
                     <View style={styleViews.infoBoxes}>

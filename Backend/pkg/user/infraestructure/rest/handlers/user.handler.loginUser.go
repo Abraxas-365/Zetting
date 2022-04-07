@@ -17,7 +17,7 @@ import (
 // @Success   200   {object}  models.AuthUser
 // @Router   /users/login [post]
 
-func (s *userHandler) LoginUser(c *fiber.Ctx) error {
+func (h *userHandler) LoginUser(c *fiber.Ctx) error {
 	fmt.Println("---Register Route---")
 	userLoginData := new(models.UserLogin)
 	if err := c.BodyParser(&userLoginData); err != nil {
@@ -29,7 +29,7 @@ func (s *userHandler) LoginUser(c *fiber.Ctx) error {
 		return fiber.ErrBadRequest
 	}
 
-	authUser, err := s.userService.LoginUser(userLoginData.Email, userLoginData.Password)
+	authUser, err := h.userService.LoginUser(userLoginData.Email, userLoginData.Password)
 	if err != nil {
 		fmt.Println(err)
 		return c.Status(500).SendString(err.Error())

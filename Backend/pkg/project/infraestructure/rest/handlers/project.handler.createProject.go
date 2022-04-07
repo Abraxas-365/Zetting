@@ -6,16 +6,16 @@ import (
 	models "zetting/pkg/project/core/models"
 )
 
-func (s *projectHandler) CreateProject(c *fiber.Ctx) error {
+func (h *projectHandler) CreateProject(c *fiber.Ctx) error {
 	userTokenData, err := auth.ExtractTokenMetadata(c)
+	if err != nil {
+		return c.Status(500).SendString(err.Error())
+	}
 	createProjectData := new(models.Project)
 	if err := c.BodyParser(&createProjectData); err != nil {
 		return fiber.ErrBadRequest
 	}
-	if err != nil {
-		return c.Status(500).SendString(err.Error())
-	}
-	newProjectId, err := s.projectService.CreateProject(createProjectData, userTokenData.ID)
+	newProjectId, err := h.projectService.CreateProject(createProjectData, userTokenData.ID)
 	if err != nil {
 		return c.SendStatus(fiber.ErrConflict.Code)
 	}

@@ -7,7 +7,7 @@ import (
 	handler "zetting/pkg/workRequest/infraestructure/rest/handlers"
 )
 
-func ProjectsRoute(app *fiber.App, handler handler.WorkRequestHandler) {
+func WorkRequestRoute(app *fiber.App, handler handler.WorkRequestHandler) {
 
 	workRequest := app.Group("/api/work-request")
 

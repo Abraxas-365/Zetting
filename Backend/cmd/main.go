@@ -4,6 +4,7 @@ import (
 	"fmt"
 	_ "zetting/docs"
 
+	notification "zetting/pkg/notification"
 	project "zetting/pkg/project"
 	user "zetting/pkg/user"
 	workRequest "zetting/pkg/workRequest"
@@ -20,6 +21,7 @@ func main() {
 	user.UserInit(app)
 	project.ProjectInit(app)
 	workRequest.WorkRequestInit(app)
+	notification.NotificationInit(app)
 	fmt.Println("inicando en puerto 3000")
 	app.Get("/swagger/*", swagger.HandlerDefault)
 	app.Get("/swagger/*", swagger.New(swagger.Config{

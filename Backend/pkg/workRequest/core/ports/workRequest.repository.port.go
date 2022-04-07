@@ -5,7 +5,7 @@ import (
 )
 
 type WorkRequestRepository interface {
-	CreateWorkRequest(workRequest models.WorkRequest) error
+	CreateWorkRequest(workRequest models.WorkRequest) (*models.WorkRequest, error)
 	GetWorkRequests(id string, page int, document string) (models.WorkRequests, error)
 	AnswerWorkRequest(workRequest models.WorkRequest) error
 }

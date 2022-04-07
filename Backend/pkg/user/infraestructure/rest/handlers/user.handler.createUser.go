@@ -17,19 +17,19 @@ import (
 // @Success  200    {object}  models.AuthUser
 // @Router   /users/register [post]
 
-func (s *userHandler) CreateUser(c *fiber.Ctx) error {
+func (h *userHandler) CreateUser(c *fiber.Ctx) error {
 	fmt.Println("---Register Route---")
 	userRegisterData := new(models.User)
 	if err := c.BodyParser(&userRegisterData); err != nil {
 		return c.Status(500).SendString(err.Error())
 	}
 
-	Newuser, err := s.userService.CreateUser(*userRegisterData)
+	Newuser, err := h.userService.CreateUser(*userRegisterData)
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}
 
-	authUser, err := s.userService.LoginUser(Newuser.Contact.Email, Newuser.Password)
+	authUser, err := h.userService.LoginUser(Newuser.Contact.Email, Newuser.Password)
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}

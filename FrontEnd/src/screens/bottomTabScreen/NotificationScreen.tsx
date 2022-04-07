@@ -18,6 +18,7 @@ const NotificationScreen = () => {
                 </View>
                 <Text style={{ ...styleText.notificationsNum }}>You have n notifications today</Text>
             </View>
+
         </SafeAreaView>
     );
 };

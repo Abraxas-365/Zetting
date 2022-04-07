@@ -9,24 +9,24 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func (r *mongoRepository) CreateWorkRequest(newWorkRequest models.WorkRequest) error {
+func (r *mongoRepository) CreateWorkRequest(newWorkRequest models.WorkRequest) (*models.WorkRequest, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), r.timeout)
 	defer cancel()
 	collection := r.client.Database(r.database).Collection(r.collection)
 
 	projectObjectId, err := primitive.ObjectIDFromHex(newWorkRequest.ProjectId.(string))
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	workerObjectId, err := primitive.ObjectIDFromHex(newWorkRequest.WorkerId.(string))
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	ownerObjectId, err := primitive.ObjectIDFromHex(newWorkRequest.OwnerId.(string))
 	if err != nil {
-		return err
+		return nil, err
 	}
 	check := bson.M{}
 	filter := bson.M{"project_id": projectObjectId, "worker_id": workerObjectId}
@@ -37,11 +37,13 @@ func (r *mongoRepository) CreateWorkRequest(newWorkRequest models.WorkRequest) e
 		newWorkRequest.WorkerId = workerObjectId
 		newWorkRequest.ProjectId = projectObjectId
 		newWorkRequest.Status = "P"
-		_, err := collection.InsertOne(ctx, newWorkRequest)
+		response, err := collection.InsertOne(ctx, newWorkRequest)
 		if err != nil {
-			return err
+			return nil, err
 		}
+		newWorkRequest.ID = response.InsertedID.(primitive.ObjectID).Hex()
+		return &newWorkRequest, nil
 	}
-	return nil
+	return nil, ErrConflict
 
 }

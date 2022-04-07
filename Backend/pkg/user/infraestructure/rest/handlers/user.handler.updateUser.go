@@ -8,7 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func (s *userHandler) UpdateUser(c *fiber.Ctx) error {
+func (h *userHandler) UpdateUser(c *fiber.Ctx) error {
 	fmt.Println("---UpdateUser Route---")
 	updatedUser := new(models.User)
 	if err := c.BodyParser(&updatedUser); err != nil {
@@ -18,7 +18,7 @@ func (s *userHandler) UpdateUser(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}
-	if err := s.userService.UpdateUser(updatedUser, userTokenData.ID); err != nil {
+	if err := h.userService.UpdateUser(updatedUser, userTokenData.ID); err != nil {
 		return fiber.ErrBadRequest
 	}
 	return c.SendStatus(fiber.StatusOK)

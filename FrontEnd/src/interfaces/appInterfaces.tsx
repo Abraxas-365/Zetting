@@ -57,3 +57,13 @@ export interface Features {
 
 
 }
+
+export interface WorkRequest {
+    "id"?: string;
+    "owner_id"?: string;
+    "project_id"?: string;
+    "worker_id"?: string;
+    "acepted"?: string;
+    "created_at"?: string;
+    "updated_at"?: string
+}
