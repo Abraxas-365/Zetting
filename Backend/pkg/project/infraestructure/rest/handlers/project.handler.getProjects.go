@@ -1,4 +1,4 @@
-package project_controllers
+package project_handlers
 
 import (
 	"strconv"

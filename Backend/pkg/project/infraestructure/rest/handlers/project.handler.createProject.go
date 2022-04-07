@@ -1,4 +1,4 @@
-package project_controllers
+package project_handlers
 
 import (
 	"github.com/gofiber/fiber/v2"

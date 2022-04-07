@@ -19,5 +19,7 @@ func ProjectsRoute(app *fiber.App, handler handler.ProjectHandler) {
 
 	/*get projects im in*/
 	project.Get("/projects/page=:page", auth.JWTProtected(), handler.GetProjectsWorkingOn)
+	/*ger project by project id*/
+	project.Get("/id=:id", auth.JWTProtected(), handler.GetProjectsWorkingOn)
 
 }
