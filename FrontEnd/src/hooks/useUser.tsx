@@ -5,14 +5,13 @@ import { User } from "../interfaces/appInterfaces"
 
 
 
-export const usePerfil = (id: any) => {
+export const useUser = (id: any) => {
     const [user, setUser] = useState({} as User)
     const [isLoading, setisLoading] = useState(true)
 
     const getUser = async () => {
         console.log("opteniendo ususario");
         const { data } = await apiCalls.get<User>('/api/users/id=' + id)
-        console.log(data)
         setUser(data)
         setisLoading(false)
     }

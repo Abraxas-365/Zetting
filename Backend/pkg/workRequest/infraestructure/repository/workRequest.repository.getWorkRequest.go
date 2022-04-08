@@ -6,30 +6,24 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func (r *mongoRepository) GetWorkRequests(userId string, page int, document string) (models.WorkRequests, error) {
+func (r mongoRepository) GetWorkRequest(workRequestId interface{}) (*models.WorkRequest, error) {
+
 	ctx, cancel := context.WithTimeout(context.Background(), r.timeout)
 	defer cancel()
 	collection := r.client.Database(r.database).Collection(r.collection)
 
-	userObjectId, err := primitive.ObjectIDFromHex(userId)
+	projectObjectId, err := primitive.ObjectIDFromHex(workRequestId.(string))
 	if err != nil {
 		return nil, err
 	}
 
-	var workRequests models.WorkRequests
-	options := options.Find()
-	options.SetLimit(20)
-	options.SetSkip((int64(page) - 1) * 20)
-	filter := bson.D{primitive.E{Key: document, Value: userObjectId}}
-	cur, err := collection.Find(ctx, filter, options)
-	if err != nil {
+	var workRequest models.WorkRequest
+	filter := bson.M{"_id": projectObjectId}
+	if err := collection.FindOne(ctx, filter).Decode(&workRequest); err != nil {
 		return nil, err
 	}
-	if err = cur.All(ctx, &workRequests); err != nil {
-		return nil, err
-	}
-	return workRequests, nil
+	return &workRequest, nil
+
 }

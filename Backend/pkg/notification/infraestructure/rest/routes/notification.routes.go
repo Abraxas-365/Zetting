@@ -13,6 +13,7 @@ func NotificationRoute(app *fiber.App, handler handler.NotificationsHandler) {
 
 	/*Create a new notification*/
 	notification.Post("/new/type=:type", auth.JWTProtected(), handler.CreateNotification)
+	/*Get a notification*/
 	notification.Get("/page=:page", auth.JWTProtected(), handler.GetNotifications)
 
 }

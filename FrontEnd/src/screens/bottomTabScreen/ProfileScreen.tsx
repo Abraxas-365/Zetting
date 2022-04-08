@@ -8,7 +8,7 @@ import { serveDefaultImages } from '../../api/apiCalls';
 import BlackInfoBottons from '../../components/perfilComponets/BlackInfoBottons';
 import FeaturesBox from '../../components/perfilComponets/FeaturesBox';
 import { AuthContext } from '../../context/AuthContext';
-import { usePerfil } from '../../hooks/usePerfil';
+import { useUser } from '../../hooks/useUser';
 import { User } from '../../interfaces/appInterfaces';
 import { styleBackgrounds } from '../../themes/Backgrounds';
 
@@ -67,7 +67,7 @@ const SystretchyScrollView = ({ user }: PropsScroll) => {
 
 const ProfileScreen = () => {
     const { userId } = useContext(AuthContext)
-    const { user, isLoading } = usePerfil(userId)
+    const { user, isLoading } = useUser(userId)
     return (
 
         isLoading

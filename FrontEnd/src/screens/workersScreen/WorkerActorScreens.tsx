@@ -9,7 +9,7 @@ import CustomAdjustableBotton from '../../components/buttons/CustomAdjustableBut
 import BlackInfoBottons from '../../components/perfilComponets/BlackInfoBottons';
 import FeaturesBox from '../../components/perfilComponets/FeaturesBox';
 import { AuthContext } from '../../context/AuthContext';
-import { sendWorkRequest } from '../../hooks/useSendWorkRequest';
+import { sendWorkRequest, useSendWorkRequest } from '../../hooks/useSendWorkRequest';
 import { User } from '../../interfaces/appInterfaces';
 import { RootStackParamList } from '../../navigator/StackNavigator';
 import { styleBackgrounds } from '../../themes/Backgrounds';
@@ -24,7 +24,7 @@ type PropsScroll = {
 }
 const SystretchyScrollView = ({ user = {}, pid }: PropsScroll) => {
 
-    const { token } = useContext(AuthContext);
+    const { token } = useContext(AuthContext)
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     let price = user!.profession!.price == null ? "_" : "S/" + user!.profession!.price
     let tamano = user!.features!.height == null ? "-" : user!.features!.height
@@ -44,7 +44,7 @@ const SystretchyScrollView = ({ user = {}, pid }: PropsScroll) => {
                             <Text style={styleText.professions}>Actor</Text>
                         </View>
                         <View style={styleViews.addButton}>
-                            <CustomAdjustableBotton color="#FE893C" borderWidth={0} text="Add" onPress={() => sendWorkRequest(user.id, pid, token, navigation)} />
+                            <CustomAdjustableBotton color="#FE893C" borderWidth={0} text="Add" onPress={() => sendWorkRequest(user.id, pid, navigation, token)} />
                         </View>
                     </View>
                     <View style={styleViews.infoBoxes}>

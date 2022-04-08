@@ -1,38 +1,35 @@
-package notification_repository
+package workRequest_repository
 
 import (
-	models "zetting/pkg/notification/core/models"
+	"context"
+	models "zetting/pkg/workRequest/core/models"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"golang.org/x/net/context"
 )
 
-func (r *mongoRepository) GetNotifications(userId interface{}, page int) (models.Notifications, error) {
-
+func (r *mongoRepository) GetWorkRequests(userId interface{}, page int, document string) (models.WorkRequests, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), r.timeout)
 	defer cancel()
 	collection := r.client.Database(r.database).Collection(r.collection)
 
-	var notifications models.Notifications
 	userObjectId, err := primitive.ObjectIDFromHex(userId.(string))
 	if err != nil {
 		return nil, err
 	}
 
-	filter := bson.M{"notified_id": userObjectId}
+	var workRequests models.WorkRequests
 	options := options.Find()
 	options.SetLimit(20)
 	options.SetSkip((int64(page) - 1) * 20)
+	filter := bson.D{primitive.E{Key: document, Value: userObjectId}}
 	cur, err := collection.Find(ctx, filter, options)
 	if err != nil {
 		return nil, err
 	}
-	if err = cur.All(ctx, &notifications); err != nil {
+	if err = cur.All(ctx, &workRequests); err != nil {
 		return nil, err
 	}
-
-	return notifications, nil
-
+	return workRequests, nil
 }

@@ -3,19 +3,21 @@ import { apiCalls } from "../api/apiCalls"
 import { AuthContext } from "../context/AuthContext"
 
 
-export const useGetWorkRequest = () => {
-    const [worRequest, setWorkRequest] = useState([])
-    const [page, setPageProject] = useState(1)
-    const [isLoadingProjects, setIsLoading] = useState(true)
-    const { token, userId } = useContext(AuthContext)
+export type WorkRequest = {
+    project_id: string;
+
+}
+export const useGetWorkRequest = (id: any) => {
+    const [workRequest, setWorkRequest] = useState({} as workRequest)
+    const [isLoading, setIsLoading] = useState(true)
+    const { token } = useContext(AuthContext)
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
 
     const getWorkRequest = async () => {
 
-        const { data } = await apiCalls.get('/api/work-request/worker_id' + userId + '/page=' + page, config)
-        console.log(data)
+        const { data } = await apiCalls.get<workRequest>('/api/work-request/id=' + id, config)
         setWorkRequest(data)
         setIsLoading(false)
 
@@ -23,7 +25,7 @@ export const useGetWorkRequest = () => {
     useEffect(() => {
         getWorkRequest();
 
-    }, [page])
-    return { worRequest, isLoadingProjects }
+    }, [])
+    return { workRequest, isLoading }
 
 }

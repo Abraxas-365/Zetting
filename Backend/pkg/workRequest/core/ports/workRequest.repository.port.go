@@ -6,6 +6,7 @@ import (
 
 type WorkRequestRepository interface {
 	CreateWorkRequest(workRequest models.WorkRequest) (*models.WorkRequest, error)
-	GetWorkRequests(id string, page int, document string) (models.WorkRequests, error)
+	GetWorkRequests(userId interface{}, page int, document string) (models.WorkRequests, error)
 	AnswerWorkRequest(workRequest models.WorkRequest) error
+	GetWorkRequest(workRequestId interface{}) (*models.WorkRequest, error)
 }

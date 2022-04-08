@@ -40,7 +40,6 @@ export interface Project {
     calendar?: string;
     collaboration?: string;
     color?: string;
-    empleados?: Array<string>;
 
 
 }
@@ -66,4 +65,17 @@ export interface WorkRequest {
     "acepted"?: string;
     "created_at"?: string;
     "updated_at"?: string
+}
+
+export interface Notification {
+    notified_id?: string;
+    notifier_image?: string;
+    notifier_id?: string;
+    type?: string
+    reference_id?: string;
+    is_read?: string
+    message?: string
+    created_at?: string
+    updated_at?: string
+
 }

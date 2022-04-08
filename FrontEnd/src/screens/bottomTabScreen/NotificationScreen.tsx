@@ -1,14 +1,18 @@
 
 
 import React from 'react';
-import { Button, Image, SafeAreaView, Text, View } from 'react-native';
+import { Button, FlatList, Image, SafeAreaView, Text, View } from 'react-native';
 import { StyleSheet } from 'react-native'
+import NotificationCard from '../../components/cards/NotificationCard';
+import { useNotifications } from '../../hooks/useNotifications';
+import { Notification } from '../../interfaces/appInterfaces';
 import { styleBackgrounds } from '../../themes/Backgrounds';
 import { styleTitles } from '../../themes/Titles';
 import { styleWrappers } from '../../themes/Wrappers';
 
 
 const NotificationScreen = () => {
+    const { notifications } = useNotifications()
     return (
         <SafeAreaView style={styleBackgrounds.fondoDark}>
 
@@ -19,6 +23,7 @@ const NotificationScreen = () => {
                 <Text style={{ ...styleText.notificationsNum }}>You have n notifications today</Text>
             </View>
 
+            <FlatList contentContainerStyle={{ flexGrow: 1, top: '3%', ...styleWrappers.wrapperHorizontalGap }} data={notifications} renderItem={({ item }: any) => <NotificationCard notification={item} />} />
         </SafeAreaView>
     );
 };

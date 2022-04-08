@@ -13,7 +13,10 @@ func (h *notificationHandler) GetNotifications(c *fiber.Ctx) error {
 	if err != nil {
 		return c.Status(500).SendString(err.Error())
 	}
-	page, _ := strconv.Atoi(c.Params("page"))
+	page, err := strconv.Atoi(c.Params("page"))
+	if err != nil {
+		return c.Status(500).SendString(err.Error())
+	}
 	myNotifications, err := h.notificationService.GetNotifications(userTokenData.ID, page)
 	if err != nil {
 		return c.Status(500).SendString(err.Error())

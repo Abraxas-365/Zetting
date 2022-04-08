@@ -20,4 +20,6 @@ func WorkRequestRoute(app *fiber.App, handler handler.WorkRequestHandler) {
 	/*Answer a work request*/
 	workRequest.Post("/answer", auth.JWTProtected(), handler.AnswerWorkRequest)
 
+	/*Get all the work request by id*/
+	workRequest.Get("/id=:id", auth.JWTProtected(), handler.GetWorkRequestsById)
 }
