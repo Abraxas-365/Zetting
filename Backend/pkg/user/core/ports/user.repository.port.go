@@ -10,4 +10,5 @@ type UserRepository interface {
 	CheckEmailExist(email string) (*models.User, error)
 	GetUserById(userId interface{}) (*models.User, error)
 	GetUsersByProfession(profession string, page int) (models.Users, error)
+	GetUsersByProject(projectId interface{}, document string) (models.Users, error)
 }

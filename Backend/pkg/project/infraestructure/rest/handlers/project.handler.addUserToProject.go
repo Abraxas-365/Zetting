@@ -1,0 +1,27 @@
+package project_handlers
+
+import (
+	"zetting/auth"
+	models "zetting/pkg/project/core/models"
+
+	"github.com/gofiber/fiber/v2"
+)
+
+func (h *projectHandler) AddUserToProject(c *fiber.Ctx) error {
+
+	userTokenData, err := auth.ExtractTokenMetadata(c)
+	if err != nil {
+		return c.Status(500).SendString(err.Error())
+	}
+	addUserData := new(models.AddUserToProject)
+	if err := c.BodyParser(&addUserData); err != nil {
+		return fiber.ErrBadRequest
+	}
+	document := c.Params("type")
+	addUserData.OwnerId = userTokenData.ID
+	if err := h.projectService.AddUserToProject(*addUserData, document); err != nil {
+		return c.Status(500).SendString(err.Error())
+	}
+	return c.SendStatus(fiber.StatusOK)
+
+}

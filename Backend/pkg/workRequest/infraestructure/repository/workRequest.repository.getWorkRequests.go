@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func (r *mongoRepository) GetWorkRequests(userId interface{}, page int, document string) (models.WorkRequests, error) {
+func (r *mongoRepository) GetWorkRequests(userId interface{}, status string, page int, number int, document string) (models.WorkRequests, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), r.timeout)
 	defer cancel()
 	collection := r.client.Database(r.database).Collection(r.collection)
@@ -21,9 +21,9 @@ func (r *mongoRepository) GetWorkRequests(userId interface{}, page int, document
 
 	var workRequests models.WorkRequests
 	options := options.Find()
-	options.SetLimit(20)
-	options.SetSkip((int64(page) - 1) * 20)
-	filter := bson.D{primitive.E{Key: document, Value: userObjectId}}
+	options.SetLimit(int64(number))
+	options.SetSkip((int64(page) - 1) * int64(number))
+	filter := bson.D{primitive.E{Key: document, Value: userObjectId}, primitive.E{Key: "status", Value: status}}
 	cur, err := collection.Find(ctx, filter, options)
 	if err != nil {
 		return nil, err

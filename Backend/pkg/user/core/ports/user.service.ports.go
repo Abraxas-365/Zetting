@@ -10,5 +10,6 @@ type UserService interface {
 	LoginUser(email string, password string) (*models.AuthUser, error)
 	GetUserById(userId interface{}) (*models.User, error)
 	CheckEmailExist(email string) bool
-	GetUsersByProfession(proffession string, page int) (models.Users, error)
+	GetUsersByProfession(profession string, page int) (models.Users, error)
+	GetUsersByProject(projectId interface{}, document string) (models.Users, error)
 }

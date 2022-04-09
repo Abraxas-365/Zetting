@@ -13,6 +13,7 @@ type UserHandler interface {
 	GetUserById(c *fiber.Ctx) error
 	CheckEmailExist(c *fiber.Ctx) error
 	GetUsersByProfession(c *fiber.Ctx) error
+	GetUsersByProject(c *fiber.Ctx) error
 	UploadProfileImage(c *fiber.Ctx) error
 }
 type userHandler struct {

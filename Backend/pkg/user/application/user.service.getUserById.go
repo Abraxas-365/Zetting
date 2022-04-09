@@ -5,6 +5,10 @@ import (
 )
 
 func (r *userService) GetUserById(userId interface{}) (*models.User, error) {
-	return r.userRepo.GetUserById(userId)
-
+	user, err := r.userRepo.GetUserById(userId)
+	if err != nil {
+		return nil, err
+	}
+	user.Password = ""
+	return user, nil
 }

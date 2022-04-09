@@ -21,7 +21,6 @@ func (r *mongoRepository) GetUserById(userId interface{}) (*models.User, error) 
 	if err := collection.FindOne(ctx, filter).Decode(&user); err != nil {
 		return nil, err
 	}
-	user.Password = ""
 	return &user, nil
 
 }
