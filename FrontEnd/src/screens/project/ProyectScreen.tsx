@@ -13,7 +13,7 @@ const ProyectoScreen = ({ route }: Props) => {
     return (
         <SafeAreaView style={styleBackgrounds.fondoDark}>
             <View style={{ alignSelf: 'center', justifyContent: 'center', top: '10%' }}>
-                <Text style={styleTitles.titleTextLight}>{route.params.name}</Text>
+                <Text style={styleTitles.titleTextLight}>{route.params.project.name}</Text>
             </View>
         </SafeAreaView>
     );

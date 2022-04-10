@@ -21,7 +21,7 @@ func UsersRoute(app *fiber.App, handler handler.UserHandler) {
 	/*Check email exist*/
 	users.Get("/email=:email", handler.CheckEmailExist)
 	/*Get user by Project id*/
-	users.Get("/project_id=:project_id", handler.GetUsersByProject)
+	users.Get("/project_id=:project_id", auth.JWTProtected(), handler.GetUsersByProject)
 	/*Get user */
 	users.Get("/id=:id", handler.GetUserById)
 	/*Get users by profession*/
@@ -30,5 +30,6 @@ func UsersRoute(app *fiber.App, handler handler.UserHandler) {
 	users.Put("/update", auth.JWTProtected(), handler.UpdateUser)
 	/*Upload file image*/
 	users.Put("/upload/perfil_image", auth.JWTProtected(), handler.UploadProfileImage)
-
+	/*Add Project id to user*/
+	users.Put("/add_project", auth.JWTProtected(), handler.AddProjectToUser)
 }

@@ -1,34 +1,31 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Switch from 'react-native-switch-toggles';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../navigator/StackNavigator';
 import { BellSvgActive, BellSvgInactive } from '../svg/BellSvg';
+import { Project, User } from '../../interfaces/appInterfaces';
+import { useBuildProjectCard } from '../../hooks/useProjectCard';
+import { serveDefaultImages } from '../../api/apiCalls';
 
 type Props = {
-    title?: string
-    description?: string
-    color?: string
-    members?: Array<string>
-    notifications?: boolean
+    project: Project
 }
 
-const ProjectBotton = ({ title = 'Titulo', description = 'description', color = '#FF7F39' }: Props) => {
+const ProjectBotton = ({ project }: Props) => {
+    const { users } = useBuildProjectCard(project.id);
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     const [isEnabled, setIsEnabled] = React.useState(true);
     return (
-        <TouchableOpacity style={{ ...styles.boton, backgroundColor: color }} onPress={() => navigation.navigate('ProyectoScreen', { name: title, description: description })}>
+        <TouchableOpacity style={{ ...styles.boton, backgroundColor: project.color }} onPress={() => navigation.navigate('ProyectoScreen', { project })}>
             <View style={styles.wrapper}>
                 <View style={styles.viewLeft}>
-                    <Text style={styles.title}>{title}</Text>
-                    <View style={styles.members}>
-                        <View style={{ flex: 1, flexDirection: 'row' }}>
-                            <View style={[styles.memberPhotos]}></View>
-                            <View style={[styles.memberPhotos]}></View>
-                            <View style={[styles.memberPhotos]}></View>
+                    <Text style={styles.title}>{project.name}</Text>
+                    <Text style={styles.membersNumber}>{users.length} Members</Text>
 
-                        </View>
+                    <View style={styles.members}>
+                        <MembersPhotos users={users} />
                     </View>
                 </View>
                 <View style={styles.viewRight}>
@@ -43,11 +40,11 @@ const ProjectBotton = ({ title = 'Titulo', description = 'description', color = 
                                 <BellSvgActive color={'red'} />)}
                             renderActiveThumbIcon={() => (
 
-                                <BellSvgInactive border={'red'} color={color} />)}
+                                <BellSvgInactive border={'red'} color={project.color} />)}
                         />
                     </View>
-                    <TouchableOpacity style={styles.chat} onPress={() => navigation.navigate('ChatScreen')}>
-                        <Text style={styles.chatText}>Chat</Text>
+                    <TouchableOpacity style={styles.Documents} onPress={() => navigation.navigate('ChatScreen')}>
+                        <Text style={styles.chatText}>Documents</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -56,9 +53,117 @@ const ProjectBotton = ({ title = 'Titulo', description = 'description', color = 
     );
 };
 
+type MembersPhotosProps = {
+    users: Array<User>
+}
+const MembersPhotos = ({ users }: MembersPhotosProps) => {
+    const defaultPic = serveDefaultImages + "noPerfil.png"
+    if (users.length == 1) {
+        let perfilImage = users[0].perfil_image == null ? defaultPic : serveDefaultImages + users[0].perfil_image
+        return (
+            <View style={{ flex: 1, flexDirection: 'row', marginTop: 10 }}>
+                <Image
+                    style={styles.memberPhotos}
+                    source={{
+                        uri: perfilImage
+                    }}
+                />
+            </View>
+        )
+    }
+    if (users.length == 2) {
+        let perfilImage = users[0].perfil_image == null ? defaultPic : serveDefaultImages + users[0].perfil_image
+        let perfilImage2 = users[1].perfil_image == null ? defaultPic : serveDefaultImages + users[1].perfil_image
+        return (
+            <View style={{ flex: 1, flexDirection: 'row', marginTop: 10 }}>
+                <Image
+                    style={styles.memberPhotos}
+                    source={{
+                        uri: perfilImage
+                    }}
+                />
+                <Image
+                    style={styles.memberPhotos}
+                    source={{
+                        uri: perfilImage2
+                    }}
+                />
+            </View>
+        )
+    }
+    if (users.length == 3) {
+        let perfilImage = users[0].perfil_image == null ? defaultPic : serveDefaultImages + users[0].perfil_image
+        let perfilImage2 = users[1].perfil_image == null ? defaultPic : serveDefaultImages + users[1].perfil_image
+        let perfilImage3 = users[2].perfil_image == null ? defaultPic : serveDefaultImages + users[2].perfil_image
+        return (
+            <View style={{ flex: 1, flexDirection: 'row', marginTop: 10 }}>
+                <Image
+                    style={styles.memberPhotos}
+                    source={{
+                        uri: perfilImage
+                    }}
+                />
+                <Image
+                    style={styles.memberPhotos}
+                    source={{
+                        uri: perfilImage2
+                    }}
+                />
+                <Image
+                    style={styles.memberPhotos}
+                    source={{
+                        uri: perfilImage3
+                    }}
+                />
+            </View>
+        )
+    }
+
+    if (users.length > 3) {
+        let perfilImage = users[0].perfil_image == null ? defaultPic : serveDefaultImages + users[0].perfil_image
+        let perfilImage2 = users[1].perfil_image == null ? defaultPic : serveDefaultImages + users[1].perfil_image
+        let perfilImage3 = users[2].perfil_image == null ? defaultPic : serveDefaultImages + users[2].perfil_image
+        return (
+            <View style={{ flex: 1, flexDirection: 'row', marginTop: 10 }}>
+                <Image
+                    style={styles.memberPhotos}
+                    source={{
+                        uri: perfilImage
+                    }}
+                />
+                <Image
+                    style={styles.memberPhotos}
+                    source={{
+                        uri: perfilImage2
+                    }}
+                />
+                <Image
+                    style={styles.memberPhotos}
+                    source={{
+                        uri: perfilImage3
+                    }}
+                />
+                <Text style={{ alignSelf: 'center', marginLeft: 20, color: '#E5E1F6', fontSize: 15 }}>+ {users.length - 3}</Text>
+            </View>
+        )
+    }
+    return (
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+
+        </View>
+
+    )
+}
+
+
 export default ProjectBotton;
 
 const styles = StyleSheet.create({
+    membersNumber: {
+        fontSize: 15,
+        color: '#E5E1F6',
+
+    },
     boton: {
         alignSelf: 'center',
         width: '100%',
@@ -72,6 +177,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#E5E1F6',
         fontWeight: 'bold',
+        marginBottom: 5
     },
     members: {
         position: 'absolute',
@@ -81,13 +187,11 @@ const styles = StyleSheet.create({
         marginLeft: '7%'
 
     },
-    chat: {
+    Documents: {
         borderColor: '#E5E1F6',
         borderWidth: 1.5,
         borderRadius: 40,
         position: 'absolute',
-        width: 64,
-        height: 26,
         right: 0,
         bottom: 0,
 
@@ -125,8 +229,8 @@ const styles = StyleSheet.create({
         marginHorizontal: '-7%',
         backgroundColor: 'red',
         borderRadius: 100,
-        height: '100%',
-        width: '33.3%'
+        height: 38,
+        width: 38
     }
 
 })

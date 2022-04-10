@@ -12,4 +12,5 @@ type UserService interface {
 	CheckEmailExist(email string) bool
 	GetUsersByProfession(profession string, page int) (models.Users, error)
 	GetUsersByProject(projectId interface{}, document string) (models.Users, error)
+	AddProjectToUser(projectData models.AddProjectToUser, document string) error
 }

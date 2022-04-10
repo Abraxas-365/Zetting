@@ -1,7 +1,7 @@
 
 
 import React, { useContext } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native'
 import { StretchyScrollView } from 'react-native-stretchy';
 import { serveDefaultImages } from '../../api/apiCalls';
@@ -31,13 +31,16 @@ const SystretchyScrollView = ({ user }: PropsScroll) => {
         >
 
             <View style={styleBackgrounds.fondoDark}>
+
                 <View style={styleViews.wrapper}>
                     <View style={styleViews.nameAndPerfil}>
                         <View style={styleViews.nameAndProfession}>
                             <Text style={styleText.name}>{user!.first_name} {user!.last_name}</Text>
                             <Text style={styleText.professions}>Actor</Text>
                         </View>
-                        <View style={styleViews.perfilPercents}></View>
+                        <TouchableOpacity style={styleViews.perfilPercents}>
+
+                        </TouchableOpacity>
                     </View>
                     <View style={styleViews.infoBoxes}>
                         <BlackInfoBottons width={86} marginRight={'4%'} numbers={1} text={'Projects'} />
@@ -100,7 +103,12 @@ const styleViews = StyleSheet.create({
     },
 
     perfilPercents: {
-
+        borderRadius: 100,
+        width: 45,
+        height: 45,
+        borderColor: '#E5E1F6',
+        borderWidth: 1.5,
+        alignSelf: 'center'
     },
     infoBoxes: {
         marginTop: 35,

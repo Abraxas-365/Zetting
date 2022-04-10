@@ -90,7 +90,7 @@ const ProyetosScreen = () => {
                         <CustomSmallBotton borderColor={borderColor1} color={colorMyProject} text='Projects' onPress={myprojectsBotton} />
                     </View>
                 </View>
-                <FlatList ListEmptyComponent={<EmptyFlatList />} contentContainerStyle={{ flexGrow: 1, top: '3%', ...styleWrappers.wrapperHorizontalGap }} data={myProjects} renderItem={({ item }: any) => <ProjectBotton title={item.name} description={item.description} color={item.color} />} />
+                <FlatList ListEmptyComponent={<EmptyFlatList />} contentContainerStyle={{ flexGrow: 1, top: '3%', ...styleWrappers.wrapperHorizontalGap }} data={myProjects} renderItem={({ item }: any) => <ProjectBotton project={item} />} />
             </SafeAreaView >
         );
     }

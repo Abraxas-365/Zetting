@@ -23,6 +23,7 @@ func (h *userHandler) CreateUser(c *fiber.Ctx) error {
 	if err := c.BodyParser(&userRegisterData); err != nil {
 		return c.Status(500).SendString(err.Error())
 	}
+	fmt.Println(userRegisterData)
 
 	Newuser, err := h.userService.CreateUser(*userRegisterData)
 	if err != nil {

@@ -35,11 +35,12 @@ export interface Profession {
 }
 
 export interface Project {
+    id?: string;
     name: string;
     description?: string;
-    calendar?: string;
-    collaboration?: string;
+    workers?: Array<string>;
     color?: string;
+
 
 
 }
@@ -58,13 +59,13 @@ export interface Features {
 }
 
 export interface WorkRequest {
-    "id"?: string;
-    "owner_id"?: string;
-    "project_id"?: string;
-    "worker_id"?: string;
-    "acepted"?: string;
-    "created_at"?: string;
-    "updated_at"?: string
+    id?: string;
+    owner_id?: string;
+    project_id?: string;
+    worker_id?: string;
+    acepted?: string;
+    created_at?: string;
+    updated_at?: string
 }
 
 export interface Notification {

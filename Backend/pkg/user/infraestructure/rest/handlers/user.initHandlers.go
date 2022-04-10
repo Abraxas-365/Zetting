@@ -14,6 +14,7 @@ type UserHandler interface {
 	CheckEmailExist(c *fiber.Ctx) error
 	GetUsersByProfession(c *fiber.Ctx) error
 	GetUsersByProject(c *fiber.Ctx) error
+	AddProjectToUser(c *fiber.Ctx) error
 	UploadProfileImage(c *fiber.Ctx) error
 }
 type userHandler struct {
