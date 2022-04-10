@@ -1,5 +1,7 @@
 
 
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useContext } from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native'
@@ -10,6 +12,7 @@ import FeaturesBox from '../../components/perfilComponets/FeaturesBox';
 import { AuthContext } from '../../context/AuthContext';
 import { useUser } from '../../hooks/useUser';
 import { User } from '../../interfaces/appInterfaces';
+import { RootStackParamList } from '../../navigator/StackNavigator';
 import { styleBackgrounds } from '../../themes/Backgrounds';
 
 
@@ -18,6 +21,7 @@ type PropsScroll = {
 
 }
 const SystretchyScrollView = ({ user }: PropsScroll) => {
+    const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     let price = user!.profession!.price == null ? "_" : "S/" + user!.profession!.price
     let tamano = user!.features!.height == null ? "-" : user!.features!.height
     let age = user!.features!.age == null ? "-" : user!.features!.age
@@ -38,7 +42,7 @@ const SystretchyScrollView = ({ user }: PropsScroll) => {
                             <Text style={styleText.name}>{user!.first_name} {user!.last_name}</Text>
                             <Text style={styleText.professions}>Actor</Text>
                         </View>
-                        <TouchableOpacity style={styleViews.perfilPercents}>
+                        <TouchableOpacity style={styleViews.perfilPercents} onPress={() => { navigation.navigate('EditPerfilScreen') }}>
 
                         </TouchableOpacity>
                     </View>

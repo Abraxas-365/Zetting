@@ -15,6 +15,7 @@ import BuildTeamScreen from '../screens/project/BuildTeamScreen';
 import ActorsScreen from '../screens/workersScreen/ActorsScreen';
 import FilterActorScreen from '../screens/filters/FilterActorScreen';
 import ProfileScreen from '../screens/bottomTabScreen/ProfileScreen';
+import EditPerfilScreen from '../screens/users/EditPerfilScreen';
 
 export type RootStackParamList = {
     LoginScreen: undefined;
@@ -31,6 +32,7 @@ export type RootStackParamList = {
     FilterActorScreen: undefined;
     WorkerActorScreen: { user: User, pid?: string };
     ProfileScreen: { user: User };
+    EditPerfilScreen: undefined;
 };
 
 
@@ -65,6 +67,8 @@ export const StackNavigator = () => {
             <Stack.Screen name="FilterActorScreen" options={{ title: "FilterActorScreen" }} component={FilterActorScreen} />
             <Stack.Screen name="WorkerActorScreen" options={{ title: "WorkerActorScreen" }} component={WorkerActorScreen} />
             <Stack.Screen name="ProfileScreen" options={{ title: "ProfileScreen" }} component={ProfileScreen} />
+            <Stack.Screen name="EditPerfilScreen" options={{ title: "EditPerfilScreen" }} component={EditPerfilScreen} />
+
         </Stack.Navigator>
     );
 }
