@@ -18,11 +18,10 @@ const CreateProjectForm = () => {
 
     const [color, setColor] = useState('#FF7F39');
 
-    const { name, description, calendar, collaboration, onChange } = useForm({
+    const { name, description, collaboration, onChange } = useForm({
 
         name: '',
         description: '',
-        calendar: '',
         collaboration: '',
     })
 
@@ -33,11 +32,7 @@ const CreateProjectForm = () => {
         color: color
 
     }
-    const onCreatePtojectBotton = async () => {
-        console.log('creando proyecto', name)
 
-        useCreteProject(project, navigation, token)
-    }
     type BottonProps = {
         color?: string
         onChake?: any,
@@ -107,7 +102,8 @@ const CreateProjectForm = () => {
             <View style={styles.section}>
             </View>
             <View>
-                <CustomCenterBotton onPress={() => onCreatePtojectBotton()} text="Create Project" />
+                <CustomCenterBotton onPress={() => useCreteProject(project, navigation, token)} text="Create Project" />
+
             </View>
         </ScrollView >
     );
