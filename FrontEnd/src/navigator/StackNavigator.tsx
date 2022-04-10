@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import BottomTabs from './BottomTabs';
+import BottomTabs, { BottomTabsPerfil } from './BottomTabs';
 import WorkerActorScreen from '../screens/workersScreen/WorkerActorScreens';
 import { Project, User } from '../interfaces/appInterfaces';
 import LoginScreen from '../screens/signInUp/LoginScreen';
@@ -32,7 +32,7 @@ export type RootStackParamList = {
     FilterActorScreen: undefined;
     WorkerActorScreen: { user: User, pid?: string };
     ProfileScreen: { user: User };
-    EditPerfilScreen: undefined;
+    EditPerfilScreen: { user: User };
 };
 
 
@@ -59,6 +59,7 @@ export const StackNavigator = () => {
             <Stack.Screen name="Register2Screen" options={{ title: "Register2Screen" }} component={Register2Screen} />
             <Stack.Screen name="HomeScreen" options={{ title: "HomeScreen" }} component={HomeScreen} />
             <Stack.Screen name="BottomTabs" options={{ title: "BottomTabs" }} component={BottomTabs} />
+            <Stack.Screen name="BottomTabsPerfil" options={{ title: "BottomTabsPerfil" }} component={BottomTabsPerfil} />
             <Stack.Screen name="ChatScreen" options={{ title: "ChatScreen" }} component={ChatScreen} />
             <Stack.Screen name="ProyectoScreen" options={{ title: "ProyectoScreen" }} component={ProyectoScreen} />
             <Stack.Screen name="CreateProyectScreen" options={{ title: "CreateProyectScreen" }} component={CreateProyectScreen} />

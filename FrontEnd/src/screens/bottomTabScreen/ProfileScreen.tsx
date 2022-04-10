@@ -3,7 +3,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useContext } from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 import { StyleSheet } from 'react-native'
 import { StretchyScrollView } from 'react-native-stretchy';
 import { serveDefaultImages } from '../../api/apiCalls';
@@ -17,7 +17,7 @@ import { styleBackgrounds } from '../../themes/Backgrounds';
 
 
 type PropsScroll = {
-    user?: User,
+    user: User,
 
 }
 const SystretchyScrollView = ({ user }: PropsScroll) => {
@@ -39,10 +39,10 @@ const SystretchyScrollView = ({ user }: PropsScroll) => {
                 <View style={styleViews.wrapper}>
                     <View style={styleViews.nameAndPerfil}>
                         <View style={styleViews.nameAndProfession}>
-                            <Text style={styleText.name}>{user!.first_name} {user!.last_name}</Text>
+                            <Text style={styleText.name}>{user!.name}</Text>
                             <Text style={styleText.professions}>Actor</Text>
                         </View>
-                        <TouchableOpacity style={styleViews.perfilPercents} onPress={() => { navigation.navigate('EditPerfilScreen') }}>
+                        <TouchableOpacity style={styleViews.perfilPercents} onPress={() => { navigation.navigate('EditPerfilScreen', { user }) }}>
 
                         </TouchableOpacity>
                     </View>
@@ -79,9 +79,9 @@ const ProfileScreen = () => {
 
         isLoading
             ?
-            <View>
-                <ActivityIndicator size={50} />
-            </View>
+            <SafeAreaView style={styleBackgrounds.fondoDark}>
+                <ActivityIndicator size={50} color="#FF7F39" />
+            </SafeAreaView>
             : <View style={styleBackgrounds.fondoDark}>
                 <SystretchyScrollView user={user} />
             </View>
