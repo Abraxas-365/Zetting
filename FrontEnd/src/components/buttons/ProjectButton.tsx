@@ -17,12 +17,14 @@ const ProjectBotton = ({ project }: Props) => {
     const { users } = useBuildProjectCard(project.id);
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     const [isEnabled, setIsEnabled] = React.useState(true);
+    // TODO: tell lorena to check what to do when no members
+    let usersLen = users == null ? 0 : users.length;
     return (
         <TouchableOpacity style={{ ...styles.boton, backgroundColor: project.color }} onPress={() => navigation.navigate('ProyectoScreen', { project })}>
             <View style={styles.wrapper}>
                 <View style={styles.viewLeft}>
                     <Text style={styles.title}>{project.name}</Text>
-                    <Text style={styles.membersNumber}>{users.length} Members</Text>
+                    <Text style={styles.membersNumber}>{usersLen} Members</Text>
 
                     <View style={styles.members}>
                         <MembersPhotos users={users} />
@@ -58,7 +60,8 @@ type MembersPhotosProps = {
 }
 const MembersPhotos = ({ users }: MembersPhotosProps) => {
     const defaultPic = serveDefaultImages + "noPerfil.png"
-    if (users.length == 1) {
+    let usersLen = users == null ? 0 : users.length;
+    if (usersLen == 1) {
         let perfilImage = users[0].perfil_image == null ? defaultPic : serveDefaultImages + users[0].perfil_image
         return (
             <View style={{ flex: 1, flexDirection: 'row', marginTop: 10 }}>
@@ -71,7 +74,7 @@ const MembersPhotos = ({ users }: MembersPhotosProps) => {
             </View>
         )
     }
-    if (users.length == 2) {
+    if (usersLen == 2) {
         let perfilImage = users[0].perfil_image == null ? defaultPic : serveDefaultImages + users[0].perfil_image
         let perfilImage2 = users[1].perfil_image == null ? defaultPic : serveDefaultImages + users[1].perfil_image
         return (
@@ -91,7 +94,7 @@ const MembersPhotos = ({ users }: MembersPhotosProps) => {
             </View>
         )
     }
-    if (users.length == 3) {
+    if (usersLen == 3) {
         let perfilImage = users[0].perfil_image == null ? defaultPic : serveDefaultImages + users[0].perfil_image
         let perfilImage2 = users[1].perfil_image == null ? defaultPic : serveDefaultImages + users[1].perfil_image
         let perfilImage3 = users[2].perfil_image == null ? defaultPic : serveDefaultImages + users[2].perfil_image
@@ -119,7 +122,7 @@ const MembersPhotos = ({ users }: MembersPhotosProps) => {
         )
     }
 
-    if (users.length > 3) {
+    if (usersLen > 3) {
         let perfilImage = users[0].perfil_image == null ? defaultPic : serveDefaultImages + users[0].perfil_image
         let perfilImage2 = users[1].perfil_image == null ? defaultPic : serveDefaultImages + users[1].perfil_image
         let perfilImage3 = users[2].perfil_image == null ? defaultPic : serveDefaultImages + users[2].perfil_image
@@ -143,7 +146,7 @@ const MembersPhotos = ({ users }: MembersPhotosProps) => {
                         uri: perfilImage3
                     }}
                 />
-                <Text style={{ alignSelf: 'center', marginLeft: 20, color: '#E5E1F6', fontSize: 15 }}>+ {users.length - 3}</Text>
+                <Text style={{ alignSelf: 'center', marginLeft: 20, color: '#E5E1F6', fontSize: 15 }}>+ {usersLen - 3}</Text>
             </View>
         )
     }
