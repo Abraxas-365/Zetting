@@ -10,10 +10,11 @@ import { styleTitles } from '../../themes/Titles';
 
 interface Props extends StackScreenProps<RootStackParamList, 'ProyectoScreen'> { }
 const ProyectoScreen = ({ route }: Props) => {
+    let project = route.params.project
     return (
         <SafeAreaView style={styleBackgrounds.fondoDark}>
             <View style={{ alignSelf: 'center', justifyContent: 'center', top: '10%' }}>
-                <Text style={styleTitles.titleTextLight}>{route.params.project.name}</Text>
+                <Text style={styleTitles.titleTextLight}>{project!.name}</Text>
             </View>
         </SafeAreaView>
     );
