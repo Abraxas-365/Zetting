@@ -4,7 +4,6 @@ import { CommonActions, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Entypo } from '@expo/vector-icons';
 import { Project } from '../../interfaces/appInterfaces';
-import { apiCalls } from '../../api/apiCalls';
 import { useForm } from '../../hooks/useForm';
 import { AuthContext } from '../../context/AuthContext';
 import { RootStackParamList } from '../../navigator/StackNavigator';
@@ -12,32 +11,7 @@ import { styleWrappers } from '../../themes/Wrappers';
 import StakeHolders from '../stakeHolds/StakeHolders';
 import CustomAdjustableBotton from '../buttons/CustomAdjustableButton';
 import CustomCenterBotton from '../buttons/CustomCenterBotton';
-const creteProject = async (project: Project, navigation: any, token: any) => {
-    const config = {
-        headers: { Authorization: `Bearer ${token}` }
-    };
-    console.log(config);
-
-    try {
-        console.log("el color es", project.color);
-        const { data } = await apiCalls.post('/api/projects/new', project, config);
-
-        console.log(data);
-        navigation.dispatch(
-            CommonActions.reset({
-                index: 0,
-                routes: [{ name: 'BuildTeamScreen', params: { data } }
-                ]
-
-            })
-        )
-
-    } catch (err) {
-        console.error(err);
-    }
-
-
-}
+import { useCreteProject } from '../../hooks/useCreateProject';
 
 
 const CreateProjectForm = () => {
@@ -56,14 +30,13 @@ const CreateProjectForm = () => {
         name: name,
         description: description,
         // collaboration: collaboration,
-        calendar: calendar,
         color: color
 
     }
     const onCreatePtojectBotton = async () => {
         console.log('creando proyecto', name)
 
-        creteProject(project, navigation, token)
+        useCreteProject(project, navigation, token)
     }
     type BottonProps = {
         color?: string
