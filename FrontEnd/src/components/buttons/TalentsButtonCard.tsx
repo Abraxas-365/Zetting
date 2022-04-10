@@ -9,13 +9,8 @@ import { RootStackParamList } from '../../navigator/StackNavigator';
 
 type Props = {
     user?: User
-    name?: string
     pid?: string
-    lastName?: string
-    description?: string
     color?: string
-    members?: Array<string>
-    notifications?: boolean
 }
 
 const TalentsButtonCard = ({ user = {}, color = '#FF7F39', pid }: Props) => {
@@ -31,7 +26,7 @@ const TalentsButtonCard = ({ user = {}, color = '#FF7F39', pid }: Props) => {
                     <Image style={{ flex: 1, overflow: 'hidden', borderTopLeftRadius: 9, borderBottomLeftRadius: 9 }} source={{ uri: perfilImage }} />
                 </View>
                 <View style={styles.viewRight}>
-                    <Text style={{ ...styles.title, marginTop: '8%', marginHorizontal: '8%' }}>{user.first_name} {user.last_name}</Text>
+                    <Text style={{ ...styles.title, marginTop: '8%', marginHorizontal: '8%' }}>{user.name} </Text>
                     <Text style={{ ...styles.description, marginTop: '8%', marginHorizontal: '8%' }}>{user.profession!.description}</Text>
                     <View style={{ position: 'absolute', bottom: 10, marginHorizontal: '8%', flexDirection: 'row' }}>
                         <Text style={{ ...styles.preciou }}>S/{user.profession!.price}</Text>

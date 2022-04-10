@@ -10,11 +10,8 @@ func (r *userService) UpdateUser(userDataToUpdate *models.User, userId interface
 	// userDataToUpdate, _ := r.userRepo.GetUserByEmail(email)
 	updateQuery := make(map[string]interface{})
 
-	if len(userDataToUpdate.FirstName) > 0 {
-		updateQuery["first_name"] = userDataToUpdate.FirstName
-	}
-	if len(userDataToUpdate.LastName) > 0 {
-		updateQuery["last_name"] = userDataToUpdate.LastName
+	if len(userDataToUpdate.Name) > 0 {
+		updateQuery["name"] = userDataToUpdate.Name
 	}
 
 	if len(userDataToUpdate.Password) > 0 {

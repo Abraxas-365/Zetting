@@ -6,8 +6,7 @@ import (
 
 type User struct {
 	ID          interface{} `bson:"_id,omitempty" json:"id"`
-	FirstName   string      `bson:"first_name" json:"first_name,omitempty"`
-	LastName    string      `bson:"last_name" json:"last_name,omitempty"`
+	Name        string      `bson:"name" json:"name,omitempty"`
 	Password    string      `bson:"password" json:"password,omitempty"`
 	PerfilImage string      `bson:"perfil_image" json:"perfil_image,omitempty"`
 	Contact     Contact     `bson:"contact" json:"contact,omitempty"`
@@ -22,8 +21,7 @@ type User struct {
 //To get users wirth out the password
 type GetUsers struct {
 	ID          interface{} `bson:"_id,omitempty" json:"id"`
-	FirstName   string      `bson:"first_name" json:"first_name,omitempty"`
-	LastName    string      `bson:"last_name" json:"last_name,omitempty"`
+	Name        string      `bson:"name" json:"name,omitempty"`
 	PerfilImage string      `bson:"perfil_image" json:"perfil_image,omitempty"`
 	Contact     Contact     `bson:"contact" json:"contact,omitempty"`
 	Profession  Profession  `bson:"profession" json:"profession,omitempty"`

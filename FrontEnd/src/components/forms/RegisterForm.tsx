@@ -23,10 +23,9 @@ const RegisterForm = ({ email }: FormProps) => {
     const [professions, setProfessions] = useState("");
     //aqui acumular los botones de profesiones
     // var professions: string[] = ["hola"]
-    const { first_name, last_name, identifierDocument, password, onChange } = useForm({
+    const { name, identifierDocument, password, onChange } = useForm({
 
-        first_name: '',
-        last_name: '',
+        name: '',
         identifierDocument: '',
         password: '',
     })
@@ -42,8 +41,7 @@ const RegisterForm = ({ email }: FormProps) => {
         }
         var profession: Profession = { name: professions }
         var user: User = {
-            first_name: first_name.trim(),
-            last_name: last_name.trim(),
+            name: name.trim(),
             contact: contact,
             profession: profession,
             password: password.trim(),
@@ -57,13 +55,12 @@ const RegisterForm = ({ email }: FormProps) => {
     return (
 
         <ScrollView style={{ top: '8%', flex: 1, ...styleWrappers.wrapperHorizontalGap }} contentContainerStyle={{ paddingBottom: 90 }} >
-            <StakeHolders texto='First Name' top='0%' stakeHold={onChange} stakeHoldText={first_name} valueText='first_name' color='#23232B' />
-            <StakeHolders texto='Last Name' stakeHold={onChange} stakeHoldText={last_name} valueText='last_name' color='#23232B' />
+            <StakeHolders texto='Name' top='0%' stakeHold={onChange} stakeHoldText={name} valueText='name' color='#23232B' />
             <View style={{
                 borderBottomColor: '#23232B',
                 borderBottomWidth: 1,
                 marginTop: '10%',
-                height: 80,
+                height: 82,
 
             }}>
                 <Text style={{ color: '#23232B', marginBottom: 10 }}>Phone Number</Text>

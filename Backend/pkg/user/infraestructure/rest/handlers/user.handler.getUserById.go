@@ -21,7 +21,6 @@ func (h *userHandler) GetUserById(c *fiber.Ctx) error {
 	if err != nil {
 		return c.SendStatus(fiber.StatusBadRequest)
 	}
-	fmt.Println(user.FirstName)
 	return c.Status(fiber.StatusOK).JSON(user)
 
 }

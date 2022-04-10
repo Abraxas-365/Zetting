@@ -7,8 +7,7 @@ export interface LoginResponse {
 export interface User {
 
     id?: string;
-    first_name?: string;
-    last_name?: string;
+    name?: string;
     contact?: UserContact;
     profession?: Profession;
     password?: string;

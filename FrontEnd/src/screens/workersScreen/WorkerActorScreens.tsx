@@ -9,7 +9,7 @@ import CustomAdjustableBotton from '../../components/buttons/CustomAdjustableBut
 import BlackInfoBottons from '../../components/perfilComponets/BlackInfoBottons';
 import FeaturesBox from '../../components/perfilComponets/FeaturesBox';
 import { AuthContext } from '../../context/AuthContext';
-import { sendWorkRequest, useSendWorkRequest } from '../../hooks/useSendWorkRequest';
+import { sendWorkRequest } from '../../hooks/useSendWorkRequest';
 import { User } from '../../interfaces/appInterfaces';
 import { RootStackParamList } from '../../navigator/StackNavigator';
 import { styleBackgrounds } from '../../themes/Backgrounds';
@@ -40,7 +40,7 @@ const SystretchyScrollView = ({ user = {}, pid }: PropsScroll) => {
                 <View style={styleViews.wrapper}>
                     <View style={styleViews.nameAndPerfil}>
                         <View style={styleViews.nameAndProfession}>
-                            <Text style={styleText.name}>{user.first_name} {user.last_name}</Text>
+                            <Text style={styleText.name}>{user.name}</Text>
                             <Text style={styleText.professions}>Actor</Text>
                         </View>
                         <View style={styleViews.addButton}>

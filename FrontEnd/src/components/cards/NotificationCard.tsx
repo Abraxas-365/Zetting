@@ -27,9 +27,9 @@ const NotificationCard = ({ notification }: Props) => {
             case "new-work-request":
                 return (
                     <View style={container.textContainer}>
-                        <Text style={text.nameText}>{user.first_name} {user.last_name}</Text>
+                        <Text style={text.nameText}>{user.name}</Text>
                         <Text style={text.projectName}>{project.name}</Text>
-                        <Text style={text.massagesText}>{notification.message} {user.first_name} {user.last_name}</Text>
+                        <Text style={text.massagesText}>{notification.message} {user.name}</Text>
                     </View>
                 )
             default:
