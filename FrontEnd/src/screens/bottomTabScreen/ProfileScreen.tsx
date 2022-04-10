@@ -7,6 +7,7 @@ import { ActivityIndicator, SafeAreaView, Text, TouchableOpacity, View } from 'r
 import { StyleSheet } from 'react-native'
 import { StretchyScrollView } from 'react-native-stretchy';
 import { serveDefaultImages } from '../../api/apiCalls';
+import ActorTemplate from '../../components/jobsTemplatePerfil/ActorTemplate';
 import BlackInfoBottons from '../../components/perfilComponets/BlackInfoBottons';
 import FeaturesBox from '../../components/perfilComponets/FeaturesBox';
 import { AuthContext } from '../../context/AuthContext';
@@ -23,11 +24,7 @@ type PropsScroll = {
 const SystretchyScrollView = ({ user }: PropsScroll) => {
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
     let price = user!.profession!.price == null ? "_" : "S/" + user!.profession!.price
-    let tamano = user!.features!.height == null ? "-" : user!.features!.height
-    let age = user!.features!.age == null ? "-" : user!.features!.age
-    let gender = user!.features!.gender == null ? "alien" : user!.features!.gender
     let foto = user!.perfil_image == null ? serveDefaultImages + "noPerfil.png" : serveDefaultImages + user!.perfil_image
-    let description = user!.profession!.description == null ? "si no sabes donde ir no puedes estar perdido" : user!.profession!.description
 
     return (
         <StretchyScrollView
@@ -51,21 +48,7 @@ const SystretchyScrollView = ({ user }: PropsScroll) => {
                         <BlackInfoBottons width={103} marginRight={'4%'} numbers={5} text={'Comments'} />
                         <BlackInfoBottons width={109} numbers={price} text={'Price'} />
                     </View>
-                    <FeaturesBox age={age} gender={gender} tamano={tamano} />
-                    <View style={styleViews.aboutBox}>
-                        <Text style={styleText.smalTitles}>About</Text>
-                        <Text style={styleText.normal}>{description}</Text>
-                    </View>
-                    <View style={styleViews.SkillsBox}>
-                        <Text style={styleText.smalTitles}>Skills/Qualities</Text>
-                    </View>
-                    <View style={styleViews.ReelBox}>
-                        <Text style={styleText.smalTitles}>Acting Reel</Text>
-                    </View>
-                    <View style={styleViews.workExpBox}>
-                        <Text style={styleText.smalTitles}>Work Experience</Text>
-                    </View>
-
+                    <ActorTemplate user={user} />
                 </View>
             </View>
         </StretchyScrollView>
